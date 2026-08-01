@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnanasLand</title>
     
-    <!-- Иконка сайта (Favicon) -->
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <!-- Иконка сайта (по умолчанию, меняется через админку) -->
+    <link id="siteFavicon" rel="icon" type="image/png" href="https://mc-heads.net/avatar/Steve/32">
     
     <!-- Иконки FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,14 +24,10 @@
             --border-glow: rgba(255, 115, 0, 0.2);
         }
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-        }
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1); }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: radial-gradient(circle at center, #140b00 0%, var(--bg-dark) 100%);
             color: #ffffff;
@@ -42,16 +38,7 @@
             position: relative;
         }
 
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
         .particle {
             position: absolute;
             background: linear-gradient(to top, var(--primary-orange), var(--secondary-yellow));
@@ -74,85 +61,53 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
             background: linear-gradient(45deg, var(--primary-orange), var(--secondary-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: neonPulse 2s ease-in-out infinite alternate;
             cursor: pointer;
         }
 
-        nav {
-            display: flex;
-            gap: 15px;
-        }
+        nav { display: flex; gap: 15px; flex-wrap: wrap; }
 
         .nav-btn {
-            background: transparent;
-            border: 1px solid transparent;
-            color: #ccc;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 6px;
-            cursor: pointer;
+            background: transparent; border: 1px solid transparent; color: #ccc;
+            padding: 8px 16px; font-size: 14px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; border-radius: 6px; cursor: pointer;
         }
-
         .nav-btn:hover, .nav-btn.active {
-            color: var(--secondary-yellow);
-            border-color: var(--primary-orange);
-            background: rgba(255, 81, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
+            color: var(--secondary-yellow); border-color: var(--primary-orange);
+            background: rgba(255, 81, 0, 0.1); box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
         }
 
         .auth-block { display: flex; align-items: center; }
         .auth-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #5865F2;
-            color: #fff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #5865F2; color: #fff; border: none;
+            padding: 10px 18px; border-radius: 8px; font-weight: 700;
+            font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;
         }
         .auth-btn:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88,101,242,0.5); }
-        .auth-user { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 6px 14px 6px 6px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .auth-user {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.05); padding: 6px 14px 6px 6px;
+            border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+        }
         .auth-user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
         .auth-user-name { font-size: 13px; font-weight: 600; color: #eee; }
         .auth-logout-btn { background: transparent; border: none; color: #999; cursor: pointer; font-size: 14px; padding: 4px; }
         .auth-logout-btn:hover { color: var(--primary-orange); }
 
         .profile-banner {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            border-radius: 16px;
-            overflow: hidden;
+            position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden;
             background: linear-gradient(135deg, rgba(255,81,0,0.2), rgba(255,204,0,0.1));
             border: 1px solid var(--border-glow);
         }
         .profile-banner img { width: 100%; height: 100%; object-fit: cover; }
         .profile-upload-overlay {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
+            position: absolute; bottom: 12px; right: 12px;
+            background: rgba(0,0,0,0.6); color: #fff; padding: 8px 16px;
+            border-radius: 8px; font-size: 13px; cursor: pointer;
             border: 1px solid rgba(255,255,255,0.2);
         }
         .profile-upload-overlay:hover { background: rgba(255,81,0,0.7); }
@@ -178,8 +133,7 @@
         .achievements-grid { display: flex; flex-wrap: wrap; gap: 14px; }
         .achievement-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
-            border-radius: 12px; padding: 14px 18px; display: flex; align-items: center;
-            gap: 12px; min-width: 220px;
+            border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; min-width: 220px;
         }
         .achievement-icon { font-size: 28px; }
         .achievement-title { font-weight: 700; color: var(--secondary-yellow); font-size: 14px; }
@@ -209,406 +163,164 @@
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 8px 10px;
         }
-
-        .page {
-            display: none;
-            max-width: 1000px;
-            width: 100%;
-            margin: 40px auto;
-            padding: 0 20px;
-            animation: fadeIn 0.5s ease forwards;
+        .admin-favicon-input {
+            display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;
+            border: 1px solid var(--border-glow); margin-top: 10px;
+        }
+        .admin-favicon-input input {
+            flex: 1; min-width: 250px; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow); border-radius: 8px;
+            color: #fff; padding: 10px 14px; font-family: inherit;
+        }
+        .admin-favicon-preview {
+            width: 48px; height: 48px; border-radius: 8px; object-fit: contain;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
         }
 
+        .page { display: none; max-width: 1000px; width: 100%; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.5s ease forwards; }
         .page.active { display: block; }
 
         .hero-card {
-            text-align: center;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            margin-bottom: 40px;
+            text-align: center; background: var(--card-bg); border: 1px solid var(--border-glow);
+            border-radius: 20px; padding: 40px; backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); margin-bottom: 40px;
         }
-
         .server-name {
-            font-size: 54px;
-            font-weight: 900;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 54px; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 3px;
             background: linear-gradient(135deg, #fff 40%, var(--secondary-yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 15px var(--neon-glow));
         }
-
         .server-version {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 800;
+            display: inline-block; font-size: 12px; font-weight: 800;
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin: 15px 0 25px;
-            text-transform: uppercase;
+            color: #000; padding: 4px 12px; border-radius: 20px; margin: 15px 0 25px; text-transform: uppercase;
         }
-
         .status-container {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 25px;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(0, 0, 0, 0.5); padding: 6px 16px;
+            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 25px;
         }
-
         .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #00ff66;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ff66;
-            animation: pulseGreen 1.5s infinite alternate;
+            width: 10px; height: 10px; background: #00ff66; border-radius: 50%;
+            box-shadow: 0 0 10px #00ff66; animation: pulseGreen 1.5s infinite alternate;
         }
-
         .status-text { font-size: 14px; font-weight: 600; color: #aaa; }
         .status-count { color: #fff; font-weight: 800; }
-
-        .server-description {
-            font-size: 17px;
-            line-height: 1.7;
-            color: #d1d1d1;
-            max-width: 700px;
-            margin: 0 auto 35px;
-        }
-
+        .server-description { font-size: 17px; line-height: 1.7; color: #d1d1d1; max-width: 700px; margin: 0 auto 35px; }
         .ip-box {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(0,0,0,0.6);
-            border: 2px solid var(--primary-orange);
-            padding: 14px 30px;
-            border-radius: 12px;
-            cursor: pointer;
+            display: inline-flex; align-items: center; background: rgba(0,0,0,0.6);
+            border: 2px solid var(--primary-orange); padding: 14px 30px; border-radius: 12px; cursor: pointer;
         }
-
         .ip-box:hover {
-            transform: translateY(-3px);
-            border-color: var(--secondary-yellow);
+            transform: translateY(-3px); border-color: var(--secondary-yellow);
             box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25);
         }
-
-        .ip-text {
-            font-family: 'Consolas', monospace;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--secondary-yellow);
-        }
-
+        .ip-text { font-family: 'Consolas', monospace; font-size: 20px; font-weight: 700; color: var(--secondary-yellow); }
         .ip-icon { margin-left: 15px; font-size: 18px; }
 
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .skin-widget {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            height: fit-content;
-        }
-
-        .skin-widget h3 {
-            margin-top: 0;
-            text-transform: uppercase;
-            color: var(--secondary-yellow);
-            letter-spacing: 1px;
-        }
-
+        .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
+        .skin-widget { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 20px; padding: 30px; text-align: center; height: fit-content; }
+        .skin-widget h3 { margin-top: 0; text-transform: uppercase; color: var(--secondary-yellow); letter-spacing: 1px; }
         .skin-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-glow);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 15px;
-            margin-bottom: 15px;
-            outline: none;
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow); border-radius: 8px;
+            color: #fff; font-size: 15px; margin-bottom: 15px; outline: none;
         }
-        .skin-input:focus {
-            border-color: var(--secondary-yellow);
-            box-shadow: 0 0 10px rgba(255,204,0,0.2);
-        }
-
+        .skin-input:focus { border-color: var(--secondary-yellow); box-shadow: 0 0 10px rgba(255,204,0,0.2); }
         .skin-btn {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            border: none;
-            border-radius: 8px;
-            color: #000;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
+            border: none; border-radius: 8px; color: #000; font-weight: 700;
+            text-transform: uppercase; cursor: pointer;
         }
+        .skin-display { margin-top: 20px; height: 200px; display: flex; justify-content: center; align-items: center; }
+        .skin-display img { height: 100%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
 
-        .skin-display {
-            margin-top: 20px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .skin-display img {
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
-        }
-
-        .news-feed h2 {
-            margin-top: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 4px solid var(--primary-orange);
-            padding-left: 15px;
-        }
-
-        .news-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .news-date {
-            font-size: 12px;
-            color: var(--secondary-yellow);
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
+        .news-feed h2 { margin-top: 0; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--primary-orange); padding-left: 15px; }
+        .news-card { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        .news-date { font-size: 12px; color: var(--secondary-yellow); font-weight: bold; text-transform: uppercase; }
         .news-card h3 { margin: 5px 0 12px; color: #fff; }
         .news-card p { color: #ccc; line-height: 1.6; margin: 0; }
 
-        .subpage-container {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-        }
-
-        .subpage-header {
-            border-bottom: 2px solid var(--primary-orange);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .wiki-grid {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 30px;
-        }
-
-        .wiki-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            padding-right: 15px;
-        }
-
+        .subpage-container { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 20px; padding: 40px; backdrop-filter: blur(15px); }
+        .subpage-header { border-bottom: 2px solid var(--primary-orange); padding-bottom: 15px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+        .wiki-grid { display: grid; grid-template-columns: 1fr 3fr; gap: 30px; }
+        .wiki-sidebar { display: flex; flex-direction: column; gap: 10px; border-right: 1px solid rgba(255,255,255,0.05); padding-right: 15px; }
         .wiki-menu-btn {
-            background: transparent;
-            border: none;
-            color: #aaa;
-            text-align: left;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
+            background: transparent; border: none; color: #aaa; text-align: left;
+            padding: 10px; border-radius: 6px; cursor: pointer; font-size: 15px;
         }
-
-        .wiki-menu-btn:hover, .wiki-menu-btn.active {
-            background: rgba(255, 204, 0, 0.05);
-            color: var(--secondary-yellow);
-        }
-
+        .wiki-menu-btn:hover, .wiki-menu-btn.active { background: rgba(255, 204, 0, 0.05); color: var(--secondary-yellow); }
         .wiki-article { display: none; }
         .wiki-article.active { display: block; }
         .wiki-article h3 { color: var(--secondary-yellow); margin-top: 0; font-size: 24px; text-transform: uppercase;}
         .wiki-article p { line-height: 1.7; color: #ccc; }
 
-        .faq-item {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,115,0,0.1);
-            border-radius: 10px;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
-
+        .faq-item { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,115,0,0.1); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
         .faq-question {
-            padding: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px; font-weight: 700; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
             background: rgba(255,255,255,0.01);
         }
-
         .faq-question:hover { color: var(--secondary-yellow); }
+        .faq-answer { max-height: 0; overflow: hidden; padding: 0 20px; color: #bbb; line-height: 1.6; }
+        .faq-item.open .faq-answer { padding: 0 20px 20px 20px; max-height: 1000px; }
+        .faq-item.open .faq-question i { transform: rotate(180deg); color: var(--secondary-yellow); }
 
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 20px;
-            color: #bbb;
-            line-height: 1.6;
-        }
-
-        .faq-item.open .faq-answer {
-            padding: 0 20px 20px 20px;
-            max-height: 1000px;
-        }
-
-        .faq-item.open .faq-question i {
-            transform: rotate(180deg);
-            color: var(--secondary-yellow);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
         .gallery-item {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-glow);
-            position: relative;
-            aspect-ratio: 16/9;
-            cursor: pointer;
+            border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);
+            position: relative; aspect-ratio: 16/9; cursor: pointer;
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.03);
-            border-color: var(--secondary-yellow);
-            box-shadow: 0 5px 20px rgba(255,204,0,0.2);
-        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item:hover { transform: scale(1.03); border-color: var(--secondary-yellow); box-shadow: 0 5px 20px rgba(255,204,0,0.2); }
 
         .ultimate-footer {
-            position: relative !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            padding: 40px 0 !important;
-            text-align: center !important;
-            width: 100% !important;
-            clear: both !important;
-            margin-top: 60px !important;
-            border-top: 1px solid rgba(255, 115, 0, 0.15) !important;
-            z-index: 999999 !important;
+            position: relative !important; display: block !important; visibility: visible !important;
+            opacity: 1 !important; padding: 40px 0 !important; text-align: center !important;
+            width: 100% !important; clear: both !important; margin-top: 60px !important;
+            border-top: 1px solid rgba(255, 115, 0, 0.15) !important; z-index: 999999 !important;
         }
-        
         .page:not(.active) .ultimate-footer {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            background: #070400 !important;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
+            position: fixed !important; bottom: 0 !important; left: 0 !important;
+            background: #070400 !important; box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
         }
-
-        .ultimate-social-icons {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            gap: 25px !important;
-        }
-
+        .ultimate-social-icons { display: flex !important; justify-content: center !important; align-items: center !important; gap: 25px !important; }
         .ultimate-btn-link {
-            display: inline-block !important;
-            padding: 12px 30px !important;
-            color: #ffffff !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-            text-decoration: none !important;
-            background: rgba(255, 81, 0, 0.05) !important;
-            border: 1px solid rgba(255, 115, 0, 0.3) !important;
-            border-radius: 6px !important;
-            transition: all 0.3s ease !important;
+            display: inline-block !important; padding: 12px 30px !important; color: #ffffff !important;
+            font-size: 15px !important; font-weight: 700 !important; text-transform: uppercase !important;
+            letter-spacing: 1px !important; text-decoration: none !important;
+            background: rgba(255, 81, 0, 0.05) !important; border: 1px solid rgba(255, 115, 0, 0.3) !important;
+            border-radius: 6px !important; transition: all 0.3s ease !important;
         }
-
         .ultimate-btn-link:hover {
-            color: #ffcc00 !important;
-            border-color: #ffcc00 !important;
+            color: #ffcc00 !important; border-color: #ffcc00 !important;
             background: rgba(255, 115, 0, 0.15) !important;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important;
-            transform: translateY(-3px) !important;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important; transform: translateY(-3px) !important;
         }
-
         .ultimate-notification {
-            position: fixed !important;
-            bottom: 30px !important;
-            left: 50% !important;
+            position: fixed !important; bottom: 30px !important; left: 50% !important;
             transform: translateX(-50%) translateY(200px) !important;
-            background: linear-gradient(90deg, #ff5100, #ffcc00) !important;
-            color: #000000 !important;
-            font-weight: 800 !important;
-            text-transform: uppercase !important;
-            font-size: 13px !important;
-            padding: 14px 30px !important;
-            border-radius: 8px !important;
-            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important;
-            z-index: 10000000 !important;
+            background: linear-gradient(90deg, #ff5100, #ffcc00) !important; color: #000000 !important;
+            font-weight: 800 !important; text-transform: uppercase !important; font-size: 13px !important;
+            padding: 14px 30px !important; border-radius: 8px !important;
+            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important; z-index: 10000000 !important;
             opacity: 0 !important;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
             pointer-events: none !important;
         }
+        .ultimate-notification.show-toast { transform: translateX(-50%) translateY(0) !important; opacity: 1 !important; }
 
-        .ultimate-notification.show-toast {
-            transform: translateX(-50%) translateY(0) !important;
-            opacity: 1 !important;
-        }
-
-        @keyframes neonPulse {
-            0% { filter: drop-shadow(0 0 2px rgba(255,81,0,0.3)); }
-            100% { filter: drop-shadow(0 0 10px rgba(255,204,0,0.6)); }
-        }
+        @keyframes neonPulse { 0% { filter: drop-shadow(0 0 2px rgba(255,81,0,0.3)); } 100% { filter: drop-shadow(0 0 10px rgba(255,204,0,0.6)); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseGreen { 0% { box-shadow: 0 0 5px #00ff66; } 100% { box-shadow: 0 0 15px #00ff66; } }
         @keyframes floatUp {
             0% { transform: translateY(105vh) scale(1); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
+            10% { opacity: 0.3; } 90% { opacity: 0.3; }
             100% { transform: translateY(-5vh) scale(0.5); opacity: 0; }
         }
-
         @media (max-width: 768px) {
             .main-grid, .wiki-grid { grid-template-columns: 1fr; }
             header { flex-direction: column; gap: 15px; }
@@ -750,7 +462,7 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА 3: ПРАВИЛА (ИСПРАВЛЕНА ВЁРСТКА) -->
+    <!-- СТРАНИЦА 3: ПРАВИЛА -->
     <div id="page-rules" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Свод правил сервера</h2>
@@ -765,7 +477,7 @@
             </div>
 
             <div style="margin-bottom: 25px;">
-                <h3 style="color: red;">1. 🛑 Гриферство, воровство и вредительство</h3>
+                <h3 style="color: red;">1.  Гриферство, воровство и вредительство</h3>
                 <h4 style="color: var(--secondary-yellow);">1.1. Чужое имущество 📦</h4>
                 <p>• Кража: Категорически запрещено забирать вещи из чужих сундуков, печек, шалкеров и бочек.</p>
                 <p>• Принцип «Взял — отдай»: Даже если сундук не подписан, брать ресурсы без спроса нельзя.</p>
@@ -781,7 +493,7 @@
             </div>
 
             <div style="margin-bottom: 25px;">
-                <h3 style="color: green;">2. 🗺️ Территории, приват и строительство</h3>
+                <h3 style="color: green;">2. ️ Территории, приват и строительство</h3>
                 <h4 style="color: var(--secondary-yellow);">2.1. Правила расселения ⛺</h4>
                 <p>• Отсутствие плагинов: На сервере нет команд /claim или /res — приват держится на честности.</p>
                 <p>• Дистанция: Запрещено строиться ближе чем в 300 блоков от зоны влияния другого игрока.</p>
@@ -818,12 +530,12 @@
                 <p>• Столбы: Запрещено оставлять «грязевые столбы» в 1 блок, которые использовались для подъема.</p>
                 <p>• Озера жидкости: Запрещено разливать лаву и воду по миру без практической цели.</p>
                 
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">4.2. Механики ферм и лаги ⚙️</h4>
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">4.2. Механики ферм и лаги ️</h4>
                 <p>• ТПС (Производительность): Запрещено строить редстоун-схемы, способные уронить сервер.</p>
                 <p>• Лимиты сущностей: Не более 20 жителей и не более 40 животных в пределах одного чанка (16х16).</p>
                 <p>• Выключатели: Любая автоматическая ферма обязана иметь рычаг полного отключения.</p>
                 <p>• АФК-фермы: Запрещено оставлять тяжелые фермы работать в АФК-режиме на всю ночь.</p>
-                <p><b>⚖️ Наказание:</b> Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</p>
+                <p><b>️ Наказание:</b> Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</p>
             </div>
 
             <div style="margin-bottom: 25px;">
@@ -834,7 +546,7 @@
                 <p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
                 <p>• Дюпы: Использование багов игры на клонирование рельс, ковров, ТНТ или предметов — табу.</p>
                 
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">5.2. Разрешено к использованию 📐</h4>
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">5.2. Разрешено к использованию </h4>
                 <p>• Оптимизация: Моды на повышение FPS (Sodium, Lithium, Phosphor, FerriteCore).</p>
                 <p>• Интерфейс: Отображение прочности брони, миникарты (без радара игроков и пещер), REI/JEI.</p>
                 <p>• Голос: Мод Simple Voice Chat (позиционный аудиочат) является обязательным.</p>
@@ -844,7 +556,7 @@
 
             <div style="margin-bottom: 25px;">
                 <h3 style="color: #ffffff;">6. 💬 Чат, культура и общение</h3>
-                <h4 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате 🗣️</h4>
+                <h4 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате ️</h4>
                 <p>• Токсичность: Запрещены прямые оскорбления, травля, кибербуллинг и разведение драмы.</p>
                 <p>• Запретные темы: Строго запрещено обсуждение реальной политики, религии и межнациональных споров.</p>
                 <p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
@@ -914,6 +626,21 @@
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-user-shield"></i> Админ-панель</h2>
 
+            <!-- НОВАЯ ФУНКЦИЯ: Смена иконки сайта по ссылке -->
+            <div style="margin-bottom:30px;">
+                <h3 style="color: var(--secondary-yellow);">️ Иконка сайта (Favicon)</h3>
+                <p style="color:#aaa; font-size:13px; margin-bottom:10px;">
+                    Вставь прямую ссылку на картинку (например, с Discord, Imgur, или любого хостинга). 
+                    Размер должен быть квадратным (например, 32x32 или 64x64 пикселей).
+                </p>
+                <div class="admin-favicon-input">
+                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="preview">
+                    <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
+                    <button class="nav-btn active" onclick="applyFavicon()">Применить</button>
+                    <button class="nav-btn" onclick="resetFavicon()">Сбросить</button>
+                </div>
+            </div>
+
             <div style="margin-bottom:30px;">
                 <h3 style="color: var(--secondary-yellow);">Создать достижение</h3>
                 <div class="admin-new-achievement">
@@ -930,15 +657,72 @@
     </div>
 
     <script>
-        // ==================== SUPABASE НАСТРОЙКИ ====================
-        // ВНИМАНИЕ: Замени эти ключи на свои из панели Supabase, если они изменятся!
+        // ==================== НАСТРОЙКИ ====================
         const SUPABASE_URL = 'https://vgzqqltcvugkzxevdzvm.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_fGQfHV_lA2QjTuOqbjT3Ag_ie_cELf8';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // Иконка сайта по умолчанию (меняется через админку)
+        const DEFAULT_FAVICON = 'https://mc-heads.net/avatar/Steve/32';
+
         let currentProfile = null;
         let allAchievements = [];
 
+        // ==================== ИКОНКА САЙТА (FAVICON) ====================
+        function loadFavicon() {
+            const saved = localStorage.getItem('siteFavicon');
+            const url = saved || DEFAULT_FAVICON;
+            const faviconLink = document.getElementById('siteFavicon');
+            if (faviconLink) faviconLink.href = url;
+            
+            // Обновляем превью в админке
+            const preview = document.getElementById('faviconPreview');
+            if (preview) preview.src = url;
+            
+            const input = document.getElementById('faviconUrlInput');
+            if (input) input.value = saved || '';
+        }
+
+        function applyFavicon() {
+            const input = document.getElementById('faviconUrlInput');
+            const url = input.value.trim();
+            if (!url) {
+                alert('Вставь ссылку на картинку!');
+                return;
+            }
+            // Проверка что это картинка
+            const img = new Image();
+            img.onload = function() {
+                localStorage.setItem('siteFavicon', url);
+                loadFavicon();
+                showToast('Иконка сайта обновлена!');
+            };
+            img.onerror = function() {
+                alert('Не удалось загрузить картинку по этой ссылке. Проверь URL!');
+            };
+            img.src = url;
+        }
+
+        function resetFavicon() {
+            localStorage.removeItem('siteFavicon');
+            document.getElementById('faviconUrlInput').value = '';
+            loadFavicon();
+            showToast('Иконка сброшена на стандартную');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('copyToast');
+            if (toast) {
+                toast.innerText = message;
+                toast.classList.add('show-toast');
+                setTimeout(() => toast.classList.remove('show-toast'), 2500);
+            }
+        }
+
+        // Загружаем иконку при старте
+        loadFavicon();
+
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.innerText = str || '';
@@ -946,10 +730,13 @@
         }
 
         async function signInWithDiscord() {
-            await sb.auth.signInWithOAuth({
+            const { error } = await sb.auth.signInWithOAuth({
                 provider: 'discord',
-                options: { redirectTo: window.location.href.split('#')[0].split('?')[0] }
+                options: { 
+                    redirectTo: window.location.origin + window.location.pathname
+                }
             });
+            if (error) alert('Ошибка входа: ' + error.message);
         }
 
         async function signOut() {
@@ -1166,7 +953,7 @@
 
         refreshAuthUI();
 
-        // Создаём футер и уведомление
+        // Футер и уведомление
         (function createFooterAndToast() {
             const footer = document.createElement('div');
             footer.className = 'ultimate-footer';
@@ -1216,13 +1003,7 @@
         function copyIP() {
             const ipText = document.getElementById('serverIp').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
-                const toast = document.getElementById('copyToast');
-                if(toast) {
-                    toast.classList.add('show-toast');
-                    setTimeout(() => {
-                        toast.classList.remove('show-toast');
-                    }, 2000);
-                }
+                showToast('IP успешно скопирован!');
             }).catch(err => {
                 console.error("Ошибка копирования: ", err);
             });
@@ -1249,7 +1030,6 @@
             if(event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
-        // === ИСПРАВЛЕННЫЙ ПОКАЗ СКИНА ===
         function updateSkin() {
             const nick = document.getElementById('skinNickname').value.trim();
             if(nick !== "") {
