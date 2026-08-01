@@ -160,8 +160,6 @@
         .admin-ban-btn.unban { color: #0f0; border-color: #0f0; }
         .admin-role-btn.give-admin { color: var(--secondary-yellow); border-color: var(--secondary-yellow); }
         .admin-role-btn.remove-admin { color: #ff3b3b; border-color: #ff3b3b; }
-        .admin-role-btn.give-editor { color: #2196F3; border-color: #2196F3; }
-        .admin-role-btn.remove-editor { color: #999; border-color: #999; }
         .admin-achievement-select {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 8px 10px;
@@ -518,7 +516,7 @@
             <div class="wiki-grid">
                 <div class="wiki-sidebar">
                     <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
-                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
+                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')"> Администрация</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Спасибо</button>
                 </div>
                 <div class="wiki-content">
@@ -712,7 +710,7 @@
                     <div id="editRules" class="wysiwyg-editor" contenteditable="true" style="min-height: 300px;"></div>
                 </div>
 
-                <h3 style="margin-top: 30px; color: var(--secondary-yellow);">📰 Новости</h3>
+                <h3 style="margin-top: 30px; color: var(--secondary-yellow);"> Новости</h3>
                 <div id="newsEditorContainer"></div>
                 <button class="add-news-btn" onclick="addNewsItem()">+ Добавить новость</button>
 
@@ -723,7 +721,7 @@
 
             <!-- Достижения -->
             <div id="editor-achievements" class="editor-section" style="display:none;">
-                <h3> Управление достижениями</h3>
+                <h3>🏆 Управление достижениями</h3>
                 <div class="admin-new-achievement">
                     <input type="text" id="newAchIcon" placeholder="Эмодзи" maxlength="4" style="width:70px;">
                     <input type="text" id="newAchTitle" placeholder="Название">
@@ -743,7 +741,7 @@
 
             <!-- Настройки -->
             <div id="editor-settings" class="editor-section" style="display:none;">
-                <h3>⚙️ Настройки сайта</h3>
+                <h3>️ Настройки сайта</h3>
                 <div class="admin-favicon-input">
                     <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="">
                     <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
