@@ -7,7 +7,6 @@
     <link id="siteFavicon" rel="icon" type="image/png" href="https://mc-heads.net/avatar/Steve/32">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-
     <style>
         :root {
             --primary-orange: #ff5100;
@@ -120,8 +119,15 @@
         .achievement-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 14px 18px; display: flex; align-items: center;
-            gap: 12px; min-width: 220px; max-width: 320px;
+            gap: 12px; min-width: 220px; max-width: 320px; position: relative;
         }
+        .achievement-delete-btn {
+            position: absolute; top: 5px; right: 5px;
+            background: rgba(255, 59, 59, 0.8); color: #fff;
+            border: none; width: 24px; height: 24px; border-radius: 50%;
+            cursor: pointer; font-size: 12px; display: none;
+        }
+        .achievement-card:hover .achievement-delete-btn { display: flex; align-items: center; justify-content: center; }
         .achievement-icon { font-size: 28px; flex-shrink: 0; }
         .achievement-image {
             width: 48px; height: 48px; border-radius: 8px; object-fit: cover;
@@ -131,11 +137,12 @@
         .achievement-desc { font-size: 12px; color: #aaa; }
         
         .admin-new-achievement { display: flex; gap: 10px; flex-wrap: wrap; }
-        .admin-new-achievement input {
+        .admin-new-achievement input, .admin-new-achievement textarea {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 10px 14px; font-family: inherit;
         }
         .admin-new-achievement input[type="text"]:not([style*="70px"]) { flex: 1; min-width: 160px; }
+        .admin-new-achievement textarea { width: 100%; min-height: 80px; resize: vertical; }
         .admin-user-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
@@ -145,12 +152,16 @@
         .admin-user-card img:hover { border: 2px solid var(--secondary-yellow); }
         .admin-user-name { font-weight: 700; }
         .admin-user-card.banned { border-color: rgba(255,59,59,0.5); }
-        .admin-ban-btn {
+        .admin-ban-btn, .admin-role-btn {
             padding: 8px 16px; border-radius: 8px; border: 1px solid; cursor: pointer;
-            font-weight: 700; font-size: 12px; text-transform: uppercase; background: transparent;
+            font-weight: 700; font-size: 12px; text-transform: uppercase; background: transparent; margin-left: 5px;
         }
         .admin-ban-btn.ban { color: #ff3b3b; border-color: #ff3b3b; }
         .admin-ban-btn.unban { color: #0f0; border-color: #0f0; }
+        .admin-role-btn.give-admin { color: var(--secondary-yellow); border-color: var(--secondary-yellow); }
+        .admin-role-btn.remove-admin { color: #ff3b3b; border-color: #ff3b3b; }
+        .admin-role-btn.give-editor { color: #2196F3; border-color: #2196F3; }
+        .admin-role-btn.remove-editor { color: #999; border-color: #999; }
         .admin-achievement-select {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 8px 10px;
@@ -169,6 +180,65 @@
             width: 48px; height: 48px; border-radius: 8px; object-fit: contain;
             background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
         }
+        
+        /* Стили для редактора сайта */
+        .editor-section {
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
+            border-radius: 12px; padding: 20px; margin-bottom: 20px;
+        }
+        .editor-section h3 {
+            color: var(--secondary-yellow); margin-top: 0; margin-bottom: 15px;
+            text-transform: uppercase; font-size: 16px;
+        }
+        .editor-field { margin-bottom: 15px; }
+        .editor-field label {
+            display: block; color: #aaa; font-size: 13px; margin-bottom: 5px;
+        }
+        .editor-field input[type="text"],
+        .editor-field textarea {
+            width: 100%; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow); border-radius: 8px;
+            color: #fff; padding: 12px; font-family: inherit;
+            font-size: 14px;
+        }
+        .editor-field textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+        .editor-field input:focus,
+        .editor-field textarea:focus {
+            border-color: var(--secondary-yellow);
+            box-shadow: 0 0 10px rgba(255,204,0,0.2);
+            outline: none;
+        }
+        .news-editor-item {
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
+            border-radius: 8px; padding: 15px; margin-bottom: 10px;
+        }
+        .news-editor-item h4 {
+            color: var(--secondary-yellow); margin: 0 0 10px 0; font-size: 14px;
+        }
+        .add-news-btn {
+            background: var(--primary-orange); color: #fff; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer;
+            font-weight: 600; margin-top: 10px;
+        }
+        .add-news-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
+        .save-content-btn {
+            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
+            color: #000; border: none; padding: 12px 30px; border-radius: 8px;
+            cursor: pointer; font-weight: 700; text-transform: uppercase;
+            font-size: 14px; margin-top: 20px;
+        }
+        .save-content-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,81,0,0.4); }
+        .editor-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .editor-tab {
+            background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
+            color: #aaa; padding: 10px 20px; border-radius: 8px;
+            cursor: pointer; font-weight: 600;
+        }
+        .editor-tab.active {
+            background: rgba(255,81,0,0.2); border-color: var(--primary-orange);
+            color: var(--secondary-yellow);
+        }
+        .editor-tab:hover { border-color: var(--secondary-yellow); color: var(--secondary-yellow); }
         
         .page { display: none; max-width: 1000px; width: 100%; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.5s ease forwards; }
         .page.active { display: block; }
@@ -244,7 +314,7 @@
         .wiki-article { display: none; }
         .wiki-article.active { display: block; }
         .wiki-article h3 { color: var(--secondary-yellow); margin-top: 0; font-size: 24px; text-transform: uppercase;}
-        .wiki-article p { line-height: 1.7; color: #ccc; }
+        .wiki-article p { line-height: 1.7; color: #ccc; white-space: pre-line; }
         .faq-item { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,115,0,0.1); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
         .faq-question {
             padding: 20px; font-weight: 700; cursor: pointer;
@@ -351,12 +421,12 @@
     <div id="page-main" class="page active">
         <div class="hero-card">
             <h1 class="server-name">AnanasLand</h1>
-            <div class="server-version">Версия: 1.20.4</div>
+            <div class="server-version" id="serverVersionDisplay">Версия: 1.20.4</div>
             <div class="status-container">
                 <div class="status-dot"></div>
                 <div class="status-text">Сервер онлайн: <span class="status-count" id="player-count">Загрузка...</span></div>
             </div>
-            <p class="server-description">
+            <p class="server-description" id="serverDescriptionDisplay">
                 Добро пожаловать на ванильный приватный сервер в майнкрафт! Здесь вас ждут ивенты, лор и игроки, которые уже играют у нас!
             </p>
             <div class="ip-box" onclick="copyIP()">
@@ -376,15 +446,8 @@
             </div>
             <div class="news-feed">
                 <h2>Лента обновлений</h2>
-                <div class="news-card">
-                    <div class="news-date">Июль 2026 — Финал сезона</div>
-                    <h3>Финал сезона!</h3>
-                    <p>31.07 состоится конец сезона!</p>
-                </div>
-                <div class="news-card">
-                    <div class="news-date">Июнь 2026 — Открытие</div>
-                    <h3>Открытие Сервера</h3>
-                    <p>9 июля состоялось открытие 1 сезона AnanasLand</p>
+                <div id="newsContainer">
+                    <!-- Новости загружаются из базы -->
                 </div>
             </div>
         </div>
@@ -421,19 +484,21 @@
             <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний / Wiki</h2>
             <div class="wiki-grid">
                 <div class="wiki-sidebar">
-                    <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
+                    <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')"> О Нас</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Отдельное спасибо</button>
                 </div>
                 <div class="wiki-content">
                     <div id="wiki-start" class="wiki-article active">
                         <h3>История сервера</h3>
-                        <p>Наш сервер запустился 09.07.26 года. С того времени мы радуем вас ивентами и лором.</p>
-                        <p>09.07.2026 - открытие сервера!</p>
-                        <p>10.07.2026 - Создание первого города! Тогда первым городом стал СНБС.</p>
-                        <p>13.07.2026 - сервер переносится на хостинг (ранее он держался на @kihuntt, отдельное спасибо).</p>
-                        <p>18.07.2026 - мы отмечали день рождения 1 крутого человека - дензи aka @denzi_354_80854.</p>
-                        <p>31.08.2026 - ...</p>
+                        <div id="wikiStartContent">
+                            <p>Наш сервер запустился 09.07.26 года. С того времени мы радуем вас ивентами и лором.</p>
+                            <p>09.07.2026 - открытие сервера!</p>
+                            <p>10.07.2026 - Создание первого города! Тогда первым городом стал СНБС.</p>
+                            <p>13.07.2026 - сервер переносится на хостинг (ранее он держался на @kihuntt, отдельное спасибо).</p>
+                            <p>18.07.2026 - мы отмечали день рождения 1 крутого человека - дензи aka @denzi_354_80854.</p>
+                            <p>31.08.2026 - ...</p>
+                        </div>
                     </div>
                     <div id="wiki-jobs" class="wiki-article">
                         <h3>Администрация</h3>
@@ -493,8 +558,8 @@
                 <p><b>⚖️ Наказание:</b> Снос постройки админами + бан персонажа на срок от 3 до 7 дней.</p>
             </div>
             <div style="margin-bottom: 25px;">
-                <h3 style="color: grey;">3. ⚔️ PVP (Боевые взаимодействия) и убийства</h3>
-                <h4 style="color: var(--secondary-yellow);">3.1. Честный бой 🛡️</h4>
+                <h3 style="color: grey;">3. ️ PVP (Боевые взаимодействия) и убийства</h3>
+                <h4 style="color: var(--secondary-yellow);">3.1. Честный бой ️</h4>
                 <p>• Обоюдный интерес: ПВП разрешено исключительно при согласии обеих сторон перед началом боя.</p>
                 <p>• Нападение из-за угла: Намеренное убийство игрока без предупреждения приравнивается к гриферству.</p>
                 <p>• Убийство новичков: Категорически запрещено охотиться на игроков в кожаной/железной броне.</p>
@@ -520,7 +585,7 @@
             </div>
             <div style="margin-bottom: 25px;">
                 <h3 style="color: #2196F3;">5. 🛠️ Модификации и честная игра</h3>
-                <h4 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) ❌</h4>
+                <h4 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) </h4>
                 <p>• Клиенты: Запрещен вход с модами Fabric/Forge на читы (X-Ray, Baritone, Meteor, Wurst).</p>
                 <p>• Ресурспаки: Запрещены текстуры с прозрачными блоками для поиска алмазов и незерита.</p>
                 <p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
@@ -539,7 +604,7 @@
                 <p>• Запретные темы: Строго запрещено обсуждение реальной политики, религии и межнациональных споров.</p>
                 <p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
                 <p>• Реклама: Запрещено скидывать ссылки на другие Дискорд-серверы и сторонние проекты.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">6.2. Медиа-контент 🔞</h4>
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">6.2. Медиа-контент </h4>
                 <p>• Ссылки: Запрещено отправлять в чаты шок-контент, порнографию, скримеры или вирусы.</p>
                 <p>• Спам: Запрещено писать капсом (ВЫГЛЯДИТ ВОТ ТАК) и флудить одинаковыми сообщениями.</p>
                 <p><b>⚖️ Наказание:</b> Мут чата от 1 часа до 3 дней. За политику и рекламу проектов — вечный бан.</p>
@@ -547,10 +612,9 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА 4: ПРОФИЛЬ (свой или чужой) -->
+    <!-- СТРАНИЦА 4: ПРОФИЛЬ -->
     <div id="page-profile" class="page">
         <div class="subpage-container">
-            <!-- Уведомление при просмотре чужого профиля -->
             <div id="viewingOtherProfile" class="viewing-profile-notice" style="display:none;">
                 <span>👁️ Вы просматриваете профиль другого игрока</span>
                 <button class="back-to-profile-btn" onclick="switchPage('profile')">← Вернуться к своему профилю</button>
@@ -610,27 +674,50 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА 5: АДМИН-ПАНЕЛЬ -->
+    <!-- СТРАНИЦА 5: АДМИН-ПАНЕЛЬ С РЕДАКТОРОМ -->
     <div id="page-admin" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-user-shield"></i> Админ-панель</h2>
 
-            <div style="margin-bottom:30px;">
-                <h3 style="color: var(--secondary-yellow);">🖼️ Иконка сайта (Favicon)</h3>
-                <p style="color:#aaa; font-size:13px; margin-bottom:10px;">
-                    Вставь прямую ссылку на картинку (например, с Discord, Imgur, или любого хостинга). 
-                    Размер должен быть квадратным (например, 32x32 или 64x64 пикселей).
-                </p>
-                <div class="admin-favicon-input">
-                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="preview">
-                    <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
-                    <button class="nav-btn active" onclick="applyFavicon()">Применить</button>
-                    <button class="nav-btn" onclick="resetFavicon()">Сбросить</button>
-                </div>
+            <!-- Вкладки редактора -->
+            <div class="editor-tabs">
+                <button class="editor-tab active" onclick="switchEditorTab('general')"> Контент сайта</button>
+                <button class="editor-tab" onclick="switchEditorTab('achievements')">🏆 Достижения</button>
+                <button class="editor-tab" onclick="switchEditorTab('users')"> Пользователи</button>
+                <button class="editor-tab" onclick="switchEditorTab('settings')">⚙️ Настройки</button>
             </div>
 
-            <div style="margin-bottom:30px;">
-                <h3 style="color: var(--secondary-yellow);">Создать достижение</h3>
+            <!-- Вкладка: Редактор контента -->
+            <div id="editor-general" class="editor-section">
+                <h3> Редактирование контента сайта</h3>
+                
+                <div class="editor-field">
+                    <label>Версия сервера:</label>
+                    <input type="text" id="editServerVersion" placeholder="Например: 1.20.4">
+                </div>
+
+                <div class="editor-field">
+                    <label>Описание сервера (на главной):</label>
+                    <textarea id="editServerDescription" placeholder="Описание сервера..."></textarea>
+                </div>
+
+                <div class="editor-field">
+                    <label>История сервера (Вики - О нас):</label>
+                    <textarea id="editWikiHistory" placeholder="История сервера..." style="min-height: 200px;"></textarea>
+                </div>
+
+                <h3 style="margin-top: 30px; color: var(--secondary-yellow);">📰 Новости</h3>
+                <div id="newsEditorContainer"></div>
+                <button class="add-news-btn" onclick="addNewsItem()">+ Добавить новость</button>
+
+                <button class="save-content-btn" onclick="saveSiteContent()">
+                    <i class="fa-solid fa-save"></i> Сохранить изменения
+                </button>
+            </div>
+
+            <!-- Вкладка: Достижения -->
+            <div id="editor-achievements" class="editor-section" style="display:none;">
+                <h3>🏆 Управление достижениями</h3>
                 <div class="admin-new-achievement">
                     <input type="text" id="newAchIcon" placeholder="Эмодзи" maxlength="4" style="width:70px;">
                     <input type="text" id="newAchTitle" placeholder="Название достижения">
@@ -638,11 +725,27 @@
                     <input type="text" id="newAchImage" placeholder="URL картинки (необязательно)" style="flex:1; min-width:200px;">
                     <button class="nav-btn active" onclick="createAchievement()">Создать</button>
                 </div>
+                <div id="achievementsList" style="margin-top: 20px;"></div>
             </div>
 
-            <h3 style="color: var(--secondary-yellow);">Игроки</h3>
-            <p style="color:#aaa; font-size:13px; margin-bottom:10px;">💡 Кликни по аватарке игрока, чтобы открыть его профиль</p>
-            <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
+            <!-- Вкладка: Пользователи -->
+            <div id="editor-users" class="editor-section" style="display:none;">
+                <h3> Управление пользователями</h3>
+                <p style="color:#aaa; font-size:13px; margin-bottom:10px;"> Кликни по аватарке игрока, чтобы открыть его профиль</p>
+                <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
+            </div>
+
+            <!-- Вкладка: Настройки -->
+            <div id="editor-settings" class="editor-section" style="display:none;">
+                <h3>⚙️ Настройки сайта</h3>
+                
+                <div class="admin-favicon-input">
+                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="preview">
+                    <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
+                    <button class="nav-btn active" onclick="applyFavicon()">Применить</button>
+                    <button class="nav-btn" onclick="resetFavicon()">Сбросить</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -655,7 +758,9 @@
 
         let currentProfile = null;
         let allAchievements = [];
-        let viewingProfileId = null; // ID профиля который просматриваем (если чужой)
+        let viewingProfileId = null;
+        let currentEditorTab = 'general';
+        let newsItems = [];
 
         // ==================== ИКОНКА САЙТА ====================
         function loadFavicon() {
@@ -747,20 +852,186 @@
             if (profile) {
                 document.getElementById('authUserName').innerText = profile.discord_username || 'Игрок';
                 document.getElementById('authUserAvatar').src = profile.avatar_url || '';
-                btnAdmin.style.display = profile.is_admin ? 'inline-block' : 'none';
+                btnAdmin.style.display = (profile.is_admin || profile.can_edit) ? 'inline-block' : 'none';
             }
 
-            // Проверяем есть ли параметр ?profile= в URL
             checkProfileParam();
+        }
+
+        // ==================== РЕДАКТОР САЙТА ====================
+        function switchEditorTab(tabName) {
+            currentEditorTab = tabName;
+            document.querySelectorAll('.editor-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.editor-section').forEach(section => {
+                if (section.id !== 'editor-' + tabName) section.style.display = 'none';
+            });
+            document.getElementById('editor-' + tabName).style.display = 'block';
+            event.target.classList.add('active');
+
+            if (tabName === 'achievements') loadAchievementsList();
+            if (tabName === 'users') loadAdminPage();
+            if (tabName === 'general') loadContentForEditor();
+        }
+
+        async function loadContentForEditor() {
+            // Загружаем контент из базы
+            const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
+            if (mainContent) {
+                document.getElementById('editServerVersion').value = mainContent.content.serverVersion || '1.20.4';
+                document.getElementById('editServerDescription').value = mainContent.content.serverDescription || '';
+            }
+
+            const { data: wikiContent } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
+            if (wikiContent) {
+                document.getElementById('editWikiHistory').value = wikiContent.content.history || '';
+            }
+
+            // Загружаем новости
+            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
+            if (newsContent && newsContent.content) {
+                newsItems = Array.isArray(newsContent.content) ? newsContent.content : [];
+            } else {
+                newsItems = [];
+            }
+            renderNewsEditor();
+        }
+
+        function renderNewsEditor() {
+            const container = document.getElementById('newsEditorContainer');
+            if (newsItems.length === 0) {
+                container.innerHTML = '<p style="color:#666;">Нет новостей. Добавьте первую!</p>';
+                return;
+            }
+
+            container.innerHTML = newsItems.map((item, index) => `
+                <div class="news-editor-item">
+                    <h4>Новость #${index + 1}</h4>
+                    <div class="editor-field">
+                        <label>Дата:</label>
+                        <input type="text" id="newsDate${index}" value="${escapeHtml(item.date || '')}" placeholder="Например: Июль 2026">
+                    </div>
+                    <div class="editor-field">
+                        <label>Заголовок:</label>
+                        <input type="text" id="newsTitle${index}" value="${escapeHtml(item.title || '')}" placeholder="Заголовок новости">
+                    </div>
+                    <div class="editor-field">
+                        <label>Текст:</label>
+                        <textarea id="newsText${index}" placeholder="Текст новости...">${escapeHtml(item.text || '')}</textarea>
+                    </div>
+                    <button class="nav-btn" onclick="removeNewsItem(${index})" style="color:#ff3b3b; border-color:#ff3b3b;">
+                        <i class="fa-solid fa-trash"></i> Удалить
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addNewsItem() {
+            newsItems.push({ date: '', title: '', text: '' });
+            renderNewsEditor();
+        }
+
+        function removeNewsItem(index) {
+            newsItems.splice(index, 1);
+            renderNewsEditor();
+        }
+
+        async function saveSiteContent() {
+            if (!currentProfile) return;
+
+            // Сохраняем основной контент
+            const mainContent = {
+                serverVersion: document.getElementById('editServerVersion').value.trim(),
+                serverDescription: document.getElementById('editServerDescription').value.trim()
+            };
+
+            await sb.rpc('update_page_content', {
+                p_page_name: 'main',
+                p_content: mainContent,
+                p_user_id: currentProfile.id
+            });
+
+            // Сохраняем историю вики
+            const wikiContent = {
+                history: document.getElementById('editWikiHistory').value.trim()
+            };
+
+            await sb.rpc('update_page_content', {
+                p_page_name: 'wiki-start',
+                p_content: wikiContent,
+                p_user_id: currentProfile.id
+            });
+
+            // Сохраняем новости
+            const newsData = newsItems.map(item => ({
+                date: item.date.trim(),
+                title: item.title.trim(),
+                text: item.text.trim()
+            })).filter(item => item.title || item.text);
+
+            await sb.rpc('update_page_content', {
+                p_page_name: 'news',
+                p_content: newsData,
+                p_user_id: currentProfile.id
+            });
+
+            showToast('Контент сохранён!');
+            loadSiteContent(); // Перезагружаем контент на сайте
+        }
+
+        async function loadSiteContent() {
+            // Загружаем контент для отображения на сайте
+            const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
+            if (mainContent) {
+                if (mainContent.content.serverVersion) {
+                    document.getElementById('serverVersionDisplay').innerText = 'Версия: ' + mainContent.content.serverVersion;
+                }
+                if (mainContent.content.serverDescription) {
+                    document.getElementById('serverDescriptionDisplay').innerText = mainContent.content.serverDescription;
+                }
+            }
+
+            // Загружаем новости
+            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
+            const newsContainer = document.getElementById('newsContainer');
+            if (newsContent && newsContent.content && Array.isArray(newsContent.content) && newsContent.content.length > 0) {
+                newsContainer.innerHTML = newsContent.content.map(item => `
+                    <div class="news-card">
+                        <div class="news-date">${escapeHtml(item.date || '')}</div>
+                        <h3>${escapeHtml(item.title || '')}</h3>
+                        <p>${escapeHtml(item.text || '')}</p>
+                    </div>
+                `).join('');
+            } else {
+                // Дефолтные новости если нет в базе
+                newsContainer.innerHTML = `
+                    <div class="news-card">
+                        <div class="news-date">Июль 2026 — Финал сезона</div>
+                        <h3>Финал сезона!</h3>
+                        <p>31.07 состоится конец сезона!</p>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">Июнь 2026 — Открытие</div>
+                        <h3>Открытие Сервера</h3>
+                        <p>9 июля состоялось открытие 1 сезона AnanasLand</p>
+                    </div>
+                `;
+            }
+
+            // Загружаем историю вики
+            const { data: wikiContent } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
+            if (wikiContent && wikiContent.content && wikiContent.content.history) {
+                const wikiStartDiv = document.getElementById('wikiStartContent');
+                if (wikiStartDiv) {
+                    wikiStartDiv.innerHTML = wikiContent.content.history.split('\n').map(line => `<p>${escapeHtml(line)}</p>`).join('');
+                }
+            }
         }
 
         // ==================== ПРОСМОТР ПРОФИЛЕЙ ====================
         function checkProfileParam() {
             const params = new URLSearchParams(window.location.search);
             const profileId = params.get('profile');
-            
             if (profileId) {
-                // Просматриваем чужой профиль
                 viewingProfileId = profileId;
                 loadPublicProfile(profileId);
             }
@@ -774,20 +1045,16 @@
                 return;
             }
 
-            // Показываем страницу профиля
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById('page-profile').classList.add('active');
             document.getElementById('btn-profile').classList.add('active');
 
-            // Скрываем блок "нужен вход", показываем профиль
             document.getElementById('profileLoggedOut').style.display = 'none';
             document.getElementById('profileLoggedIn').style.display = 'block';
 
-            // Показываем уведомление что это чужой профиль
             const isOwnProfile = currentProfile && currentProfile.id === userId;
             document.getElementById('viewingOtherProfile').style.display = isOwnProfile ? 'none' : 'flex';
 
-            // Заполняем данные
             document.getElementById('profileUsername').innerText = profile.discord_username || 'Игрок';
             document.getElementById('profileAvatarImg').src = profile.avatar_url || '';
             document.getElementById('profileBanBadge').style.display = profile.is_banned ? 'inline-block' : 'none';
@@ -800,7 +1067,6 @@
                 bannerImg.style.display = 'none';
             }
 
-            // Описание
             const descInput = document.getElementById('profileDescriptionInput');
             const descText = document.getElementById('profileDescriptionText');
             const saveBtn = document.getElementById('saveDescBtn');
@@ -813,7 +1079,6 @@
                 descText.style.display = 'none';
             }
 
-            // Если это свой профиль — показываем редактирование
             if (isOwnProfile) {
                 descInput.value = profile.description || '';
                 descInput.style.display = 'block';
@@ -822,7 +1087,6 @@
                 document.getElementById('avatarUploadLabel').style.display = 'flex';
                 shareSection.style.display = 'block';
             } else {
-                // Чужой профиль — только просмотр
                 descInput.style.display = 'none';
                 saveBtn.style.display = 'none';
                 document.getElementById('bannerUploadLabel').style.display = 'none';
@@ -830,7 +1094,6 @@
                 shareSection.style.display = 'block';
             }
 
-            // Загружаем достижения
             await loadUserAchievements(userId, 'profileAchievements');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -838,13 +1101,10 @@
         function shareProfile() {
             const profileId = currentProfile ? currentProfile.id : viewingProfileId;
             if (!profileId) return;
-            
             const profileUrl = window.location.origin + window.location.pathname + '?profile=' + profileId;
-            
             navigator.clipboard.writeText(profileUrl).then(() => {
                 showToast('Ссылка на профиль скопирована!');
             }).catch(() => {
-                // Фолбэк если clipboard не работает
                 prompt('Скопируй ссылку на профиль:', profileUrl);
             });
         }
@@ -854,7 +1114,6 @@
             const loggedOut = document.getElementById('profileLoggedOut');
             const loggedIn = document.getElementById('profileLoggedIn');
 
-            // Если есть параметр ?profile= — загружаем тот профиль
             const params = new URLSearchParams(window.location.search);
             const profileId = params.get('profile');
             
@@ -910,11 +1169,16 @@
                 return;
             }
 
+            const isAdmin = currentProfile && currentProfile.is_admin;
+
             container.innerHTML = data.map(row => {
                 const ach = row.achievements || {};
                 const hasImage = ach.image_url && ach.image_url.trim() !== '';
+                const deleteBtn = isAdmin ? `<button class="achievement-delete-btn" onclick="deleteAchievement('${row.achievement_id}')" title="Удалить достижение"><i class="fa-solid fa-trash"></i></button>` : '';
+                
                 return `
                     <div class="achievement-card">
+                        ${deleteBtn}
                         ${hasImage 
                             ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}" alt="${escapeHtml(ach.title)}" onerror="this.style.display='none'">` 
                             : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`
@@ -972,17 +1236,50 @@
         }
 
         // ---------- АДМИНКА ----------
+        async function loadAchievementsList() {
+            const { data: achievements } = await sb.from('achievements').select('*').order('created_at');
+            allAchievements = achievements || [];
+            
+            const container = document.getElementById('achievementsList');
+            if (!allAchievements || allAchievements.length === 0) {
+                container.innerHTML = '<p style="color:#888;">Нет созданных достижений.</p>';
+                return;
+            }
+
+            container.innerHTML = allAchievements.map(ach => `
+                <div class="achievement-card" style="margin-bottom: 10px;">
+                    ${ach.image_url ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}" alt="">` : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`}
+                    <div style="flex:1;">
+                        <div class="achievement-title">${escapeHtml(ach.title)}</div>
+                        <div class="achievement-desc">${escapeHtml(ach.description)}</div>
+                    </div>
+                    <button class="nav-btn" onclick="deleteAchievement('${ach.id}')" style="color:#ff3b3b; border-color:#ff3b3b;">
+                        <i class="fa-solid fa-trash"></i> Удалить
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function deleteAchievement(achievementId) {
+            if (!confirm('Удалить это достижение? Оно исчезнет у всех игроков!')) return;
+            
+            const { error } = await sb.rpc('admin_delete_achievement', { ach_id: achievementId });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            
+            showToast('Достижение удалено!');
+            loadAchievementsList();
+            if (currentEditorTab === 'users') loadAdminPage();
+        }
+
         async function loadAdminPage() {
-            if (!currentProfile || !currentProfile.is_admin) {
+            if (!currentProfile || (!currentProfile.is_admin && !currentProfile.can_edit)) {
                 document.getElementById('adminUsersList').innerHTML = '<p style="color:#ff3b3b;">Нет доступа.</p>';
                 return;
             }
 
-            const { data: achievements } = await sb.from('achievements').select('*').order('created_at');
-            allAchievements = achievements || [];
-
             const { data: users } = await sb.from('profiles').select('*').order('created_at');
             const { data: userAchievements } = await sb.from('user_achievements').select('*');
+            const { data: editors } = await sb.from('site_editors').select('*');
 
             const list = document.getElementById('adminUsersList');
             if (!users || users.length === 0) {
@@ -992,6 +1289,9 @@
 
             list.innerHTML = users.map(u => {
                 const given = (userAchievements || []).filter(ua => ua.user_id === u.id).map(ua => ua.achievement_id);
+                const editorInfo = editors?.find(e => e.user_id === u.id);
+                const isEditor = editorInfo?.can_edit || false;
+                
                 const options = allAchievements
                     .filter(a => !given.includes(a.id))
                     .map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.title)}</option>`)
@@ -1000,17 +1300,28 @@
 
                 return `
                     <div class="admin-user-card ${u.is_banned ? 'banned' : ''}">
-                        <img src="${u.avatar_url || ''}" alt="" onclick="viewUserProfile('${u.id}')" title="Открыть профиль ${escapeHtml(u.discord_username || 'Игрок')}" style="cursor:pointer;">
+                        <img src="${u.avatar_url || ''}" alt="" onclick="viewUserProfile('${u.id}')" title="Открыть профиль">
                         <div style="flex:1; min-width:150px;">
                             <div class="admin-user-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
-                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;">👑 Админ</span>' : ''}
+                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;"> Админ</span>' : ''}
+                            ${isEditor ? '<span style="color:#2196F3; font-size:12px;">✏️ Редактор</span>' : ''}
                             <div style="font-size:11px; color:#666; margin-top:4px;">
                                 <a href="${profileUrl}" target="_blank" style="color:var(--primary-orange); text-decoration:none;">🔗 Открыть профиль</a>
                             </div>
                         </div>
-                        <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
-                            ${u.is_banned ? 'Разбанить' : 'Забанить'}
-                        </button>
+                        <div>
+                            <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
+                                ${u.is_banned ? 'Разбанить' : 'Забанить'}
+                            </button>
+                            ${currentProfile.is_admin ? `
+                                <button class="admin-role-btn ${u.is_admin ? 'remove-admin' : 'give-admin'}" onclick="toggleAdmin('${u.id}', ${!u.is_admin})">
+                                    ${u.is_admin ? 'Забрать админку' : 'Дать админку'}
+                                </button>
+                                <button class="admin-role-btn ${isEditor ? 'remove-editor' : 'give-editor'}" onclick="toggleEditor('${u.id}', ${!isEditor})">
+                                    ${isEditor ? 'Забрать редактора' : 'Дать редактора'}
+                                </button>
+                            ` : ''}
+                        </div>
                         ${options ? `
                             <select class="admin-achievement-select" id="achSelect-${u.id}">
                                 <option value="">Выдать достижение...</option>
@@ -1021,6 +1332,20 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        async function toggleAdmin(userId, giveAdmin) {
+            const { error } = await sb.from('profiles').update({ is_admin: giveAdmin }).eq('id', userId);
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            showToast(giveAdmin ? 'Права админа выданы!' : 'Права админа забраны!');
+            loadAdminPage();
+        }
+
+        async function toggleEditor(userId, giveEditor) {
+            const { error } = await sb.rpc('admin_grant_editor', { target_user: userId, can_edit: giveEditor });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            showToast(giveEditor ? 'Права редактора выданы!' : 'Права редактора забраны!');
+            loadAdminPage();
         }
 
         function viewUserProfile(userId) {
@@ -1041,12 +1366,9 @@
             
             if (!title) { alert('Введите название достижения'); return; }
 
-            const { error } = await sb.rpc('admin_create_achievement', { 
-                p_title: title, 
-                p_description: description, 
-                p_icon: icon,
-                p_image_url: imageUrl
-            });
+            const { error } = await sb.from('achievements').insert([{
+                icon, title, description, image_url: imageUrl
+            }]);
             if (error) { alert('Ошибка: ' + error.message); return; }
 
             document.getElementById('newAchIcon').value = '';
@@ -1054,14 +1376,14 @@
             document.getElementById('newAchDesc').value = '';
             document.getElementById('newAchImage').value = '';
             showToast('Достижение создано!');
-            loadAdminPage();
+            loadAchievementsList();
         }
 
         async function giveAchievement(userId) {
             const select = document.getElementById(`achSelect-${userId}`);
             const achievementId = select.value;
             if (!achievementId) return;
-            const { error } = await sb.rpc('admin_award_achievement', { target_user: userId, achievement: achievementId });
+            const { error } = await sb.from('user_achievements').insert([{ user_id: userId, achievement_id: achievementId }]);
             if (error) { alert('Ошибка: ' + error.message); return; }
             showToast('Достижение выдано!');
             loadAdminPage();
@@ -1121,7 +1443,6 @@
         }
 
         function switchPage(pageId) {
-            // Убираем параметр ?profile= из URL при переключении
             if (pageId !== 'profile') {
                 window.history.replaceState({}, document.title, window.location.pathname);
                 viewingProfileId = null;
@@ -1136,7 +1457,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             if(pageId === 'profile') loadProfilePage();
-            if(pageId === 'admin') loadAdminPage();
+            if(pageId === 'admin') {
+                loadContentForEditor();
+                loadAdminPage();
+            }
         }
 
         function switchWiki(articleId) {
@@ -1174,6 +1498,9 @@
                 container.appendChild(particle);
             }
         }
+
+        // Загружаем контент сайта при старте
+        loadSiteContent();
     </script>
 </body>
 </html>
