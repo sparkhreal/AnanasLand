@@ -31,28 +31,39 @@
             background: linear-gradient(to top, var(--primary-orange), var(--secondary-yellow));
             border-radius: 50%; animation: floatUp 8s linear infinite; opacity: 0.2;
         }
+        
         header {
-            padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid rgba(255, 115, 0, 0.1);
-            background: rgba(7, 4, 0, 0.8); backdrop-filter: blur(10px);
+            background: rgba(7, 4, 0, 0.9); backdrop-filter: blur(10px);
             position: sticky; top: 0; z-index: 100;
         }
         .logo {
-            font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
+            font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
             background: linear-gradient(45deg, var(--primary-orange), var(--secondary-yellow));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: neonPulse 2s ease-in-out infinite alternate; cursor: pointer;
         }
-        nav { display: flex; gap: 15px; flex-wrap: wrap; }
+        nav { display: flex; gap: 8px; flex-wrap: wrap; }
         .nav-btn {
             background: transparent; border: 1px solid transparent; color: #ccc;
-            padding: 8px 16px; font-size: 14px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px; border-radius: 6px; cursor: pointer;
+            padding: 8px 12px; font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; border-radius: 8px; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            min-width: 70px;
         }
+        .nav-btn i { font-size: 18px; }
         .nav-btn:hover, .nav-btn.active {
             color: var(--secondary-yellow); border-color: var(--primary-orange);
             background: rgba(255, 81, 0, 0.1); box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
         }
+        .nav-badge {
+            position: absolute; top: -5px; right: -5px;
+            background: #ff3b3b; color: #fff; font-size: 10px;
+            padding: 2px 6px; border-radius: 10px; font-weight: 700;
+        }
+        .nav-btn-wrapper { position: relative; }
+        
         .auth-block { display: flex; align-items: center; }
         .auth-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -98,23 +109,27 @@
             cursor: pointer; font-size: 13px; border: 2px solid var(--bg-dark);
         }
         .profile-ban-badge { color: #ff3b3b; font-weight: 800; font-size: 13px; }
-        .profile-description-input {
+        .profile-custom-nickname {
+            color: var(--secondary-yellow); font-size: 14px; font-weight: 600;
+            background: rgba(255,204,0,0.1); padding: 4px 12px; border-radius: 20px;
+            display: inline-block; margin-top: 5px;
+        }
+        .profile-registration-date {
+            color: #888; font-size: 12px; margin-top: 8px;
+        }
+        .profile-description-input, .profile-description-text {
             width: 100%; min-height: 100px; background: rgba(0,0,0,0.4);
             border: 1px solid var(--border-glow); border-radius: 10px;
             color: #fff; padding: 12px; font-family: inherit; resize: vertical;
         }
-        .profile-description-text {
-            width: 100%; min-height: 60px; background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-glow); border-radius: 10px;
-            color: #ccc; padding: 12px; font-family: inherit; line-height: 1.6;
-        }
-        .share-profile-btn {
+        .profile-description-text { color: #ccc; line-height: 1.6; }
+        .share-profile-btn, .edit-profile-btn {
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
             color: #000; border: none; padding: 10px 20px; border-radius: 8px;
             font-weight: 700; cursor: pointer; text-transform: uppercase;
-            font-size: 13px; margin-top: 10px;
+            font-size: 13px; margin-top: 10px; margin-right: 10px;
         }
-        .share-profile-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
+        .share-profile-btn:hover, .edit-profile-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
         .achievements-grid { display: flex; flex-wrap: wrap; gap: 14px; }
         .achievement-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
@@ -142,7 +157,6 @@
             border-radius: 8px; color: #fff; padding: 10px 14px; font-family: inherit;
         }
         .admin-new-achievement input[type="text"]:not([style*="70px"]) { flex: 1; min-width: 160px; }
-        .admin-new-achievement textarea { width: 100%; min-height: 80px; resize: vertical; }
         .admin-user-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
@@ -152,9 +166,9 @@
         .admin-user-card img:hover { border: 2px solid var(--secondary-yellow); }
         .admin-user-name { font-weight: 700; }
         .admin-user-card.banned { border-color: rgba(255,59,59,0.5); }
-        .admin-ban-btn, .admin-role-btn {
-            padding: 8px 16px; border-radius: 8px; border: 1px solid; cursor: pointer;
-            font-weight: 700; font-size: 12px; text-transform: uppercase; background: transparent; margin-left: 5px;
+        .admin-ban-btn, .admin-role-btn, .msg-btn, .edit-user-btn {
+            padding: 8px 14px; border-radius: 8px; border: 1px solid; cursor: pointer;
+            font-weight: 700; font-size: 11px; text-transform: uppercase; background: transparent; margin-left: 5px;
         }
         .admin-ban-btn.ban { color: #ff3b3b; border-color: #ff3b3b; }
         .admin-ban-btn.unban { color: #0f0; border-color: #0f0; }
@@ -162,6 +176,8 @@
         .admin-role-btn.remove-admin { color: #ff3b3b; border-color: #ff3b3b; }
         .admin-role-btn.give-editor { color: #2196F3; border-color: #2196F3; }
         .admin-role-btn.remove-editor { color: #999; border-color: #999; }
+        .msg-btn { color: #0f0; border-color: #0f0; }
+        .edit-user-btn { color: var(--secondary-yellow); border-color: var(--secondary-yellow); }
         .admin-achievement-select {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 8px 10px;
@@ -181,7 +197,43 @@
             background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
         }
         
-        /* Стили для редактора сайта */
+        .wysiwyg-toolbar {
+            display: flex; gap: 5px; flex-wrap: wrap;
+            background: rgba(0,0,0,0.5); padding: 10px;
+            border: 1px solid var(--border-glow); border-radius: 8px 8px 0 0;
+            border-bottom: none;
+        }
+        .wysiwyg-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            color: #fff; padding: 6px 12px; border-radius: 4px;
+            cursor: pointer; font-size: 13px;
+        }
+        .wysiwyg-btn:hover { background: var(--primary-orange); color: #000; }
+        .wysiwyg-editor {
+            min-height: 150px; background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow); border-radius: 0 0 8px 8px;
+            color: #fff; padding: 15px; font-family: inherit;
+            line-height: 1.6; outline: none;
+        }
+        .wysiwyg-editor:focus { border-color: var(--secondary-yellow); }
+        .wysiwyg-editor b, .wysiwyg-editor strong { color: var(--secondary-yellow); }
+        .wysiwyg-editor i, .wysiwyg-editor em { color: #ff9999; }
+        
+        .emoji-panel {
+            background: rgba(0,0,0,0.6); border: 1px solid var(--border-glow);
+            border-radius: 8px; padding: 10px; margin-top: 5px;
+            max-height: 200px; overflow-y: auto;
+        }
+        .emoji-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+        .emoji-item {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            border-radius: 6px; padding: 6px 10px; cursor: pointer;
+            font-size: 18px; display: flex; align-items: center; gap: 5px;
+        }
+        .emoji-item:hover { background: var(--primary-orange); transform: scale(1.1); }
+        .emoji-item img { width: 20px; height: 20px; object-fit: contain; }
+        .emoji-item span { font-size: 11px; color: #aaa; }
+        
         .editor-section {
             background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 20px; margin-bottom: 20px;
@@ -195,44 +247,33 @@
             display: block; color: #aaa; font-size: 13px; margin-bottom: 5px;
         }
         .editor-field input[type="text"],
+        .editor-field input[type="datetime-local"],
         .editor-field textarea {
             width: 100%; background: rgba(0,0,0,0.5);
             border: 1px solid var(--border-glow); border-radius: 8px;
-            color: #fff; padding: 12px; font-family: inherit;
-            font-size: 14px;
+            color: #fff; padding: 12px; font-family: inherit; font-size: 14px;
         }
         .editor-field textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
-        .editor-field input:focus,
-        .editor-field textarea:focus {
+        .editor-field input:focus, .editor-field textarea:focus {
             border-color: var(--secondary-yellow);
-            box-shadow: 0 0 10px rgba(255,204,0,0.2);
-            outline: none;
+            box-shadow: 0 0 10px rgba(255,204,0,0.2); outline: none;
         }
         .news-editor-item {
             background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
             border-radius: 8px; padding: 15px; margin-bottom: 10px;
         }
-        .news-editor-item h4 {
-            color: var(--secondary-yellow); margin: 0 0 10px 0; font-size: 14px;
-        }
-        .add-news-btn {
-            background: var(--primary-orange); color: #fff; border: none;
-            padding: 10px 20px; border-radius: 8px; cursor: pointer;
-            font-weight: 600; margin-top: 10px;
-        }
-        .add-news-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
-        .save-content-btn {
+        .news-editor-item h4 { color: var(--secondary-yellow); margin: 0 0 10px 0; font-size: 14px; }
+        .add-news-btn, .save-content-btn {
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000; border: none; padding: 12px 30px; border-radius: 8px;
-            cursor: pointer; font-weight: 700; text-transform: uppercase;
-            font-size: 14px; margin-top: 20px;
+            color: #000; border: none; padding: 12px 25px; border-radius: 8px;
+            cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 13px;
         }
-        .save-content-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(255,81,0,0.4); }
-        .editor-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .add-news-btn:hover, .save-content-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
+        .editor-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
         .editor-tab {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
-            color: #aaa; padding: 10px 20px; border-radius: 8px;
-            cursor: pointer; font-weight: 600;
+            color: #aaa; padding: 10px 18px; border-radius: 8px;
+            cursor: pointer; font-weight: 600; font-size: 13px;
         }
         .editor-tab.active {
             background: rgba(255,81,0,0.2); border-color: var(--primary-orange);
@@ -274,10 +315,7 @@
             display: inline-flex; align-items: center; background: rgba(0,0,0,0.6);
             border: 2px solid var(--primary-orange); padding: 14px 30px; border-radius: 12px; cursor: pointer;
         }
-        .ip-box:hover {
-            transform: translateY(-3px); border-color: var(--secondary-yellow);
-            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25);
-        }
+        .ip-box:hover { transform: translateY(-3px); border-color: var(--secondary-yellow); box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25); }
         .ip-text { font-family: 'Consolas', monospace; font-size: 20px; font-weight: 700; color: var(--secondary-yellow); }
         .ip-icon { margin-left: 15px; font-size: 18px; }
         .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
@@ -297,11 +335,38 @@
         }
         .skin-display { margin-top: 20px; height: 200px; display: flex; justify-content: center; align-items: center; }
         .skin-display img { height: 100%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
-        .news-feed h2 { margin-top: 0; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--primary-orange); padding-left: 15px; }
+        .news-feed h2, .news-page-header { margin-top: 0; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--primary-orange); padding-left: 15px; }
         .news-card { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
         .news-date { font-size: 12px; color: var(--secondary-yellow); font-weight: bold; text-transform: uppercase; }
         .news-card h3 { margin: 5px 0 12px; color: #fff; }
         .news-card p { color: #ccc; line-height: 1.6; margin: 0; }
+        .news-images { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .news-images img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-glow); cursor: pointer; }
+        .news-images img:hover { transform: scale(1.05); border-color: var(--secondary-yellow); }
+        .news-reactions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-glow); }
+        .reaction-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            border-radius: 20px; padding: 6px 12px; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; font-size: 14px;
+        }
+        .reaction-btn:hover { background: var(--primary-orange); }
+        .reaction-btn.active { background: rgba(255,81,0,0.3); border-color: var(--primary-orange); }
+        .reaction-btn .count { font-size: 12px; color: #aaa; font-weight: 700; }
+        .add-reaction-btn {
+            background: rgba(255,255,255,0.05); border: 1px dashed var(--border-glow);
+            border-radius: 20px; padding: 6px 12px; cursor: pointer;
+            font-size: 14px; color: #aaa;
+        }
+        .add-reaction-btn:hover { border-color: var(--secondary-yellow); color: var(--secondary-yellow); }
+        .news-admin-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .news-admin-actions button {
+            padding: 6px 12px; border-radius: 6px; border: 1px solid;
+            cursor: pointer; font-size: 11px; font-weight: 700;
+            background: transparent;
+        }
+        .news-delete-btn { color: #ff3b3b; border-color: #ff3b3b; }
+        .news-add-image-btn { color: var(--secondary-yellow); border-color: var(--secondary-yellow); }
+        
         .subpage-container { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 20px; padding: 40px; backdrop-filter: blur(15px); }
         .subpage-header { border-bottom: 2px solid var(--primary-orange); padding-bottom: 15px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
         .wiki-grid { display: grid; grid-template-columns: 1fr 3fr; gap: 30px; }
@@ -314,7 +379,7 @@
         .wiki-article { display: none; }
         .wiki-article.active { display: block; }
         .wiki-article h3 { color: var(--secondary-yellow); margin-top: 0; font-size: 24px; text-transform: uppercase;}
-        .wiki-article p { line-height: 1.7; color: #ccc; white-space: pre-line; }
+        .wiki-article p { line-height: 1.7; color: #ccc; }
         .faq-item { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,115,0,0.1); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
         .faq-question {
             padding: 20px; font-weight: 700; cursor: pointer;
@@ -343,6 +408,113 @@
             background: var(--primary-orange); color: #fff; border: none;
             padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;
         }
+        
+        .players-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .player-card {
+            background: var(--card-bg); border: 1px solid var(--border-glow);
+            border-radius: 12px; padding: 15px; display: flex; align-items: center; gap: 12px;
+        }
+        .player-card img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+        .player-card img:hover { border: 2px solid var(--secondary-yellow); }
+        .player-info { flex: 1; min-width: 0; }
+        .player-name { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-role { font-size: 11px; color: #888; }
+        .player-actions { display: flex; gap: 5px; }
+        
+        /* Логи */
+        .log-item {
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
+            border-radius: 8px; padding: 12px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .log-item img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .log-info { flex: 1; }
+        .log-action { font-weight: 700; font-size: 13px; }
+        .log-time { font-size: 11px; color: #888; }
+        
+        /* Модалки */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 10000;
+            display: none; justify-content: center; align-items: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-dark); border: 1px solid var(--border-glow);
+            border-radius: 16px; width: 90%; max-width: 700px; max-height: 80vh;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .modal-large { max-width: 900px; }
+        .modal-header {
+            padding: 20px; border-bottom: 1px solid var(--border-glow);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h3 { margin: 0; color: var(--secondary-yellow); }
+        .modal-close { background: transparent; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+        .modal-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .modal-footer { padding: 15px 20px; border-top: 1px solid var(--border-glow); }
+        
+        .conversation-list { display: flex; flex-direction: column; gap: 10px; }
+        .conversation-item {
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
+            border-radius: 10px; padding: 12px; display: flex; align-items: center; gap: 12px;
+            cursor: pointer;
+        }
+        .conversation-item:hover { border-color: var(--secondary-yellow); }
+        .conversation-item img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .conversation-info { flex: 1; }
+        .conversation-name { font-weight: 700; font-size: 14px; }
+        .conversation-last { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+        .conversation-unread { background: #ff3b3b; color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 700; }
+        
+        .chat-messages { display: flex; flex-direction: column; gap: 10px; min-height: 300px; max-height: 400px; overflow-y: auto; }
+        .chat-message {
+            max-width: 70%; padding: 10px 14px; border-radius: 12px;
+            font-size: 14px; line-height: 1.4; word-wrap: break-word;
+        }
+        .chat-message.sent {
+            background: var(--primary-orange); color: #000;
+            align-self: flex-end; border-bottom-right-radius: 4px;
+        }
+        .chat-message.received {
+            background: rgba(255,255,255,0.1); color: #fff;
+            align-self: flex-start; border-bottom-left-radius: 4px;
+        }
+        .chat-message img.emoji-inline { width: 24px; height: 24px; vertical-align: middle; }
+        .chat-input-row { display: flex; gap: 10px; align-items: center; }
+        .chat-input {
+            flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-glow);
+            border-radius: 8px; color: #fff; padding: 10px 14px; font-family: inherit;
+        }
+        .chat-send-btn {
+            background: var(--primary-orange); color: #fff; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;
+        }
+        
+        /* Просмотр фото */
+        .photo-viewer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 20000;
+            display: none; justify-content: center; align-items: center;
+            flex-direction: column;
+        }
+        .photo-viewer.active { display: flex; }
+        .photo-viewer img { max-width: 90%; max-height: 80vh; object-fit: contain; border-radius: 8px; }
+        .photo-viewer-close {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.1); border: none; color: #fff;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            font-size: 20px;
+        }
+        .photo-viewer-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.1); border: none; color: #fff;
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            font-size: 24px;
+        }
+        .photo-viewer-nav.prev { left: 20px; }
+        .photo-viewer-nav.next { right: 20px; }
+        
         .ultimate-footer {
             position: relative !important; display: block !important; visibility: visible !important;
             opacity: 1 !important; padding: 40px 0 !important; text-align: center !important;
@@ -390,6 +562,7 @@
             .main-grid, .wiki-grid { grid-template-columns: 1fr; }
             header { flex-direction: column; gap: 15px; }
             .server-name { font-size: 36px; }
+            .nav-btn { min-width: 60px; font-size: 10px; padding: 6px 8px; }
         }
     </style>
 </head>
@@ -399,15 +572,40 @@
     <header>
         <div class="logo" onclick="switchPage('main')">AnanasLand</div>
         <nav>
-            <button class="nav-btn active" id="btn-main" onclick="switchPage('main')">Главная</button>
-            <button class="nav-btn" id="btn-wiki" onclick="switchPage('wiki')">Вики / База знаний</button>
-            <button class="nav-btn" id="btn-rules" onclick="switchPage('rules')">Правила</button>
-            <button class="nav-btn" id="btn-profile" onclick="switchPage('profile')" style="display:none;">Профиль</button>
-            <button class="nav-btn" id="btn-admin" onclick="switchPage('admin')" style="display:none;">Админка</button>
+            <button class="nav-btn active" id="btn-main" onclick="switchPage('main')">
+                <i class="fa-solid fa-house"></i><span>Главная</span>
+            </button>
+            <button class="nav-btn" id="btn-wiki" onclick="switchPage('wiki')">
+                <i class="fa-solid fa-book"></i><span>Вики</span>
+            </button>
+            <button class="nav-btn" id="btn-rules" onclick="switchPage('rules')">
+                <i class="fa-solid fa-gavel"></i><span>Правила</span>
+            </button>
+            <button class="nav-btn" id="btn-news" onclick="switchPage('news')">
+                <i class="fa-solid fa-newspaper"></i><span>Новости</span>
+            </button>
+            <button class="nav-btn" id="btn-gallery" onclick="switchPage('gallery')">
+                <i class="fa-solid fa-images"></i><span>Галерея</span>
+            </button>
+            <button class="nav-btn" id="btn-players" onclick="switchPage('players')">
+                <i class="fa-solid fa-users"></i><span>Игроки</span>
+            </button>
+            <div class="nav-btn-wrapper">
+                <button class="nav-btn" id="btn-messages" onclick="openMessagesModal()" style="display:none;">
+                    <i class="fa-solid fa-envelope"></i><span>ЛС</span>
+                    <span class="nav-badge" id="msgBadge" style="display:none;">0</span>
+                </button>
+            </div>
+            <button class="nav-btn" id="btn-profile" onclick="switchPage('profile')" style="display:none;">
+                <i class="fa-solid fa-user"></i><span>Профиль</span>
+            </button>
+            <button class="nav-btn" id="btn-admin" onclick="switchPage('admin')" style="display:none;">
+                <i class="fa-solid fa-shield"></i><span>Админка</span>
+            </button>
         </nav>
         <div id="authBlock" class="auth-block">
             <button class="auth-btn" id="discordLoginBtn" onclick="signInWithDiscord()">
-                <i class="fa-brands fa-discord"></i> Войти через Discord
+                <i class="fa-brands fa-discord"></i> Войти
             </button>
             <div class="auth-user" id="authUserBlock" style="display:none;">
                 <img id="authUserAvatar" class="auth-user-avatar" src="" alt="">
@@ -417,7 +615,7 @@
         </div>
     </header>
 
-    <!-- СТРАНИЦА 1: ГЛАВНАЯ -->
+    <!-- ГЛАВНАЯ -->
     <div id="page-main" class="page active">
         <div class="hero-card">
             <h1 class="server-name">AnanasLand</h1>
@@ -445,184 +643,115 @@
                 </div>
             </div>
             <div class="news-feed">
-                <h2>Лента обновлений</h2>
-                <div id="newsContainer">
-                    <!-- Новости загружаются из базы -->
-                </div>
+                <h2>Последние обновления</h2>
+                <div id="newsContainer"></div>
             </div>
         </div>
 
         <div style="margin-top: 50px;">
             <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Галерея сервера</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-9bd9f83d-f4f3-41da-a57c-505fcaecd1c6.jpg" alt="Screen 1"></div>
-                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-58f1eba3-ee80-4a5d-a833-6c96f2af6e6b.jpg" alt="Screen 2"></div>
-                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-db90dacc-0f6a-46af-bf3c-d32098b3a0fe.jpg" alt="Screen 3"></div>
-            </div>
+            <div class="gallery-grid" id="mainGalleryGrid"></div>
+            <button class="nav-btn active" style="margin-top: 20px;" onclick="switchPage('gallery')">Смотреть все фото →</button>
         </div>
 
         <div style="margin-top: 50px; margin-bottom: 30px;">
-            <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Часто задаваемые вопросы (FAQ)</h2>
+            <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">FAQ</h2>
             <div class="faq-item">
-                <div class="faq-question">Как начать играть на сервере? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Запустите лицензионный или пиратский лаунчер Майнкрафт. Нажмите "Сетевая игра", затем "Добавить", введите наш IP-адрес <b>ananasland.play.ski</b> и подключайтесь!</div>
+                <div class="faq-question">Как начать играть? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Запустите Майнкрафт, нажмите "Сетевая игра" → "Добавить", введите IP: <b>ananasland.play.ski</b></div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">Где мне узнать последнюю информацию? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и перейдите в канал Объявления.</div>
+                <div class="faq-question">Где узнать новости? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Перейдите в наш Discord сервер в канал Объявления или на вкладку "Новости" на сайте.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">Куда писать, если я нашел баг или нарушителя? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и создайте обращение в текстовом канале Поддержка.</div>
+                <div class="faq-question">Куда писать о багах? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">В Discord в канал Поддержка.</div>
             </div>
         </div>
     </div>
-	
-    <!-- СТРАНИЦА 2: ВИКИ -->
+
+    <!-- ВИКИ -->
     <div id="page-wiki" class="page">
         <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний / Wiki</h2>
+            <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний</h2>
             <div class="wiki-grid">
                 <div class="wiki-sidebar">
-                    <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')"> О Нас</button>
+                    <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
-                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Отдельное спасибо</button>
+                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Спасибо</button>
                 </div>
                 <div class="wiki-content">
                     <div id="wiki-start" class="wiki-article active">
                         <h3>История сервера</h3>
-                        <div id="wikiStartContent">
-                            <p>Наш сервер запустился 09.07.26 года. С того времени мы радуем вас ивентами и лором.</p>
-                            <p>09.07.2026 - открытие сервера!</p>
-                            <p>10.07.2026 - Создание первого города! Тогда первым городом стал СНБС.</p>
-                            <p>13.07.2026 - сервер переносится на хостинг (ранее он держался на @kihuntt, отдельное спасибо).</p>
-                            <p>18.07.2026 - мы отмечали день рождения 1 крутого человека - дензи aka @denzi_354_80854.</p>
-                            <p>31.08.2026 - ...</p>
-                        </div>
+                        <div id="wikiStartContent"></div>
                     </div>
                     <div id="wiki-jobs" class="wiki-article">
                         <h3>Администрация</h3>
-                        <p>На данный момент в администрации находится 3 человека:</p>
-                        <p>• Кустик aka 29kyctik31</p>
-                        <p>• Кихунт aka kihuntt</p>
-                        <p>• Спарк aka realSparkH</p>
+                        <div id="wikiJobsContent"></div>
                     </div>
                     <div id="wiki-clans" class="wiki-article">
                         <h3>Отдельное спасибо</h3>
-                        <p>Спасибо выражается всем игрокам в списке!! ❤️</p>
-                        <p>29kyctik31, Kihuntt, _CharaDreemurrr_, Denzi354, ArbyznyeKorki (oananasik1), edenX, machine, MrKaktyc1k, Nlk0uwu, QuasiBloom9153, realSparkH, SAHS988, snya69, Xastrad, kikmey, маме спрака <3</p>
+                        <div id="wikiClansContent"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- СТРАНИЦА 3: ПРАВИЛА -->
+    <!-- ПРАВИЛА -->
     <div id="page-rules" class="page">
         <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Свод правил сервера</h2>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">0. 👑 Общие положения и концепт</h3>
-                <p>• Суть проекта: Сервер является классическим Vanilla+ SMP (Survival Multiplayer).</p>
-                <p>• Игра базируется на доверии, дружбе и совместном творчестве.</p>
-                <p>• Администрация: Решения создателей окончательны, обсуждению не подлежат.</p>
-                <p>• Ответственность: Заходя на сервер, вы автоматически соглашаетесь с правилами.</p>
-                <p>• Наказания: Система лояльна к новичкам, но беспощадна к осознанным вредителям.</p>
+            <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Правила сервера</h2>
+            <div id="rulesContent"></div>
+        </div>
+    </div>
+
+    <!-- НОВОСТИ (отдельная страница) -->
+    <div id="page-news" class="page">
+        <div class="subpage-container">
+            <h2 class="news-page-header"><i class="fa-solid fa-newspaper"></i> Все новости</h2>
+            <div id="allNewsContainer"></div>
+        </div>
+    </div>
+
+    <!-- ГАЛЕРЕЯ -->
+    <div id="page-gallery" class="page">
+        <div class="subpage-container">
+            <h2 class="subpage-header"><i class="fa-solid fa-images"></i> Галерея сервера</h2>
+            <div id="galleryAdminPanel" style="display:none; margin-bottom: 20px;">
+                <div class="admin-new-achievement">
+                    <input type="text" id="newGalleryImageUrl" placeholder="URL картинки" style="flex:1;">
+                    <input type="text" id="newGalleryCaption" placeholder="Подпись (необязательно)">
+                    <button class="nav-btn active" onclick="addGalleryImage()">Загрузить фото</button>
+                </div>
             </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: red;">1. 🛑 Гриферство, воровство и вредительство</h3>
-                <h4 style="color: var(--secondary-yellow);">1.1. Чужое имущество 📦</h4>
-                <p>• Кража: Категорически запрещено забирать вещи из чужих сундуков, печек, шалкеров и бочек.</p>
-                <p>• Принцип «Взял — отдай»: Даже если сундук не подписан, брать ресурсы без спроса нельзя.</p>
-                <p>• Урожай: Разрешено собирать чужие посевы только с условием немедленной посадки семян обратно.</p>
-                <p>• Скот: Запрещено убивать чужих домашних животных, жителей и питомцев.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">1.2. Разрушение построек 💥</h4>
-                <p>• Вандализм: Запрещено ломать блоки чужих зданий, сжигать их или заливать жидкостями.</p>
-                <p>• Мини-гриф: Запрещено изменять чужие постройки без явного согласия их автора.</p>
-                <p>• Криперы: Если крипер взорвался у чужого дома, вы обязаны восстановить стены и ландшафт.</p>
-                <p>• Следствие: Любые действия с блоками логируются, нарушитель вычисляется за секунду.</p>
-                <p><b>⚖️ Наказание:</b> 1 раз - 1 час бана | 2 раз - 5 часов | 3 раз - 10 часов | Более 3 раз - 24 часа | Постоянные нарушения - перманентный бан.</p>
-            </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: green;">2. ️ Территории, приват и строительство</h3>
-                <h4 style="color: var(--secondary-yellow);">2.1. Правила расселения ⛺</h4>
-                <p>• Отсутствие плагинов: На сервере нет команд /claim или /res — приват держится на честности.</p>
-                <p>• Дистанция: Запрещено строиться ближе чем в 300 блоков от зоны влияния другого игрока.</p>
-                <p>• Согласование: Хотите жить ближе к кому-то? Спросите официальное разрешение в ЛС.</p>
-                <p>• Таблички: Границы своей базы и склады рекомендуется обозначать табличками с вашим ником.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">2.2. Общественные зоны ️</h4>
-                <p>• Спавн: Общая территория для спавн-ивент-зон, спавн-града и торговых лавок.</p>
-                <p>• Застройка спавна: Любая постройка на спавне должна быть красивой и согласованной с админами.</p>
-                <p>• Запрет на базы: Строить личные жилые базы, склады и фермы на спавне строго запрещено.</p>
-                <p>• Дороги: Запрещено перекрывать, ломать или застраивать общие тропы и хайвеи в Незере.</p>
-                <p><b>⚖️ Наказание:</b> Снос постройки админами + бан персонажа на срок от 3 до 7 дней.</p>
-            </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: grey;">3. ️ PVP (Боевые взаимодействия) и убийства</h3>
-                <h4 style="color: var(--secondary-yellow);">3.1. Честный бой ️</h4>
-                <p>• Обоюдный интерес: ПВП разрешено исключительно при согласии обеих сторон перед началом боя.</p>
-                <p>• Нападение из-за угла: Намеренное убийство игрока без предупреждения приравнивается к гриферству.</p>
-                <p>• Убийство новичков: Категорически запрещено охотиться на игроков в кожаной/железной броне.</p>
-                <p>• Возврат снаряжения: При случайной гибели друга в ПВП все его вещи возвращаются до единой.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">3.2. Ловушки и «подставы» 🕸️</h4>
-                <p>• Капканы: Запрещено строить скрытые ямы с лавой, шипами или иссушителями на путях игроков.</p>
-                <p>• ТП-килл: Запрещено звать игрока к себе через чат с целью заманить в смертельную ловушку.</p>
-                <p>• Вредительство мобами: Запрещено приводить под двери чужих баз зомби, рейды или визеров.</p>
-                <p><b>⚖️ Наказание:</b> Бан аккаунта на срок от 5 до 14 дней. Повторный инцидент — вечный бан.</p>
-            </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #4CAF50;">4.  Экология мира и ландшафт</h3>
-                <h4 style="color: var(--secondary-yellow);">4.1. Аккуратность в природе 🌳</h4>
-                <p>• Лесоповал: Запрещено оставлять парящую листву — срубайте дерево под корень до конца.</p>
-                <p>• Столбы: Запрещено оставлять «грязевые столбы» в 1 блок, которые использовались для подъема.</p>
-                <p>• Озера жидкости: Запрещено разливать лаву и воду по миру без практической цели.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">4.2. Механики ферм и лаги ⚙️</h4>
-                <p>• ТПС (Производительность): Запрещено строить редстоун-схемы, способные уронить сервер.</p>
-                <p>• Лимиты сущностей: Не более 20 жителей и не более 40 животных в пределах одного чанка (16х16).</p>
-                <p>• Выключатели: Любая автоматическая ферма обязана иметь рычаг полного отключения.</p>
-                <p>• АФК-фермы: Запрещено оставлять тяжелые фермы работать в АФК-режиме на всю ночь.</p>
-                <p><b>⚖️ Наказание:</b> Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</p>
-            </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #2196F3;">5. 🛠️ Модификации и честная игра</h3>
-                <h4 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) </h4>
-                <p>• Клиенты: Запрещен вход с модами Fabric/Forge на читы (X-Ray, Baritone, Meteor, Wurst).</p>
-                <p>• Ресурспаки: Запрещены текстуры с прозрачными блоками для поиска алмазов и незерита.</p>
-                <p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
-                <p>• Дюпы: Использование багов игры на клонирование рельс, ковров, ТНТ или предметов — табу.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">5.2. Разрешено к использованию 📐</h4>
-                <p>• Оптимизация: Моды на повышение FPS (Sodium, Lithium, Phosphor, FerriteCore).</p>
-                <p>• Интерфейс: Отображение прочности брони, миникарты (без радара игроков и пещер), REI/JEI.</p>
-                <p>• Голос: Мод Simple Voice Chat (позиционный аудиочат) является обязательным.</p>
-                <p>• Схемы: Мод Litematica разрешен только для проекции чертежей (без функции автостройки).</p>
-                <p><b>⚖️ Наказание:</b> Моментальный перманентный бан по IP-адресу и никнейму без амнистии.</p>
-            </div>
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #ffffff;">6. 💬 Чат, культура и общение</h3>
-                <h4 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате 🗣️</h4>
-                <p>• Токсичность: Запрещены прямые оскорбления, травля, кибербуллинг и разведение драмы.</p>
-                <p>• Запретные темы: Строго запрещено обсуждение реальной политики, религии и межнациональных споров.</p>
-                <p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
-                <p>• Реклама: Запрещено скидывать ссылки на другие Дискорд-серверы и сторонние проекты.</p>
-                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">6.2. Медиа-контент </h4>
-                <p>• Ссылки: Запрещено отправлять в чаты шок-контент, порнографию, скримеры или вирусы.</p>
-                <p>• Спам: Запрещено писать капсом (ВЫГЛЯДИТ ВОТ ТАК) и флудить одинаковыми сообщениями.</p>
-                <p><b>⚖️ Наказание:</b> Мут чата от 1 часа до 3 дней. За политику и рекламу проектов — вечный бан.</p>
+            <div id="fullGalleryGrid" class="gallery-grid"></div>
+        </div>
+    </div>
+
+    <!-- ИГРОКИ -->
+    <div id="page-players" class="page">
+        <div class="subpage-container">
+            <h2 class="subpage-header"><i class="fa-solid fa-users"></i> Игроки сайта</h2>
+            <p style="color:#aaa; margin-bottom:20px;">Список всех зарегистрированных игроков.</p>
+            <div id="playersList" class="players-list">
+                <p style="color:#888;">Загрузка...</p>
             </div>
         </div>
     </div>
 
-    <!-- СТРАНИЦА 4: ПРОФИЛЬ -->
+    <!-- ПРОФИЛЬ -->
     <div id="page-profile" class="page">
         <div class="subpage-container">
             <div id="viewingOtherProfile" class="viewing-profile-notice" style="display:none;">
                 <span>👁️ Вы просматриваете профиль другого игрока</span>
-                <button class="back-to-profile-btn" onclick="switchPage('profile')">← Вернуться к своему профилю</button>
+                <button class="back-to-profile-btn" onclick="switchPage('profile')">← Вернуться к своему</button>
             </div>
 
             <div id="profileLoggedOut" style="text-align:center; padding: 60px 20px;">
                 <h2><i class="fa-solid fa-user-lock"></i> Нужен вход</h2>
-                <p style="color:#aaa;">Войдите через Discord, чтобы увидеть и настроить свой профиль.</p>
+                <p style="color:#aaa;">Войдите через Discord, чтобы увидеть профиль.</p>
                 <button class="auth-btn" onclick="signInWithDiscord()" style="margin-top:15px;">
                     <i class="fa-brands fa-discord"></i> Войти через Discord
                 </button>
@@ -647,10 +776,15 @@
                     </div>
                     <div style="flex:1;">
                         <h2 id="profileUsername" style="margin:0;">—</h2>
+                        <div id="profileCustomNickname"></div>
+                        <div class="profile-registration-date" id="profileRegDate"></div>
                         <span id="profileBanBadge" class="profile-ban-badge" style="display:none;">🚫 ЗАБАНЕН</span>
                         <div id="profileShareSection">
                             <button class="share-profile-btn" onclick="shareProfile()">
-                                <i class="fa-solid fa-share-nodes"></i> Поделиться профилем
+                                <i class="fa-solid fa-share-nodes"></i> Поделиться
+                            </button>
+                            <button class="edit-profile-btn" id="editProfileBtn" style="display:none;" onclick="openEditProfileModal()">
+                                <i class="fa-solid fa-pen"></i> Редактировать
                             </button>
                         </div>
                     </div>
@@ -658,9 +792,9 @@
 
                 <div style="margin-top:25px;">
                     <h3 style="color: var(--secondary-yellow);">О себе</h3>
-                    <textarea id="profileDescriptionInput" class="profile-description-input" maxlength="500" placeholder="Расскажите немного о себе..." style="display:none;"></textarea>
+                    <textarea id="profileDescriptionInput" class="profile-description-input" maxlength="500" placeholder="Расскажите о себе..." style="display:none;"></textarea>
                     <div id="profileDescriptionText" class="profile-description-text" style="display:none;"></div>
-                    <button class="nav-btn active" id="saveDescBtn" style="margin-top:10px; display:none;" onclick="saveDescription()">Сохранить описание</button>
+                    <button class="nav-btn active" id="saveDescBtn" style="margin-top:10px; display:none;" onclick="saveDescription()">Сохранить</button>
                     <span id="profileSaveStatus" style="margin-left:10px; color:#0f0; font-size:13px;"></span>
                 </div>
 
@@ -674,73 +808,156 @@
         </div>
     </div>
 
-    <!-- СТРАНИЦА 5: АДМИН-ПАНЕЛЬ С РЕДАКТОРОМ -->
+    <!-- АДМИНКА -->
     <div id="page-admin" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-user-shield"></i> Админ-панель</h2>
 
-            <!-- Вкладки редактора -->
             <div class="editor-tabs">
-                <button class="editor-tab active" onclick="switchEditorTab('general')"> Контент сайта</button>
+                <button class="editor-tab active" onclick="switchEditorTab('content')">📝 Контент</button>
                 <button class="editor-tab" onclick="switchEditorTab('achievements')">🏆 Достижения</button>
-                <button class="editor-tab" onclick="switchEditorTab('users')"> Пользователи</button>
-                <button class="editor-tab" onclick="switchEditorTab('settings')">⚙️ Настройки</button>
+                <button class="editor-tab" onclick="switchEditorTab('emojis')">😊 Смайлики</button>
+                <button class="editor-tab" onclick="switchEditorTab('users')">👥 Игроки</button>
+                <button class="editor-tab" onclick="switchEditorTab('logs')">📋 Логи</button>
+                <button class="editor-tab" onclick="switchEditorTab('deleted')">🗑️ Архив</button>
+                <button class="editor-tab" onclick="switchEditorTab('messages')">💬 Все ЛС</button>
+                <button class="editor-tab" onclick="switchEditorTab('settings')">️ Настройки</button>
             </div>
 
-            <!-- Вкладка: Редактор контента -->
-            <div id="editor-general" class="editor-section">
-                <h3> Редактирование контента сайта</h3>
+            <!-- Контент -->
+            <div id="editor-content" class="editor-section">
+                <h3>📝 Редактирование контента сайта</h3>
                 
                 <div class="editor-field">
                     <label>Версия сервера:</label>
-                    <input type="text" id="editServerVersion" placeholder="Например: 1.20.4">
+                    <input type="text" id="editServerVersion">
                 </div>
 
                 <div class="editor-field">
-                    <label>Описание сервера (на главной):</label>
-                    <textarea id="editServerDescription" placeholder="Описание сервера..."></textarea>
+                    <label>Описание сервера (главная):</label>
+                    <div class="wysiwyg-toolbar">
+                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('underline')"><u>П</u></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
+                        <button class="wysiwyg-btn" onclick="toggleEmojiPanel('editServerDescription')">😊</button>
+                    </div>
+                    <div id="editServerDescription" class="wysiwyg-editor" contenteditable="true"></div>
+                    <div class="emoji-panel" id="emojiPanel-editServerDescription" style="display:none;"></div>
                 </div>
 
                 <div class="editor-field">
                     <label>История сервера (Вики - О нас):</label>
-                    <textarea id="editWikiHistory" placeholder="История сервера..." style="min-height: 200px;"></textarea>
+                    <div class="wysiwyg-toolbar">
+                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
+                        <button class="wysiwyg-btn" onclick="toggleEmojiPanel('editWikiHistory')">😊</button>
+                    </div>
+                    <div id="editWikiHistory" class="wysiwyg-editor" contenteditable="true"></div>
+                    <div class="emoji-panel" id="emojiPanel-editWikiHistory" style="display:none;"></div>
+                </div>
+
+                <div class="editor-field">
+                    <label>Администрация (Вики):</label>
+                    <div class="wysiwyg-toolbar">
+                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+                        <button class="wysiwyg-btn" onclick="toggleEmojiPanel('editWikiJobs')">😊</button>
+                    </div>
+                    <div id="editWikiJobs" class="wysiwyg-editor" contenteditable="true"></div>
+                    <div class="emoji-panel" id="emojiPanel-editWikiJobs" style="display:none;"></div>
+                </div>
+
+                <div class="editor-field">
+                    <label>Спасибо (Вики):</label>
+                    <div class="wysiwyg-toolbar">
+                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+                        <button class="wysiwyg-btn" onclick="toggleEmojiPanel('editWikiClans')">😊</button>
+                    </div>
+                    <div id="editWikiClans" class="wysiwyg-editor" contenteditable="true"></div>
+                    <div class="emoji-panel" id="emojiPanel-editWikiClans" style="display:none;"></div>
+                </div>
+
+                <div class="editor-field">
+                    <label>Правила сервера:</label>
+                    <div class="wysiwyg-toolbar">
+                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('underline')"><u>П</u></button>
+                        <button class="wysiwyg-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
+                        <button class="wysiwyg-btn" onclick="execCmd('insertOrderedList')">1. Нумер.</button>
+                        <button class="wysiwyg-btn" onclick="toggleEmojiPanel('editRules')">😊</button>
+                    </div>
+                    <div id="editRules" class="wysiwyg-editor" contenteditable="true" style="min-height: 300px;"></div>
+                    <div class="emoji-panel" id="emojiPanel-editRules" style="display:none;"></div>
                 </div>
 
                 <h3 style="margin-top: 30px; color: var(--secondary-yellow);">📰 Новости</h3>
                 <div id="newsEditorContainer"></div>
                 <button class="add-news-btn" onclick="addNewsItem()">+ Добавить новость</button>
 
-                <button class="save-content-btn" onclick="saveSiteContent()">
-                    <i class="fa-solid fa-save"></i> Сохранить изменения
+                <button class="save-content-btn" onclick="saveSiteContent()" style="margin-top: 20px;">
+                    <i class="fa-solid fa-save"></i> Сохранить все изменения
                 </button>
             </div>
 
-            <!-- Вкладка: Достижения -->
+            <!-- Достижения -->
             <div id="editor-achievements" class="editor-section" style="display:none;">
-                <h3>🏆 Управление достижениями</h3>
+                <h3> Управление достижениями</h3>
                 <div class="admin-new-achievement">
                     <input type="text" id="newAchIcon" placeholder="Эмодзи" maxlength="4" style="width:70px;">
-                    <input type="text" id="newAchTitle" placeholder="Название достижения">
+                    <input type="text" id="newAchTitle" placeholder="Название">
                     <input type="text" id="newAchDesc" placeholder="Описание">
-                    <input type="text" id="newAchImage" placeholder="URL картинки (необязательно)" style="flex:1; min-width:200px;">
+                    <input type="text" id="newAchImage" placeholder="URL картинки" style="flex:1; min-width:200px;">
                     <button class="nav-btn active" onclick="createAchievement()">Создать</button>
                 </div>
                 <div id="achievementsList" style="margin-top: 20px;"></div>
             </div>
 
-            <!-- Вкладка: Пользователи -->
+            <!-- Смайлики -->
+            <div id="editor-emojis" class="editor-section" style="display:none;">
+                <h3>😊 Кастомные смайлики</h3>
+                <p style="color:#aaa; font-size:13px;">Добавь свои смайлики — они появятся в панели для всех!</p>
+                <div class="admin-new-achievement" style="margin-bottom: 20px;">
+                    <input type="text" id="newEmojiName" placeholder="Название" style="width:200px;">
+                    <input type="text" id="newEmojiUrl" placeholder="URL картинки" style="flex:1;">
+                    <button class="nav-btn active" onclick="addCustomEmoji()">Добавить</button>
+                </div>
+                <div id="customEmojisList" class="emoji-grid" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;"></div>
+            </div>
+
+            <!-- Игроки -->
             <div id="editor-users" class="editor-section" style="display:none;">
-                <h3> Управление пользователями</h3>
-                <p style="color:#aaa; font-size:13px; margin-bottom:10px;"> Кликни по аватарке игрока, чтобы открыть его профиль</p>
+                <h3>👥 Управление игроками</h3>
+                <p style="color:#aaa; font-size:13px;">Кликни по аватарке чтобы открыть профиль. Выдай/забери права.</p>
                 <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
             </div>
 
-            <!-- Вкладка: Настройки -->
+            <!-- Логи -->
+            <div id="editor-logs" class="editor-section" style="display:none;">
+                <h3>📋 Логи действий</h3>
+                <p style="color:#aaa; font-size:13px;">Все действия пользователей на сайте</p>
+                <div id="activityLogsList"><p style="color:#888;">Загрузка...</p></div>
+            </div>
+
+            <!-- Архив удалённых новостей -->
+            <div id="editor-deleted" class="editor-section" style="display:none;">
+                <h3>🗑️ Архив удалённых новостей</h3>
+                <p style="color:#aaa; font-size:13px;">Удалённые новости можно восстановить</p>
+                <div id="deletedNewsList"><p style="color:#888;">Загрузка...</p></div>
+            </div>
+
+            <!-- Все ЛС -->
+            <div id="editor-messages" class="editor-section" style="display:none;">
+                <h3>💬 Все личные сообщения</h3>
+                <p style="color:#aaa; font-size:13px;">Просмотр всех ЛС пользователей (только для админов)</p>
+                <div id="allMessagesList"><p style="color:#888;">Загрузка...</p></div>
+            </div>
+
+            <!-- Настройки -->
             <div id="editor-settings" class="editor-section" style="display:none;">
                 <h3>⚙️ Настройки сайта</h3>
-                
                 <div class="admin-favicon-input">
-                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="preview">
+                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="">
                     <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
                     <button class="nav-btn active" onclick="applyFavicon()">Применить</button>
                     <button class="nav-btn" onclick="resetFavicon()">Сбросить</button>
@@ -749,8 +966,37 @@
         </div>
     </div>
 
+    <!-- Модальное окно ЛС -->
+    <div class="modal-overlay" id="messagesModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-envelope"></i> Личные сообщения</h3>
+                <button class="modal-close" onclick="closeMessagesModal()">×</button>
+            </div>
+            <div class="modal-body" id="messagesModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактирования игрока -->
+    <div class="modal-overlay" id="editUserModal">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-pen"></i> Редактировать игрока</h3>
+                <button class="modal-close" onclick="closeEditUserModal()">×</button>
+            </div>
+            <div class="modal-body" id="editUserModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Просмотр фото -->
+    <div class="photo-viewer" id="photoViewer">
+        <button class="photo-viewer-close" onclick="closePhotoViewer()">×</button>
+        <button class="photo-viewer-nav prev" onclick="prevPhoto()">‹</button>
+        <img id="photoViewerImg" src="" alt="">
+        <button class="photo-viewer-nav next" onclick="nextPhoto()">›</button>
+    </div>
+
     <script>
-        // ==================== НАСТРОЙКИ ====================
         const SUPABASE_URL = 'https://vgzqqltcvugkzxevdzvm.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_fGQfHV_lA2QjTuOqbjT3Ag_ie_cELf8';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -759,10 +1005,17 @@
         let currentProfile = null;
         let allAchievements = [];
         let viewingProfileId = null;
-        let currentEditorTab = 'general';
+        let currentEditorTab = 'content';
         let newsItems = [];
+        let customEmojis = [];
+        let currentChatPartner = null;
+        let chatRefreshInterval = null;
+        let galleryImages = [];
+        let currentPhotoIndex = 0;
 
-        // ==================== ИКОНКА САЙТА ====================
+        const standardEmojis = ['😀','😂','🥰','😎','🤔','😢','😡','👍','👎','❤️','🔥','⭐','💯','','🎮','⚔️','🛡️','🌟','','🍍','🌈','☀️','🌙','💀','','🎯','🚀','','🙏','✨','💪','🎨'];
+
+        // ==================== ИКОНКА ====================
         function loadFavicon() {
             const saved = localStorage.getItem('siteFavicon');
             const url = saved || DEFAULT_FAVICON;
@@ -773,37 +1026,28 @@
             const input = document.getElementById('faviconUrlInput');
             if (input) input.value = saved || '';
         }
-
         function applyFavicon() {
-            const input = document.getElementById('faviconUrlInput');
-            const url = input.value.trim();
-            if (!url) { alert('Вставь ссылку на картинку!'); return; }
+            const url = document.getElementById('faviconUrlInput').value.trim();
+            if (!url) { alert('Вставь ссылку!'); return; }
             const img = new Image();
-            img.onload = function() {
-                localStorage.setItem('siteFavicon', url);
-                loadFavicon();
-                showToast('Иконка сайта обновлена!');
-            };
-            img.onerror = function() { alert('Не удалось загрузить картинку по этой ссылке. Проверь URL!'); };
+            img.onload = () => { localStorage.setItem('siteFavicon', url); loadFavicon(); showToast('Иконка обновлена!'); };
+            img.onerror = () => alert('Неверная ссылка!');
             img.src = url;
         }
-
         function resetFavicon() {
             localStorage.removeItem('siteFavicon');
             document.getElementById('faviconUrlInput').value = '';
             loadFavicon();
-            showToast('Иконка сброшена на стандартную');
+            showToast('Сброшено');
         }
-
-        function showToast(message) {
+        function showToast(msg) {
             const toast = document.getElementById('copyToast');
             if (toast) {
-                toast.innerText = message;
+                toast.innerText = msg;
                 toast.classList.add('show-toast');
                 setTimeout(() => toast.classList.remove('show-toast'), 2500);
             }
         }
-
         loadFavicon();
 
         // ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
@@ -812,111 +1056,367 @@
             div.innerText = str || '';
             return div.innerHTML;
         }
+        function execCmd(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+        function formatDate(dateStr) {
+            if (!dateStr) return 'Неизвестно';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            return d.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
 
+        // ==================== СМАЙЛИКИ ====================
+        async function loadCustomEmojis() {
+            const { data } = await sb.from('custom_emojis').select('*').order('created_at');
+            customEmojis = data || [];
+            renderEmojiPanels();
+            renderCustomEmojisList();
+        }
+        function renderEmojiPanels() {
+            document.querySelectorAll('.emoji-panel').forEach(panel => {
+                let html = '<div class="emoji-grid">';
+                standardEmojis.forEach(e => {
+                    html += `<div class="emoji-item" onclick="insertEmoji('${e}')">${e}</div>`;
+                });
+                customEmojis.forEach(e => {
+                    html += `<div class="emoji-item" onclick="insertCustomEmoji('${escapeHtml(e.url)}', '${escapeHtml(e.name)}')" title="${escapeHtml(e.name)}"><img src="${escapeHtml(e.url)}" alt="${escapeHtml(e.name)}"><span>${escapeHtml(e.name)}</span></div>`;
+                });
+                html += '</div>';
+                panel.innerHTML = html;
+            });
+        }
+        function renderCustomEmojisList() {
+            const container = document.getElementById('customEmojisList');
+            if (!container) return;
+            if (customEmojis.length === 0) {
+                container.innerHTML = '<p style="color:#888;">Нет кастомных смайликов</p>';
+                return;
+            }
+            container.innerHTML = customEmojis.map(e => `
+                <div class="emoji-item" style="position:relative;">
+                    <img src="${escapeHtml(e.url)}" alt="${escapeHtml(e.name)}">
+                    <span>${escapeHtml(e.name)}</span>
+                    ${currentProfile?.is_admin ? `<button onclick="deleteCustomEmoji('${e.id}')" style="position:absolute;top:-5px;right:-5px;background:#ff3b3b;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:10px;">×</button>` : ''}
+                </div>
+            `).join('');
+        }
+        function toggleEmojiPanel(editorId) {
+            const panel = document.getElementById('emojiPanel-' + editorId);
+            if (panel) panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+        function insertEmoji(emoji) {
+            const editor = document.querySelector('.emoji-panel[style*="block"]');
+            if (editor) {
+                const editorId = editor.id.replace('emojiPanel-', '');
+                const editorEl = document.getElementById(editorId);
+                if (editorEl) { editorEl.focus(); document.execCommand('insertText', false, emoji); }
+            }
+        }
+        function insertCustomEmoji(url, name) {
+            const editor = document.querySelector('.emoji-panel[style*="block"]');
+            if (editor) {
+                const editorId = editor.id.replace('emojiPanel-', '');
+                const editorEl = document.getElementById(editorId);
+                if (editorEl) { editorEl.focus(); document.execCommand('insertHTML', false, `<img src="${url}" alt="${name}" class="emoji-inline" style="width:24px;height:24px;vertical-align:middle;">`); }
+            }
+        }
+        async function addCustomEmoji() {
+            const name = document.getElementById('newEmojiName').value.trim();
+            const url = document.getElementById('newEmojiUrl').value.trim();
+            if (!name || !url) { alert('Заполни оба поля!'); return; }
+            const { error } = await sb.rpc('add_custom_emoji', { p_name: name, p_url: url, p_creator: currentProfile.id });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            document.getElementById('newEmojiName').value = '';
+            document.getElementById('newEmojiUrl').value = '';
+            showToast('Смайлик добавлен!');
+            await loadCustomEmojis();
+        }
+        async function deleteCustomEmoji(id) {
+            if (!confirm('Удалить смайлик?')) return;
+            const { error } = await sb.from('custom_emojis').delete().eq('id', id);
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            showToast('Удалено');
+            await loadCustomEmojis();
+        }
+
+        // ==================== АВТОРИЗАЦИЯ ====================
         async function signInWithDiscord() {
             const { error } = await sb.auth.signInWithOAuth({
                 provider: 'discord',
                 options: { redirectTo: window.location.origin + window.location.pathname }
             });
-            if (error) alert('Ошибка входа: ' + error.message);
+            if (error) alert('Ошибка: ' + error.message);
         }
-
         async function signOut() {
             await sb.auth.signOut();
             window.location.reload();
         }
-
         async function refreshAuthUI() {
             const { data: { session } } = await sb.auth.getSession();
             const loginBtn = document.getElementById('discordLoginBtn');
             const userBlock = document.getElementById('authUserBlock');
             const btnProfile = document.getElementById('btn-profile');
             const btnAdmin = document.getElementById('btn-admin');
+            const btnMessages = document.getElementById('btn-messages');
 
             if (!session) {
                 loginBtn.style.display = 'inline-flex';
                 userBlock.style.display = 'none';
                 btnProfile.style.display = 'none';
                 btnAdmin.style.display = 'none';
+                btnMessages.style.display = 'none';
                 currentProfile = null;
                 return;
             }
 
             loginBtn.style.display = 'none';
             userBlock.style.display = 'flex';
-            btnProfile.style.display = 'inline-block';
+            btnProfile.style.display = 'inline-flex';
+            btnMessages.style.display = 'inline-flex';
 
             const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
             currentProfile = profile;
 
             if (profile) {
-                document.getElementById('authUserName').innerText = profile.discord_username || 'Игрок';
+                document.getElementById('authUserName').innerText = profile.custom_nickname || profile.discord_username || 'Игрок';
                 document.getElementById('authUserAvatar').src = profile.avatar_url || '';
-                btnAdmin.style.display = (profile.is_admin || profile.can_edit) ? 'inline-block' : 'none';
+                btnAdmin.style.display = (profile.is_admin || profile.can_edit) ? 'inline-flex' : 'none';
             }
 
+            await loadCustomEmojis();
+            await loadUnreadMessagesCount();
             checkProfileParam();
         }
 
-        // ==================== РЕДАКТОР САЙТА ====================
+        // ==================== ЛС ====================
+        async function loadUnreadMessagesCount() {
+            if (!currentProfile) return;
+            const { data } = await sb.from('messages').select('id').eq('receiver_id', currentProfile.id).eq('is_read', false);
+            const count = data ? data.length : 0;
+            const badge = document.getElementById('msgBadge');
+            if (badge) {
+                if (count > 0) {
+                    badge.innerText = count > 99 ? '99+' : count;
+                    badge.style.display = 'block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+        function openMessagesModal() {
+            document.getElementById('messagesModal').classList.add('active');
+            showConversationsList();
+        }
+        function closeMessagesModal() {
+            document.getElementById('messagesModal').classList.remove('active');
+            if (chatRefreshInterval) clearInterval(chatRefreshInterval);
+            currentChatPartner = null;
+        }
+        async function showConversationsList() {
+            if (!currentProfile) return;
+            const { data: conversations } = await sb.rpc('get_conversations', { p_user_id: currentProfile.id });
+            const { data: allUsers } = await sb.from('profiles').select('id, discord_username, custom_nickname, avatar_url').order('created_at');
+            
+            const body = document.getElementById('messagesModalBody');
+            let html = '<h4 style="color:var(--secondary-yellow); margin-bottom:15px;">💬 Диалоги</h4>';
+            
+            if (conversations && conversations.length > 0) {
+                html += '<div class="conversation-list">';
+                conversations.forEach(c => {
+                    html += `
+                        <div class="conversation-item" onclick="openChat('${c.partner_id}')">
+                            <img src="${c.partner_avatar || ''}" alt="">
+                            <div class="conversation-info">
+                                <div class="conversation-name">${escapeHtml(c.partner_name || 'Игрок')}</div>
+                                <div class="conversation-last">${escapeHtml(c.last_message || '')}</div>
+                            </div>
+                            ${c.unread_count > 0 ? `<div class="conversation-unread">${c.unread_count}</div>` : ''}
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html += '<p style="color:#888;">Нет диалогов. Начни разговор!</p>';
+            }
+
+            html += '<h4 style="color:var(--secondary-yellow); margin: 25px 0 15px 0;">👥 Все игроки</h4>';
+            html += '<div class="players-list">';
+            if (allUsers) {
+                allUsers.forEach(u => {
+                    if (u.id !== currentProfile.id) {
+                        html += `
+                            <div class="player-card">
+                                <img src="${u.avatar_url || ''}" alt="" onclick="openChat('${u.id}')">
+                                <div class="player-info">
+                                    <div class="player-name">${escapeHtml(u.custom_nickname || u.discord_username || 'Игрок')}</div>
+                                </div>
+                                <button class="msg-btn" onclick="openChat('${u.id}')">Написать</button>
+                            </div>
+                        `;
+                    }
+                });
+            }
+            html += '</div>';
+            
+            body.innerHTML = html;
+        }
+        async function openChat(partnerId) {
+            currentChatPartner = partnerId;
+            const { data: partner } = await sb.from('profiles').select('*').eq('id', partnerId).single();
+            if (!partner) return;
+
+            await sb.rpc('mark_messages_read', { p_user_id: currentProfile.id, p_partner_id: partnerId });
+            await loadUnreadMessagesCount();
+
+            const body = document.getElementById('messagesModalBody');
+            body.innerHTML = `
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid var(--border-glow);">
+                    <img src="${partner.avatar_url || ''}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                    <div>
+                        <div style="font-weight:700;">${escapeHtml(partner.custom_nickname || partner.discord_username || 'Игрок')}</div>
+                        <button onclick="showConversationsList()" style="background:transparent;border:none;color:var(--primary-orange);cursor:pointer;font-size:12px;">← Назад</button>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input-row" style="margin-top:15px;">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Написать..." onkeypress="if(event.key==='Enter')sendChatMessage()">
+                    <button class="wysiwyg-btn" onclick="toggleChatEmojiPanel()">😊</button>
+                    <button class="chat-send-btn" onclick="sendChatMessage()">Отправить</button>
+                </div>
+                <div class="emoji-panel" id="chatEmojiPanel" style="display:none;"></div>
+            `;
+
+            const chatPanel = document.getElementById('chatEmojiPanel');
+            let emojiHtml = '<div class="emoji-grid">';
+            standardEmojis.forEach(e => { emojiHtml += `<div class="emoji-item" onclick="insertChatEmoji('${e}')">${e}</div>`; });
+            customEmojis.forEach(e => { emojiHtml += `<div class="emoji-item" onclick="insertChatCustomEmoji('${escapeHtml(e.url)}')"><img src="${escapeHtml(e.url)}" alt="${escapeHtml(e.name)}"></div>`; });
+            emojiHtml += '</div>';
+            chatPanel.innerHTML = emojiHtml;
+
+            await loadChatMessages();
+            if (chatRefreshInterval) clearInterval(chatRefreshInterval);
+            chatRefreshInterval = setInterval(loadChatMessages, 3000);
+        }
+        function toggleChatEmojiPanel() {
+            const panel = document.getElementById('chatEmojiPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+        function insertChatEmoji(emoji) {
+            const input = document.getElementById('chatInput');
+            input.value += emoji;
+            input.focus();
+        }
+        function insertChatCustomEmoji(url) {
+            const input = document.getElementById('chatInput');
+            input.value += `[emoji:${url}]`;
+            input.focus();
+        }
+        async function loadChatMessages() {
+            if (!currentChatPartner || !currentProfile) return;
+            const { data: messages } = await sb.rpc('get_messages_with', { p_user_id: currentProfile.id, p_partner_id: currentChatPartner });
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+            
+            if (!messages || messages.length === 0) {
+                container.innerHTML = '<p style="color:#888; text-align:center;">Начните разговор!</p>';
+                return;
+            }
+
+            container.innerHTML = messages.map(m => {
+                const isSent = m.sender_id === currentProfile.id;
+                let content = escapeHtml(m.content);
+                content = content.replace(/\[emoji:(https?:\/\/[^\]]+)\]/g, '<img src="$1" class="emoji-inline" style="width:24px;height:24px;vertical-align:middle;">');
+                return `<div class="chat-message ${isSent ? 'sent' : 'received'}">${content}</div>`;
+            }).join('');
+            
+            container.scrollTop = container.scrollHeight;
+        }
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const content = input.value.trim();
+            if (!content || !currentChatPartner) return;
+            
+            const { error } = await sb.rpc('send_message', { p_receiver: currentChatPartner, p_content: content, p_sender: currentProfile.id });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            
+            input.value = '';
+            await loadChatMessages();
+        }
+        async function openChatFromPlayers(userId) {
+            openMessagesModal();
+            setTimeout(() => openChat(userId), 100);
+        }
+
+        // ==================== РЕДАКТОР ====================
         function switchEditorTab(tabName) {
             currentEditorTab = tabName;
             document.querySelectorAll('.editor-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.editor-section').forEach(section => {
-                if (section.id !== 'editor-' + tabName) section.style.display = 'none';
-            });
+            document.querySelectorAll('.editor-section').forEach(section => section.style.display = 'none');
             document.getElementById('editor-' + tabName).style.display = 'block';
             event.target.classList.add('active');
 
             if (tabName === 'achievements') loadAchievementsList();
             if (tabName === 'users') loadAdminPage();
-            if (tabName === 'general') loadContentForEditor();
+            if (tabName === 'content') loadContentForEditor();
+            if (tabName === 'emojis') renderCustomEmojisList();
+            if (tabName === 'logs') loadActivityLogs();
+            if (tabName === 'deleted') loadDeletedNews();
+            if (tabName === 'messages') loadAllMessages();
         }
 
         async function loadContentForEditor() {
-            // Загружаем контент из базы
             const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
             if (mainContent) {
                 document.getElementById('editServerVersion').value = mainContent.content.serverVersion || '1.20.4';
-                document.getElementById('editServerDescription').value = mainContent.content.serverDescription || '';
+                document.getElementById('editServerDescription').innerHTML = mainContent.content.serverDescription || '';
             }
 
-            const { data: wikiContent } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
-            if (wikiContent) {
-                document.getElementById('editWikiHistory').value = wikiContent.content.history || '';
-            }
+            const { data: wikiStart } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
+            if (wikiStart) document.getElementById('editWikiHistory').innerHTML = (wikiStart.content.history || '').replace(/\n/g, '<br>');
 
-            // Загружаем новости
+            const { data: wikiJobs } = await sb.from('page_content').select('*').eq('page_name', 'wiki-jobs').single();
+            if (wikiJobs) document.getElementById('editWikiJobs').innerHTML = (wikiJobs.content.content || '').replace(/\n/g, '<br>');
+
+            const { data: wikiClans } = await sb.from('page_content').select('*').eq('page_name', 'wiki-clans').single();
+            if (wikiClans) document.getElementById('editWikiClans').innerHTML = (wikiClans.content.content || '').replace(/\n/g, '<br>');
+
+            const { data: rulesContent } = await sb.from('page_content').select('*').eq('page_name', 'rules').single();
+            if (rulesContent) document.getElementById('editRules').innerHTML = rulesContent.content.content || '';
+
             const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
-            if (newsContent && newsContent.content) {
-                newsItems = Array.isArray(newsContent.content) ? newsContent.content : [];
-            } else {
-                newsItems = [];
-            }
+            newsItems = (newsContent && Array.isArray(newsContent.content)) ? newsContent.content : [];
             renderNewsEditor();
         }
 
         function renderNewsEditor() {
             const container = document.getElementById('newsEditorContainer');
             if (newsItems.length === 0) {
-                container.innerHTML = '<p style="color:#666;">Нет новостей. Добавьте первую!</p>';
+                container.innerHTML = '<p style="color:#666;">Нет новостей</p>';
                 return;
             }
-
             container.innerHTML = newsItems.map((item, index) => `
                 <div class="news-editor-item">
                     <h4>Новость #${index + 1}</h4>
                     <div class="editor-field">
                         <label>Дата:</label>
-                        <input type="text" id="newsDate${index}" value="${escapeHtml(item.date || '')}" placeholder="Например: Июль 2026">
+                        <input type="text" id="newsDate${index}" value="${escapeHtml(item.date || '')}">
                     </div>
                     <div class="editor-field">
                         <label>Заголовок:</label>
-                        <input type="text" id="newsTitle${index}" value="${escapeHtml(item.title || '')}" placeholder="Заголовок новости">
+                        <input type="text" id="newsTitle${index}" value="${escapeHtml(item.title || '')}">
                     </div>
                     <div class="editor-field">
                         <label>Текст:</label>
-                        <textarea id="newsText${index}" placeholder="Текст новости...">${escapeHtml(item.text || '')}</textarea>
+                        <textarea id="newsText${index}">${escapeHtml(item.text || '')}</textarea>
+                    </div>
+                    <div class="editor-field">
+                        <label>URL картинки (необязательно):</label>
+                        <input type="text" id="newsImage${index}" value="${escapeHtml(item.image || '')}" placeholder="https://...">
                     </div>
                     <button class="nav-btn" onclick="removeNewsItem(${index})" style="color:#ff3b3b; border-color:#ff3b3b;">
                         <i class="fa-solid fa-trash"></i> Удалить
@@ -924,12 +1424,10 @@
                 </div>
             `).join('');
         }
-
         function addNewsItem() {
-            newsItems.push({ date: '', title: '', text: '' });
+            newsItems.push({ date: '', title: '', text: '', image: '' });
             renderNewsEditor();
         }
-
         function removeNewsItem(index) {
             newsItems.splice(index, 1);
             renderNewsEditor();
@@ -938,34 +1436,44 @@
         async function saveSiteContent() {
             if (!currentProfile) return;
 
-            // Сохраняем основной контент
-            const mainContent = {
-                serverVersion: document.getElementById('editServerVersion').value.trim(),
-                serverDescription: document.getElementById('editServerDescription').value.trim()
-            };
-
             await sb.rpc('update_page_content', {
                 p_page_name: 'main',
-                p_content: mainContent,
+                p_content: {
+                    serverVersion: document.getElementById('editServerVersion').value.trim(),
+                    serverDescription: document.getElementById('editServerDescription').innerHTML
+                },
                 p_user_id: currentProfile.id
             });
-
-            // Сохраняем историю вики
-            const wikiContent = {
-                history: document.getElementById('editWikiHistory').value.trim()
-            };
 
             await sb.rpc('update_page_content', {
                 p_page_name: 'wiki-start',
-                p_content: wikiContent,
+                p_content: { history: document.getElementById('editWikiHistory').innerHTML },
                 p_user_id: currentProfile.id
             });
 
-            // Сохраняем новости
+            await sb.rpc('update_page_content', {
+                p_page_name: 'wiki-jobs',
+                p_content: { content: document.getElementById('editWikiJobs').innerHTML },
+                p_user_id: currentProfile.id
+            });
+
+            await sb.rpc('update_page_content', {
+                p_page_name: 'wiki-clans',
+                p_content: { content: document.getElementById('editWikiClans').innerHTML },
+                p_user_id: currentProfile.id
+            });
+
+            await sb.rpc('update_page_content', {
+                p_page_name: 'rules',
+                p_content: { content: document.getElementById('editRules').innerHTML },
+                p_user_id: currentProfile.id
+            });
+
             const newsData = newsItems.map(item => ({
                 date: item.date.trim(),
                 title: item.title.trim(),
-                text: item.text.trim()
+                text: item.text.trim(),
+                image: item.image ? item.image.trim() : null
             })).filter(item => item.title || item.text);
 
             await sb.rpc('update_page_content', {
@@ -974,60 +1482,215 @@
                 p_user_id: currentProfile.id
             });
 
-            showToast('Контент сохранён!');
-            loadSiteContent(); // Перезагружаем контент на сайте
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'update_site_content', p_details: {} });
+            showToast('Всё сохранено!');
+            loadSiteContent();
         }
 
         async function loadSiteContent() {
-            // Загружаем контент для отображения на сайте
             const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
             if (mainContent) {
                 if (mainContent.content.serverVersion) {
                     document.getElementById('serverVersionDisplay').innerText = 'Версия: ' + mainContent.content.serverVersion;
                 }
                 if (mainContent.content.serverDescription) {
-                    document.getElementById('serverDescriptionDisplay').innerText = mainContent.content.serverDescription;
+                    document.getElementById('serverDescriptionDisplay').innerHTML = mainContent.content.serverDescription;
                 }
             }
 
-            // Загружаем новости
             const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
             const newsContainer = document.getElementById('newsContainer');
-            if (newsContent && newsContent.content && Array.isArray(newsContent.content) && newsContent.content.length > 0) {
-                newsContainer.innerHTML = newsContent.content.map(item => `
-                    <div class="news-card">
-                        <div class="news-date">${escapeHtml(item.date || '')}</div>
-                        <h3>${escapeHtml(item.title || '')}</h3>
-                        <p>${escapeHtml(item.text || '')}</p>
-                    </div>
-                `).join('');
+            const allNewsContainer = document.getElementById('allNewsContainer');
+            
+            let newsHtml = '';
+            if (newsContent && Array.isArray(newsContent.content) && newsContent.content.length > 0) {
+                newsHtml = newsContent.content.map((item, index) => renderNewsCard(item, index)).join('');
             } else {
-                // Дефолтные новости если нет в базе
-                newsContainer.innerHTML = `
-                    <div class="news-card">
-                        <div class="news-date">Июль 2026 — Финал сезона</div>
-                        <h3>Финал сезона!</h3>
-                        <p>31.07 состоится конец сезона!</p>
-                    </div>
-                    <div class="news-card">
-                        <div class="news-date">Июнь 2026 — Открытие</div>
-                        <h3>Открытие Сервера</h3>
-                        <p>9 июля состоялось открытие 1 сезона AnanasLand</p>
-                    </div>
+                newsHtml = `
+                    <div class="news-card"><div class="news-date">Июль 2026</div><h3>Финал сезона!</h3><p>31.07 состоится конец сезона!</p></div>
+                    <div class="news-card"><div class="news-date">Июнь 2026</div><h3>Открытие</h3><p>9 июля состоялось открытие 1 сезона</p></div>
                 `;
             }
+            if (newsContainer) newsContainer.innerHTML = newsHtml;
+            if (allNewsContainer) allNewsContainer.innerHTML = newsHtml;
 
-            // Загружаем историю вики
-            const { data: wikiContent } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
-            if (wikiContent && wikiContent.content && wikiContent.content.history) {
-                const wikiStartDiv = document.getElementById('wikiStartContent');
-                if (wikiStartDiv) {
-                    wikiStartDiv.innerHTML = wikiContent.content.history.split('\n').map(line => `<p>${escapeHtml(line)}</p>`).join('');
-                }
+            const { data: wikiStart } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
+            if (wikiStart && wikiStart.content.history) {
+                document.getElementById('wikiStartContent').innerHTML = wikiStart.content.history;
+            }
+
+            const { data: wikiJobs } = await sb.from('page_content').select('*').eq('page_name', 'wiki-jobs').single();
+            if (wikiJobs && wikiJobs.content.content) {
+                document.getElementById('wikiJobsContent').innerHTML = wikiJobs.content.content;
+            }
+
+            const { data: wikiClans } = await sb.from('page_content').select('*').eq('page_name', 'wiki-clans').single();
+            if (wikiClans && wikiClans.content.content) {
+                document.getElementById('wikiClansContent').innerHTML = wikiClans.content.content;
+            }
+
+            const { data: rulesContent } = await sb.from('page_content').select('*').eq('page_name', 'rules').single();
+            if (rulesContent && rulesContent.content.content) {
+                document.getElementById('rulesContent').innerHTML = rulesContent.content.content;
             }
         }
 
-        // ==================== ПРОСМОТР ПРОФИЛЕЙ ====================
+        function renderNewsCard(item, index) {
+            const imageHtml = item.image ? `<div class="news-images"><img src="${escapeHtml(item.image)}" onclick="openPhotoViewer(['${escapeHtml(item.image)}'], 0)"></div>` : '';
+            const isAdmin = currentProfile && currentProfile.is_admin;
+            const adminActions = isAdmin ? `
+                <div class="news-admin-actions">
+                    <button class="news-add-image-btn" onclick="addImageToNews(${index})"><i class="fa-solid fa-image"></i> Добавить фото</button>
+                    <button class="news-delete-btn" onclick="deleteNews(${index})"><i class="fa-solid fa-trash"></i> Удалить</button>
+                </div>
+            ` : '';
+            return `
+                <div class="news-card" id="news-${index}">
+                    <div class="news-date">${escapeHtml(item.date || '')}</div>
+                    <h3>${escapeHtml(item.title || '')}</h3>
+                    <p>${escapeHtml(item.text || '')}</p>
+                    ${imageHtml}
+                    <div class="news-reactions" id="reactions-${index}"></div>
+                    ${adminActions}
+                </div>
+            `;
+        }
+
+        async function loadNewsReactions() {
+            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
+            if (!newsContent || !Array.isArray(newsContent.content)) return;
+            
+            for (let i = 0; i < newsContent.content.length; i++) {
+                const { data: reactions } = await sb.rpc('get_news_reactions', { p_news_index: i });
+                const container = document.getElementById(`reactions-${i}`);
+                if (!container) continue;
+                
+                let html = '';
+                if (reactions && reactions.length > 0) {
+                    reactions.forEach(r => {
+                        const isActive = currentProfile && r.users && r.users.includes(currentProfile.id);
+                        html += `<button class="reaction-btn ${isActive ? 'active' : ''}" onclick="toggleReaction(${i}, '${r.emoji}')">
+                            ${r.emoji} <span class="count">${r.count}</span>
+                        </button>`;
+                    });
+                }
+                html += `<button class="add-reaction-btn" onclick="addReaction(${i})">+ Добавить реакцию</button>`;
+                container.innerHTML = html;
+            }
+        }
+
+        async function toggleReaction(newsIndex, emoji) {
+            if (!currentProfile) return;
+            const { data: reactions } = await sb.rpc('get_news_reactions', { p_news_index: newsIndex });
+            const existing = reactions?.find(r => r.emoji === emoji && r.users?.includes(currentProfile.id));
+            
+            if (existing) {
+                await sb.rpc('remove_news_reaction', { p_news_index: newsIndex, p_user_id: currentProfile.id, p_emoji: emoji });
+            } else {
+                await sb.rpc('add_news_reaction', { p_news_index: newsIndex, p_user_id: currentProfile.id, p_emoji: emoji });
+            }
+            await loadNewsReactions();
+        }
+
+        function addReaction(newsIndex) {
+            const emoji = prompt('Введи эмодзи реакции (например: ❤️, 👍, 🔥):');
+            if (emoji && currentProfile) {
+                sb.rpc('add_news_reaction', { p_news_index: newsIndex, p_user_id: currentProfile.id, p_emoji: emoji }).then(() => loadNewsReactions());
+            }
+        }
+
+        async function deleteNews(index) {
+            if (!confirm('Удалить эту новость? Её можно будет восстановить из архива.')) return;
+            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
+            if (!newsContent) return;
+            
+            const newsItem = newsContent.content[index];
+            await sb.rpc('delete_news_to_archive', { p_news_index: index, p_content: newsItem, p_deleted_by: currentProfile.id });
+            
+            // Удаляем из массива и сохраняем
+            newsContent.content.splice(index, 1);
+            await sb.rpc('update_page_content', { p_page_name: 'news', p_content: newsContent.content, p_user_id: currentProfile.id });
+            
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'delete_news', p_details: { index, title: newsItem.title } });
+            showToast('Новость удалена в архив');
+            loadSiteContent();
+        }
+
+        async function addImageToNews(index) {
+            const url = prompt('Вставь URL картинки для новости:');
+            if (url) {
+                await sb.rpc('add_news_image', { p_news_index: index, p_image_url: url });
+                await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'add_news_image', p_details: { index, url } });
+                showToast('Фото добавлено!');
+                loadSiteContent();
+            }
+        }
+
+        // ==================== ГАЛЕРЕЯ ====================
+        async function loadGallery() {
+            const { data } = await sb.from('gallery_images').select('*').order('created_at', { ascending: false });
+            galleryImages = data || [];
+            
+            const mainGrid = document.getElementById('mainGalleryGrid');
+            const fullGrid = document.getElementById('fullGalleryGrid');
+            const adminPanel = document.getElementById('galleryAdminPanel');
+            
+            if (adminPanel) {
+                adminPanel.style.display = (currentProfile && currentProfile.is_admin) ? 'block' : 'none';
+            }
+            
+            const images = galleryImages.map(g => g.image_url);
+            const html = galleryImages.map((g, i) => `
+                <div class="gallery-item">
+                    <img src="${escapeHtml(g.image_url)}" alt="${escapeHtml(g.caption || '')}" onclick="openPhotoViewer(${JSON.stringify(images)}, ${i})">
+                    ${g.caption ? `<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:8px;font-size:12px;">${escapeHtml(g.caption)}</div>` : ''}
+                    ${currentProfile?.is_admin ? `<button onclick="deleteGalleryImage('${g.id}')" style="position:absolute;top:5px;right:5px;background:#ff3b3b;color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;">×</button>` : ''}
+                </div>
+            `).join('');
+            
+            if (mainGrid) mainGrid.innerHTML = html.slice(0, 6);
+            if (fullGrid) fullGrid.innerHTML = html || '<p style="color:#888;">Галерея пуста</p>';
+        }
+
+        async function addGalleryImage() {
+            const url = document.getElementById('newGalleryImageUrl').value.trim();
+            const caption = document.getElementById('newGalleryCaption').value.trim();
+            if (!url) { alert('Вставь URL картинки!'); return; }
+            
+            await sb.rpc('add_gallery_image', { p_image_url: url, p_caption: caption, p_uploader: currentProfile.id });
+            document.getElementById('newGalleryImageUrl').value = '';
+            document.getElementById('newGalleryCaption').value = '';
+            showToast('Фото добавлено!');
+            loadGallery();
+        }
+
+        async function deleteGalleryImage(id) {
+            if (!confirm('Удалить фото?')) return;
+            await sb.rpc('delete_gallery_image', { p_id: id, p_admin_id: currentProfile.id });
+            showToast('Удалено');
+            loadGallery();
+        }
+
+        // Просмотр фото
+        function openPhotoViewer(images, index) {
+            galleryImages = images;
+            currentPhotoIndex = index;
+            document.getElementById('photoViewerImg').src = images[index];
+            document.getElementById('photoViewer').classList.add('active');
+        }
+        function closePhotoViewer() {
+            document.getElementById('photoViewer').classList.remove('active');
+        }
+        function prevPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + galleryImages.length) % galleryImages.length;
+            document.getElementById('photoViewerImg').src = galleryImages[currentPhotoIndex];
+        }
+        function nextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % galleryImages.length;
+            document.getElementById('photoViewerImg').src = galleryImages[currentPhotoIndex];
+        }
+
+        // ==================== ПРОФИЛИ ====================
         function checkProfileParam() {
             const params = new URLSearchParams(window.location.search);
             const profileId = params.get('profile');
@@ -1036,77 +1699,139 @@
                 loadPublicProfile(profileId);
             }
         }
-
         async function loadPublicProfile(userId) {
             const { data: profile } = await sb.from('profiles').select('*').eq('id', userId).single();
-            if (!profile) {
-                alert('Профиль не найден!');
-                switchPage('main');
-                return;
-            }
+            if (!profile) { alert('Профиль не найден!'); switchPage('main'); return; }
 
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-profile').classList.add('active');
             document.getElementById('btn-profile').classList.add('active');
 
             document.getElementById('profileLoggedOut').style.display = 'none';
             document.getElementById('profileLoggedIn').style.display = 'block';
 
-            const isOwnProfile = currentProfile && currentProfile.id === userId;
-            document.getElementById('viewingOtherProfile').style.display = isOwnProfile ? 'none' : 'flex';
+            const isOwn = currentProfile && currentProfile.id === userId;
+            document.getElementById('viewingOtherProfile').style.display = isOwn ? 'none' : 'flex';
 
             document.getElementById('profileUsername').innerText = profile.discord_username || 'Игрок';
+            
+            // Кастомный ник
+            const customNickDiv = document.getElementById('profileCustomNickname');
+            if (profile.custom_nickname) {
+                customNickDiv.innerHTML = `<div class="profile-custom-nickname">✨ ${escapeHtml(profile.custom_nickname)}</div>`;
+            } else {
+                customNickDiv.innerHTML = '';
+            }
+            
+            // Дата регистрации
+            const regDateDiv = document.getElementById('profileRegDate');
+            regDateDiv.innerText = `📅 Регистрация: ${formatDate(profile.registration_date || profile.created_at)}`;
+            
             document.getElementById('profileAvatarImg').src = profile.avatar_url || '';
             document.getElementById('profileBanBadge').style.display = profile.is_banned ? 'inline-block' : 'none';
 
             const bannerImg = document.getElementById('profileBannerImg');
-            if (profile.banner_url) {
-                bannerImg.src = profile.banner_url;
-                bannerImg.style.display = 'block';
-            } else {
-                bannerImg.style.display = 'none';
-            }
+            if (profile.banner_url) { bannerImg.src = profile.banner_url; bannerImg.style.display = 'block'; }
+            else { bannerImg.style.display = 'none'; }
 
             const descInput = document.getElementById('profileDescriptionInput');
             const descText = document.getElementById('profileDescriptionText');
             const saveBtn = document.getElementById('saveDescBtn');
             const shareSection = document.getElementById('profileShareSection');
+            const editBtn = document.getElementById('editProfileBtn');
 
-            if (profile.description) {
-                descText.innerText = profile.description;
-                descText.style.display = 'block';
-            } else {
-                descText.style.display = 'none';
-            }
+            if (profile.description) { descText.innerHTML = profile.description; descText.style.display = 'block'; }
+            else { descText.style.display = 'none'; }
 
-            if (isOwnProfile) {
+            if (isOwn) {
                 descInput.value = profile.description || '';
                 descInput.style.display = 'block';
                 saveBtn.style.display = 'inline-block';
                 document.getElementById('bannerUploadLabel').style.display = 'block';
                 document.getElementById('avatarUploadLabel').style.display = 'flex';
                 shareSection.style.display = 'block';
+                editBtn.style.display = 'none';
             } else {
                 descInput.style.display = 'none';
                 saveBtn.style.display = 'none';
                 document.getElementById('bannerUploadLabel').style.display = 'none';
                 document.getElementById('avatarUploadLabel').style.display = 'none';
                 shareSection.style.display = 'block';
+                editBtn.style.display = (currentProfile && currentProfile.is_admin) ? 'inline-block' : 'none';
             }
 
             await loadUserAchievements(userId, 'profileAchievements');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
         function shareProfile() {
             const profileId = currentProfile ? currentProfile.id : viewingProfileId;
             if (!profileId) return;
-            const profileUrl = window.location.origin + window.location.pathname + '?profile=' + profileId;
-            navigator.clipboard.writeText(profileUrl).then(() => {
-                showToast('Ссылка на профиль скопирована!');
-            }).catch(() => {
-                prompt('Скопируй ссылку на профиль:', profileUrl);
+            const url = window.location.origin + window.location.pathname + '?profile=' + profileId;
+            navigator.clipboard.writeText(url).then(() => showToast('Ссылка скопирована!')).catch(() => prompt('Скопируй:', url));
+        }
+        
+        // Редактирование игрока (админ)
+        function openEditProfileModal() {
+            const userId = viewingProfileId || currentProfile.id;
+            sb.from('profiles').select('*').eq('id', userId).single().then(({ data: profile }) => {
+                if (!profile) return;
+                const body = document.getElementById('editUserModalBody');
+                const regDate = profile.registration_date || profile.created_at;
+                const regDateLocal = regDate ? new Date(regDate).toISOString().slice(0, 16) : '';
+                
+                body.innerHTML = `
+                    <div class="editor-field">
+                        <label>Кастомный ник (отображаемое имя):</label>
+                        <input type="text" id="editCustomNick" value="${escapeHtml(profile.custom_nickname || '')}" placeholder="Оставь пустым для использования Discord ника">
+                    </div>
+                    <div class="editor-field">
+                        <label>Описание:</label>
+                        <textarea id="editDescription">${escapeHtml(profile.description || '')}</textarea>
+                    </div>
+                    <div class="editor-field">
+                        <label>URL аватарки:</label>
+                        <input type="text" id="editAvatarUrl" value="${escapeHtml(profile.avatar_url || '')}">
+                    </div>
+                    <div class="editor-field">
+                        <label>URL баннера:</label>
+                        <input type="text" id="editBannerUrl" value="${escapeHtml(profile.banner_url || '')}">
+                    </div>
+                    <div class="editor-field">
+                        <label>Дата регистрации:</label>
+                        <input type="datetime-local" id="editRegDate" value="${regDateLocal}">
+                    </div>
+                    <button class="save-content-btn" onclick="saveEditedProfile('${userId}')">
+                        <i class="fa-solid fa-save"></i> Сохранить изменения
+                    </button>
+                `;
+                document.getElementById('editUserModal').classList.add('active');
             });
+        }
+        function closeEditUserModal() {
+            document.getElementById('editUserModal').classList.remove('active');
+        }
+        async function saveEditedProfile(userId) {
+            const customNick = document.getElementById('editCustomNick').value.trim() || null;
+            const description = document.getElementById('editDescription').value.trim();
+            const avatarUrl = document.getElementById('editAvatarUrl').value.trim() || null;
+            const bannerUrl = document.getElementById('editBannerUrl').value.trim() || null;
+            const regDate = document.getElementById('editRegDate').value ? new Date(document.getElementById('editRegDate').value).toISOString() : null;
+            
+            const { error } = await sb.rpc('admin_update_profile', {
+                p_user_id: userId,
+                p_custom_nickname: customNick,
+                p_description: description,
+                p_avatar_url: avatarUrl,
+                p_banner_url: bannerUrl,
+                p_registration_date: regDate,
+                p_admin_id: currentProfile.id
+            });
+            
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            
+            showToast('Профиль обновлён!');
+            closeEditUserModal();
+            loadPublicProfile(userId);
         }
 
         async function loadProfilePage() {
@@ -1116,17 +1841,9 @@
 
             const params = new URLSearchParams(window.location.search);
             const profileId = params.get('profile');
-            
-            if (profileId) {
-                await loadPublicProfile(profileId);
-                return;
-            }
+            if (profileId) { await loadPublicProfile(profileId); return; }
 
-            if (!session) {
-                loggedOut.style.display = 'block';
-                loggedIn.style.display = 'none';
-                return;
-            }
+            if (!session) { loggedOut.style.display = 'block'; loggedIn.style.display = 'none'; return; }
             loggedOut.style.display = 'none';
             loggedIn.style.display = 'block';
             document.getElementById('viewingOtherProfile').style.display = 'none';
@@ -1136,6 +1853,17 @@
             currentProfile = profile;
 
             document.getElementById('profileUsername').innerText = profile.discord_username || 'Игрок';
+            
+            const customNickDiv = document.getElementById('profileCustomNickname');
+            if (profile.custom_nickname) {
+                customNickDiv.innerHTML = `<div class="profile-custom-nickname">✨ ${escapeHtml(profile.custom_nickname)}</div>`;
+            } else {
+                customNickDiv.innerHTML = '';
+            }
+            
+            const regDateDiv = document.getElementById('profileRegDate');
+            regDateDiv.innerText = `📅 Регистрация: ${formatDate(profile.registration_date || profile.created_at)}`;
+            
             document.getElementById('profileAvatarImg').src = profile.avatar_url || '';
             document.getElementById('profileDescriptionInput').value = profile.description || '';
             document.getElementById('profileDescriptionInput').style.display = 'block';
@@ -1145,24 +1873,18 @@
             document.getElementById('bannerUploadLabel').style.display = 'block';
             document.getElementById('avatarUploadLabel').style.display = 'flex';
             document.getElementById('profileShareSection').style.display = 'block';
+            document.getElementById('editProfileBtn').style.display = 'none';
 
             const bannerImg = document.getElementById('profileBannerImg');
-            if (profile.banner_url) {
-                bannerImg.src = profile.banner_url;
-                bannerImg.style.display = 'block';
-            } else {
-                bannerImg.style.display = 'none';
-            }
+            if (profile.banner_url) { bannerImg.src = profile.banner_url; bannerImg.style.display = 'block'; }
+            else { bannerImg.style.display = 'none'; }
 
             await loadUserAchievements(session.user.id, 'profileAchievements');
         }
 
         async function loadUserAchievements(userId, containerId) {
             const container = document.getElementById(containerId);
-            const { data, error } = await sb
-                .from('user_achievements')
-                .select('achievement_id, achievements(title, description, icon, image_url)')
-                .eq('user_id', userId);
+            const { data, error } = await sb.from('user_achievements').select('achievement_id, achievements(title, description, icon, image_url)').eq('user_id', userId);
 
             if (error || !data || data.length === 0) {
                 container.innerHTML = '<p style="color:#888;">Пока нет достижений.</p>';
@@ -1170,19 +1892,14 @@
             }
 
             const isAdmin = currentProfile && currentProfile.is_admin;
-
             container.innerHTML = data.map(row => {
                 const ach = row.achievements || {};
                 const hasImage = ach.image_url && ach.image_url.trim() !== '';
-                const deleteBtn = isAdmin ? `<button class="achievement-delete-btn" onclick="deleteAchievement('${row.achievement_id}')" title="Удалить достижение"><i class="fa-solid fa-trash"></i></button>` : '';
-                
+                const deleteBtn = isAdmin ? `<button class="achievement-delete-btn" onclick="removeAchievementFromUser('${userId}', '${row.achievement_id}')" title="Забрать"><i class="fa-solid fa-trash"></i></button>` : '';
                 return `
                     <div class="achievement-card">
                         ${deleteBtn}
-                        ${hasImage 
-                            ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}" alt="${escapeHtml(ach.title)}" onerror="this.style.display='none'">` 
-                            : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`
-                        }
+                        ${hasImage ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}" alt="">` : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`}
                         <div>
                             <div class="achievement-title">${escapeHtml(ach.title)}</div>
                             <div class="achievement-desc">${escapeHtml(ach.description)}</div>
@@ -1197,58 +1914,47 @@
             if (!file) return;
             const { data: { session } } = await sb.auth.getSession();
             if (!session) return;
-
             const filePath = `${session.user.id}/avatar_${Date.now()}.${file.name.split('.').pop()}`;
-            const { error: uploadError } = await sb.storage.from('avatars').upload(filePath, file, { upsert: true });
-            if (uploadError) { alert('Ошибка загрузки: ' + uploadError.message); return; }
-
+            const { error } = await sb.storage.from('avatars').upload(filePath, file, { upsert: true });
+            if (error) { alert('Ошибка: ' + error.message); return; }
             const { data: urlData } = sb.storage.from('avatars').getPublicUrl(filePath);
             await sb.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', session.user.id);
             document.getElementById('profileAvatarImg').src = urlData.publicUrl;
             document.getElementById('authUserAvatar').src = urlData.publicUrl;
         }
-
         async function uploadBanner(event) {
             const file = event.target.files[0];
             if (!file) return;
             const { data: { session } } = await sb.auth.getSession();
             if (!session) return;
-
             const filePath = `${session.user.id}/banner_${Date.now()}.${file.name.split('.').pop()}`;
-            const { error: uploadError } = await sb.storage.from('banners').upload(filePath, file, { upsert: true });
-            if (uploadError) { alert('Ошибка загрузки: ' + uploadError.message); return; }
-
+            const { error } = await sb.storage.from('banners').upload(filePath, file, { upsert: true });
+            if (error) { alert('Ошибка: ' + error.message); return; }
             const { data: urlData } = sb.storage.from('banners').getPublicUrl(filePath);
             await sb.from('profiles').update({ banner_url: urlData.publicUrl }).eq('id', session.user.id);
             const bannerImg = document.getElementById('profileBannerImg');
             bannerImg.src = urlData.publicUrl;
             bannerImg.style.display = 'block';
         }
-
         async function saveDescription() {
             const { data: { session } } = await sb.auth.getSession();
             if (!session) return;
             const text = document.getElementById('profileDescriptionInput').value.trim();
             const { error } = await sb.from('profiles').update({ description: text }).eq('id', session.user.id);
             const status = document.getElementById('profileSaveStatus');
-            status.innerText = error ? 'Ошибка сохранения' : 'Сохранено ✓';
+            status.innerText = error ? 'Ошибка' : 'Сохранено ✓';
             setTimeout(() => status.innerText = '', 2000);
         }
 
-        // ---------- АДМИНКА ----------
+        // ==================== АДМИНКА ====================
         async function loadAchievementsList() {
-            const { data: achievements } = await sb.from('achievements').select('*').order('created_at');
-            allAchievements = achievements || [];
-            
+            const { data } = await sb.from('achievements').select('*').order('created_at');
+            allAchievements = data || [];
             const container = document.getElementById('achievementsList');
-            if (!allAchievements || allAchievements.length === 0) {
-                container.innerHTML = '<p style="color:#888;">Нет созданных достижений.</p>';
-                return;
-            }
-
+            if (!allAchievements.length) { container.innerHTML = '<p style="color:#888;">Нет достижений</p>'; return; }
             container.innerHTML = allAchievements.map(ach => `
                 <div class="achievement-card" style="margin-bottom: 10px;">
-                    ${ach.image_url ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}" alt="">` : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`}
+                    ${ach.image_url ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}">` : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`}
                     <div style="flex:1;">
                         <div class="achievement-title">${escapeHtml(ach.title)}</div>
                         <div class="achievement-desc">${escapeHtml(ach.description)}</div>
@@ -1259,59 +1965,58 @@
                 </div>
             `).join('');
         }
-
-        async function deleteAchievement(achievementId) {
-            if (!confirm('Удалить это достижение? Оно исчезнет у всех игроков!')) return;
-            
-            const { error } = await sb.rpc('admin_delete_achievement', { ach_id: achievementId });
+        async function deleteAchievement(id) {
+            if (!confirm('Удалить достижение у ВСЕХ игроков?')) return;
+            const { error } = await sb.rpc('admin_delete_achievement', { ach_id: id });
             if (error) { alert('Ошибка: ' + error.message); return; }
-            
-            showToast('Достижение удалено!');
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'delete_achievement', p_details: { id } });
+            showToast('Удалено');
             loadAchievementsList();
-            if (currentEditorTab === 'users') loadAdminPage();
+        }
+        async function removeAchievementFromUser(userId, achId) {
+            if (!confirm('Забрать достижение у этого игрока?')) return;
+            const { error } = await sb.rpc('admin_remove_user_achievement', { target_user: userId, achievement: achId });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'remove_achievement_from_user', p_details: { target: userId, achievement: achId } });
+            showToast('Забрано');
+            loadProfilePage();
         }
 
         async function loadAdminPage() {
             if (!currentProfile || (!currentProfile.is_admin && !currentProfile.can_edit)) {
-                document.getElementById('adminUsersList').innerHTML = '<p style="color:#ff3b3b;">Нет доступа.</p>';
+                document.getElementById('adminUsersList').innerHTML = '<p style="color:#ff3b3b;">Нет доступа</p>';
                 return;
             }
-
             const { data: users } = await sb.from('profiles').select('*').order('created_at');
             const { data: userAchievements } = await sb.from('user_achievements').select('*');
             const { data: editors } = await sb.from('site_editors').select('*');
 
             const list = document.getElementById('adminUsersList');
-            if (!users || users.length === 0) {
-                list.innerHTML = '<p style="color:#888;">Пока никто не входил через Discord.</p>';
-                return;
-            }
+            if (!users || !users.length) { list.innerHTML = '<p style="color:#888;">Никто не входил</p>'; return; }
 
             list.innerHTML = users.map(u => {
                 const given = (userAchievements || []).filter(ua => ua.user_id === u.id).map(ua => ua.achievement_id);
                 const editorInfo = editors?.find(e => e.user_id === u.id);
                 const isEditor = editorInfo?.can_edit || false;
-                
-                const options = allAchievements
-                    .filter(a => !given.includes(a.id))
-                    .map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.title)}</option>`)
-                    .join('');
+                const options = allAchievements.filter(a => !given.includes(a.id)).map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.title)}</option>`).join('');
                 const profileUrl = window.location.origin + window.location.pathname + '?profile=' + u.id;
+                const displayName = u.custom_nickname || u.discord_username || 'Игрок';
 
                 return `
                     <div class="admin-user-card ${u.is_banned ? 'banned' : ''}">
-                        <img src="${u.avatar_url || ''}" alt="" onclick="viewUserProfile('${u.id}')" title="Открыть профиль">
+                        <img src="${u.avatar_url || ''}" onclick="viewUserProfile('${u.id}')" title="Открыть профиль">
                         <div style="flex:1; min-width:150px;">
-                            <div class="admin-user-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
-                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;"> Админ</span>' : ''}
+                            <div class="admin-user-name">${escapeHtml(displayName)}</div>
+                            <div style="font-size:11px; color:#666;">@${escapeHtml(u.discord_username || '')}</div>
+                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;">👑 Админ</span>' : ''}
                             ${isEditor ? '<span style="color:#2196F3; font-size:12px;">✏️ Редактор</span>' : ''}
                             <div style="font-size:11px; color:#666; margin-top:4px;">
-                                <a href="${profileUrl}" target="_blank" style="color:var(--primary-orange); text-decoration:none;">🔗 Открыть профиль</a>
+                                <a href="${profileUrl}" target="_blank" style="color:var(--primary-orange); text-decoration:none;">🔗 Профиль</a>
                             </div>
                         </div>
                         <div>
                             <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
-                                ${u.is_banned ? 'Разбанить' : 'Забанить'}
+                                ${u.is_banned ? 'Разбан' : 'Бан'}
                             </button>
                             ${currentProfile.is_admin ? `
                                 <button class="admin-role-btn ${u.is_admin ? 'remove-admin' : 'give-admin'}" onclick="toggleAdmin('${u.id}', ${!u.is_admin})">
@@ -1319,6 +2024,9 @@
                                 </button>
                                 <button class="admin-role-btn ${isEditor ? 'remove-editor' : 'give-editor'}" onclick="toggleEditor('${u.id}', ${!isEditor})">
                                     ${isEditor ? 'Забрать редактора' : 'Дать редактора'}
+                                </button>
+                                <button class="edit-user-btn" onclick="openEditUserFromAdmin('${u.id}')">
+                                    <i class="fa-solid fa-pen"></i> Редакт.
                                 </button>
                             ` : ''}
                         </div>
@@ -1328,90 +2036,186 @@
                                 ${options}
                             </select>
                             <button class="nav-btn active" onclick="giveAchievement('${u.id}')">Выдать</button>
-                        ` : '<span style="color:#666; font-size:12px;">Все ачивки выданы</span>'}
+                        ` : '<span style="color:#666; font-size:12px;">Все выданы</span>'}
                     </div>
                 `;
             }).join('');
         }
 
-        async function toggleAdmin(userId, giveAdmin) {
-            const { error } = await sb.from('profiles').update({ is_admin: giveAdmin }).eq('id', userId);
-            if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast(giveAdmin ? 'Права админа выданы!' : 'Права админа забраны!');
-            loadAdminPage();
+        function openEditUserFromAdmin(userId) {
+            viewingProfileId = userId;
+            openEditProfileModal();
         }
 
-        async function toggleEditor(userId, giveEditor) {
-            const { error } = await sb.rpc('admin_grant_editor', { target_user: userId, can_edit: giveEditor });
+        async function toggleAdmin(userId, give) {
+            const { error } = await sb.from('profiles').update({ is_admin: give }).eq('id', userId);
             if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast(giveEditor ? 'Права редактора выданы!' : 'Права редактора забраны!');
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: give ? 'give_admin' : 'remove_admin', p_details: { target: userId } });
+            showToast(give ? 'Админка выдана!' : 'Админка забрана!');
             loadAdminPage();
         }
-
+        async function toggleEditor(userId, give) {
+            const { error } = await sb.rpc('admin_grant_editor', { target_user: userId, can_edit: give });
+            if (error) { alert('Ошибка: ' + error.message); return; }
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: give ? 'give_editor' : 'remove_editor', p_details: { target: userId } });
+            showToast(give ? 'Редактор выдан!' : 'Редактор забран!');
+            loadAdminPage();
+        }
         function viewUserProfile(userId) {
             window.location.href = window.location.origin + window.location.pathname + '?profile=' + userId;
         }
-
         async function toggleBan(userId, ban) {
             const { error } = await sb.rpc('admin_set_ban', { target_user: userId, banned: ban });
             if (error) { alert('Ошибка: ' + error.message); return; }
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: ban ? 'ban_user' : 'unban_user', p_details: { target: userId } });
             loadAdminPage();
         }
-
         async function createAchievement() {
-            const icon = document.getElementById('newAchIcon').value.trim() || '';
+            const icon = document.getElementById('newAchIcon').value.trim() || '🏆';
             const title = document.getElementById('newAchTitle').value.trim();
             const description = document.getElementById('newAchDesc').value.trim();
             const imageUrl = document.getElementById('newAchImage').value.trim() || null;
-            
-            if (!title) { alert('Введите название достижения'); return; }
+            if (!title) { alert('Введите название'); return; }
 
-            const { error } = await sb.from('achievements').insert([{
-                icon, title, description, image_url: imageUrl
-            }]);
+            const { error } = await sb.from('achievements').insert([{ icon, title, description, image_url: imageUrl }]);
             if (error) { alert('Ошибка: ' + error.message); return; }
 
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'create_achievement', p_details: { title } });
             document.getElementById('newAchIcon').value = '';
             document.getElementById('newAchTitle').value = '';
             document.getElementById('newAchDesc').value = '';
             document.getElementById('newAchImage').value = '';
-            showToast('Достижение создано!');
+            showToast('Создано!');
             loadAchievementsList();
         }
-
         async function giveAchievement(userId) {
             const select = document.getElementById(`achSelect-${userId}`);
-            const achievementId = select.value;
-            if (!achievementId) return;
-            const { error } = await sb.from('user_achievements').insert([{ user_id: userId, achievement_id: achievementId }]);
+            const achId = select.value;
+            if (!achId) return;
+            const { error } = await sb.from('user_achievements').insert([{ user_id: userId, achievement_id: achId }]);
             if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast('Достижение выдано!');
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'give_achievement', p_details: { target: userId, achievement: achId } });
+            showToast('Выдано!');
             loadAdminPage();
+        }
+
+        // ==================== СПИСОК ИГРОКОВ ====================
+        async function loadPlayersList() {
+            const { data: users } = await sb.from('profiles').select('*').order('created_at');
+            const container = document.getElementById('playersList');
+            if (!users || !users.length) { container.innerHTML = '<p style="color:#888;">Пока никто не зарегистрирован</p>'; return; }
+            
+            container.innerHTML = users.map(u => {
+                const displayName = u.custom_nickname || u.discord_username || 'Игрок';
+                return `
+                    <div class="player-card">
+                        <img src="${u.avatar_url || ''}" onclick="viewUserProfile('${u.id}')" title="Открыть профиль">
+                        <div class="player-info">
+                            <div class="player-name">${escapeHtml(displayName)}</div>
+                            <div class="player-role">
+                                ${u.is_admin ? '👑 Админ' : ''}
+                                ${u.is_banned ? '🚫 Забанен' : ''}
+                                <div style="font-size:10px; color:#666;">📅 ${formatDate(u.registration_date || u.created_at)}</div>
+                            </div>
+                        </div>
+                        ${currentProfile && u.id !== currentProfile.id ? `<button class="msg-btn" onclick="openChatFromPlayers('${u.id}')">Написать</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==================== ЛОГИ ====================
+        async function loadActivityLogs() {
+            const { data: logs } = await sb.rpc('get_activity_logs', { p_limit: 100 });
+            const container = document.getElementById('activityLogsList');
+            if (!logs || !logs.length) { container.innerHTML = '<p style="color:#888;">Нет логов</p>'; return; }
+            
+            container.innerHTML = logs.map(log => `
+                <div class="log-item">
+                    <img src="${log.user_avatar || 'https://mc-heads.net/avatar/Steve/32'}" alt="">
+                    <div class="log-info">
+                        <div class="log-action">${escapeHtml(log.user_name || 'Неизвестно')} — ${escapeHtml(log.action)}</div>
+                        <div class="log-time">${formatDateTime(log.created_at)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== АРХИВ НОВОСТЕЙ ====================
+        async function loadDeletedNews() {
+            const { data: deleted } = await sb.rpc('get_deleted_news');
+            const container = document.getElementById('deletedNewsList');
+            if (!deleted || !deleted.length) { container.innerHTML = '<p style="color:#888;">Архив пуст</p>'; return; }
+            
+            container.innerHTML = deleted.map(d => {
+                const content = typeof d.content === 'string' ? JSON.parse(d.content) : d.content;
+                return `
+                    <div class="log-item">
+                        <div class="log-info" style="flex:1;">
+                            <div class="log-action">📰 ${escapeHtml(content.title || 'Без названия')}</div>
+                            <div style="font-size:12px; color:#aaa;">${escapeHtml((content.text || '').substring(0, 100))}...</div>
+                            <div class="log-time">Удалил: ${escapeHtml(d.deleted_by_name || 'Неизвестно')} — ${formatDateTime(d.deleted_at)}</div>
+                        </div>
+                        <button class="nav-btn active" onclick="restoreNews(${d.news_index}, '${JSON.stringify(content).replace(/'/g, "\\'")}')">Восстановить</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function restoreNews(index, contentStr) {
+            const content = JSON.parse(contentStr);
+            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
+            const news = newsContent?.content || [];
+            news.splice(index, 0, content);
+            
+            await sb.rpc('update_page_content', { p_page_name: 'news', p_content: news, p_user_id: currentProfile.id });
+            await sb.from('deleted_news').delete().eq('news_index', index);
+            await sb.rpc('log_activity', { p_user_id: currentProfile.id, p_action: 'restore_news', p_details: { index, title: content.title } });
+            
+            showToast('Новость восстановлена!');
+            loadDeletedNews();
+            loadSiteContent();
+        }
+
+        // ==================== ВСЕ ЛС (АДМИН) ====================
+        async function loadAllMessages() {
+            const { data: messages } = await sb.rpc('admin_get_all_messages', { p_limit: 200 });
+            const container = document.getElementById('allMessagesList');
+            if (!messages || !messages.length) { container.innerHTML = '<p style="color:#888;">Нет сообщений</p>'; return; }
+            
+            container.innerHTML = messages.map(m => `
+                <div class="log-item">
+                    <div class="log-info" style="flex:1;">
+                        <div class="log-action">
+                            <b>${escapeHtml(m.sender_name || '???')}</b> → <b>${escapeHtml(m.receiver_name || '???')}</b>
+                        </div>
+                        <div style="font-size:13px; color:#ccc; margin-top:5px;">${escapeHtml(m.content)}</div>
+                        <div class="log-time">${formatDateTime(m.created_at)} ${m.is_read ? '✓ Прочитано' : ' Не прочитано'}</div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         refreshAuthUI();
 
-        // Футер и уведомление
+        // Футер
         (function createFooterAndToast() {
             const footer = document.createElement('div');
             footer.className = 'ultimate-footer';
-            footer.innerHTML = `
-                <div class="ultimate-social-icons">
-                    <a href="https://discord.gg/bXfVAKhtRX" target="_blank" class="ultimate-btn-link">Discord</a>
-                    <a href="https://www.youtube.com/@ananaslandmc" target="_blank" class="ultimate-btn-link">YouTube</a>
-                    <a href="https://www.twitch.tv/oananasik1" target="_blank" class="ultimate-btn-link">Twitch</a>
-                </div>
-            `;
+            footer.innerHTML = `<div class="ultimate-social-icons">
+                <a href="https://discord.gg/bXfVAKhtRX" target="_blank" class="ultimate-btn-link">Discord</a>
+                <a href="https://www.youtube.com/@ananaslandmc" target="_blank" class="ultimate-btn-link">YouTube</a>
+                <a href="https://www.twitch.tv/oananasik1" target="_blank" class="ultimate-btn-link">Twitch</a>
+            </div>`;
             document.body.appendChild(footer);
-
             const toast = document.createElement('div');
             toast.className = 'ultimate-notification';
             toast.id = 'copyToast';
-            toast.innerText = 'IP успешно скопирован!';
+            toast.innerText = 'IP скопирован!';
             document.body.appendChild(toast);
         })();
 
-        // === РЕАЛЬНЫЙ ОНЛАЙН СЕРВЕРА ===
+        // Онлайн
         async function updateRealOnline() {
             const countElement = document.getElementById('player-count');
             const statusDot = document.querySelector('.status-dot');
@@ -1428,18 +2232,13 @@
                     statusDot.style.background = '#ff3b3b';
                     statusDot.style.boxShadow = '0 0 10px #ff3b3b';
                 }
-            } catch (e) {
-                countElement.innerText = 'Не удалось загрузить';
-            }
+            } catch (e) { countElement.innerText = 'Не удалось загрузить'; }
         }
         updateRealOnline();
         setInterval(updateRealOnline, 60000);
 
         function copyIP() {
-            const ipText = document.getElementById('serverIp').innerText;
-            navigator.clipboard.writeText(ipText).then(() => {
-                showToast('IP успешно скопирован!');
-            }).catch(err => { console.error("Ошибка копирования: ", err); });
+            navigator.clipboard.writeText(document.getElementById('serverIp').innerText).then(() => showToast('IP скопирован!'));
         }
 
         function switchPage(pageId) {
@@ -1447,60 +2246,55 @@
                 window.history.replaceState({}, document.title, window.location.pathname);
                 viewingProfileId = null;
             }
-            
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if(targetPage) targetPage.classList.add('active');
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) target.classList.add('active');
             const btn = document.getElementById(`btn-${pageId}`);
-            if(btn) btn.classList.add('active');
+            if (btn) btn.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if(pageId === 'profile') loadProfilePage();
-            if(pageId === 'admin') {
-                loadContentForEditor();
-                loadAdminPage();
-            }
+            if (pageId === 'profile') loadProfilePage();
+            if (pageId === 'admin') { loadContentForEditor(); loadAdminPage(); }
+            if (pageId === 'players') loadPlayersList();
+            if (pageId === 'news') { loadSiteContent(); setTimeout(loadNewsReactions, 500); }
+            if (pageId === 'gallery') loadGallery();
         }
 
         function switchWiki(articleId) {
-            document.querySelectorAll('.wiki-article').forEach(art => art.classList.remove('active'));
-            document.querySelectorAll('.wiki-menu-btn').forEach(btn => btn.classList.remove('active'));
-            const targetArticle = document.getElementById(articleId);
-            if(targetArticle) targetArticle.classList.add('active');
-            if(event && event.currentTarget) event.currentTarget.classList.add('active');
+            document.querySelectorAll('.wiki-article').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.wiki-menu-btn').forEach(b => b.classList.remove('active'));
+            const target = document.getElementById(articleId);
+            if (target) target.classList.add('active');
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
         function updateSkin() {
             const nick = document.getElementById('skinNickname').value.trim();
-            if(nick !== "") {
-                document.getElementById('skinImg').src = `https://mc-heads.net/avatar/${nick}/100`;
-            }
+            if (nick) document.getElementById('skinImg').src = `https://mc-heads.net/avatar/${nick}/100`;
         }
 
         document.querySelectorAll('.faq-question').forEach(q => {
-            q.addEventListener('click', () => {
-                q.parentElement.classList.toggle('open');
-            });
+            q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
         });
 
         const container = document.getElementById('particleContainer');
-        if(container) {
+        if (container) {
             for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
+                const p = document.createElement('div');
+                p.classList.add('particle');
                 const size = Math.random() * 5 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 8}s`;
-                particle.style.animationDuration = `${Math.random() * 4 + 5}s`;
-                container.appendChild(particle);
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.animationDelay = `${Math.random() * 8}s`;
+                p.style.animationDuration = `${Math.random() * 4 + 5}s`;
+                container.appendChild(p);
             }
         }
 
-        // Загружаем контент сайта при старте
         loadSiteContent();
+        loadGallery();
     </script>
 </body>
 </html>
