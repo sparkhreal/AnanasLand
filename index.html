@@ -122,13 +122,6 @@
             border-radius: 12px; padding: 14px 18px; display: flex; align-items: center;
             gap: 12px; min-width: 220px; max-width: 320px; position: relative;
         }
-        .achievement-delete-btn {
-            position: absolute; top: 5px; right: 5px;
-            background: rgba(255, 59, 59, 0.8); color: #fff;
-            border: none; width: 24px; height: 24px; border-radius: 50%;
-            cursor: pointer; font-size: 12px; display: none;
-        }
-        .achievement-card:hover .achievement-delete-btn { display: flex; align-items: center; justify-content: center; }
         .achievement-icon { font-size: 28px; flex-shrink: 0; }
         .achievement-image {
             width: 48px; height: 48px; border-radius: 8px; object-fit: cover;
@@ -516,7 +509,7 @@
             <div class="wiki-grid">
                 <div class="wiki-sidebar">
                     <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
-                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')"> Администрация</button>
+                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Спасибо</button>
                 </div>
                 <div class="wiki-content">
@@ -583,8 +576,8 @@
     <div id="page-profile" class="page">
         <div class="subpage-container">
             <div id="viewingOtherProfile" class="viewing-profile-notice" style="display:none;">
-                <span>️ Вы просматриваете профиль другого игрока</span>
-                <button class="back-to-profile-btn" onclick="switchPage('profile')">← Вернуться к своему</button>
+                <span>👁️ Вы просматриваете профиль другого игрока</span>
+                <button class="back-to-profile-btn" onclick="window.location.href=window.location.origin+window.location.pathname">← Вернуться к своему</button>
             </div>
 
             <div id="profileLoggedOut" style="text-align:center; padding: 60px 20px;">
@@ -614,7 +607,7 @@
                     </div>
                     <div style="flex:1;">
                         <h2 id="profileUsername" style="margin:0;">—</h2>
-                        <span id="profileBanBadge" class="profile-ban-badge" style="display:none;">🚫 ЗАБАНЕН</span>
+                        <span id="profileBanBadge" class="profile-ban-badge" style="display:none;"> ЗАБАНЕН</span>
                         <div id="profileShareSection">
                             <button class="share-profile-btn" onclick="shareProfile()">
                                 <i class="fa-solid fa-share-nodes"></i> Поделиться профилем
@@ -632,7 +625,7 @@
                 </div>
 
                 <div style="margin-top:35px;">
-                    <h3 style="color: var(--secondary-yellow);"> Достижения</h3>
+                    <h3 style="color: var(--secondary-yellow);">🏆 Достижения</h3>
                     <div id="profileAchievements" class="achievements-grid">
                         <p style="color:#888;">Пока нет достижений.</p>
                     </div>
@@ -649,11 +642,10 @@
             <div class="editor-tabs">
                 <button class="editor-tab active" onclick="switchEditorTab('content')">📝 Контент</button>
                 <button class="editor-tab" onclick="switchEditorTab('achievements')">🏆 Достижения</button>
-                <button class="editor-tab" onclick="switchEditorTab('users')"> Игроки</button>
+                <button class="editor-tab" onclick="switchEditorTab('users')">👥 Игроки</button>
                 <button class="editor-tab" onclick="switchEditorTab('settings')">⚙️ Настройки</button>
             </div>
 
-            <!-- Контент -->
             <div id="editor-content" class="editor-section">
                 <h3>📝 Редактирование контента сайта</h3>
                 
@@ -710,7 +702,7 @@
                     <div id="editRules" class="wysiwyg-editor" contenteditable="true" style="min-height: 300px;"></div>
                 </div>
 
-                <h3 style="margin-top: 30px; color: var(--secondary-yellow);"> Новости</h3>
+                <h3 style="margin-top: 30px; color: var(--secondary-yellow);">📰 Новости</h3>
                 <div id="newsEditorContainer"></div>
                 <button class="add-news-btn" onclick="addNewsItem()">+ Добавить новость</button>
 
@@ -719,7 +711,6 @@
                 </button>
             </div>
 
-            <!-- Достижения -->
             <div id="editor-achievements" class="editor-section" style="display:none;">
                 <h3>🏆 Управление достижениями</h3>
                 <div class="admin-new-achievement">
@@ -732,16 +723,14 @@
                 <div id="achievementsList" style="margin-top: 20px;"></div>
             </div>
 
-            <!-- Игроки -->
             <div id="editor-users" class="editor-section" style="display:none;">
                 <h3>👥 Управление игроками</h3>
                 <p style="color:#aaa; font-size:13px;">Кликни по аватарке чтобы открыть профиль. Выдай/забери права.</p>
                 <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
             </div>
 
-            <!-- Настройки -->
             <div id="editor-settings" class="editor-section" style="display:none;">
-                <h3>️ Настройки сайта</h3>
+                <h3>⚙️ Настройки сайта</h3>
                 <div class="admin-favicon-input">
                     <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="">
                     <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
@@ -764,7 +753,6 @@
         let currentEditorTab = 'content';
         let newsItems = [];
 
-        // ==================== ИКОНКА ====================
         function loadFavicon() {
             const saved = localStorage.getItem('siteFavicon');
             const url = saved || DEFAULT_FAVICON;
@@ -799,7 +787,6 @@
         }
         loadFavicon();
 
-        // ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.innerText = str || '';
@@ -809,7 +796,6 @@
             document.execCommand(command, false, value);
         }
 
-        // ==================== АВТОРИЗАЦИЯ ====================
         async function signInWithDiscord() {
             const { error } = await sb.auth.signInWithOAuth({
                 provider: 'discord',
@@ -819,7 +805,7 @@
         }
         async function signOut() {
             await sb.auth.signOut();
-            window.location.reload();
+            window.location.href = window.location.origin + window.location.pathname;
         }
         async function refreshAuthUI() {
             const { data: { session } } = await sb.auth.getSession();
@@ -849,9 +835,14 @@
                 document.getElementById('authUserAvatar').src = profile.avatar_url || '';
                 btnAdmin.style.display = profile.is_admin ? 'inline-flex' : 'none';
             }
+
+            // Проверяем параметр ?profile=
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('profile')) {
+                switchPage('profile');
+            }
         }
 
-        // ==================== РЕДАКТОР ====================
         function switchEditorTab(tabName) {
             currentEditorTab = tabName;
             document.querySelectorAll('.editor-tab').forEach(tab => tab.classList.remove('active'));
@@ -1030,7 +1021,6 @@
             }
         }
 
-        // ==================== ГАЛЕРЕЯ ====================
         async function loadGallery() {
             const { data } = await sb.from('gallery_images').select('*').order('created_at', { ascending: false });
             const mainGrid = document.getElementById('mainGalleryGrid');
@@ -1057,6 +1047,7 @@
             const url = document.getElementById('newGalleryImageUrl').value.trim();
             const caption = document.getElementById('newGalleryCaption').value.trim();
             if (!url) { showToast('Вставь URL картинки!'); return; }
+            if (!currentProfile || !currentProfile.is_admin) { showToast('Только админы могут загружать фото!'); return; }
             
             await sb.from('gallery_images').insert([{
                 image_url: url,
@@ -1077,22 +1068,44 @@
             loadGallery();
         }
 
-        // ==================== ПРОФИЛИ ====================
         async function loadProfile() {
             const { data: { session } } = await sb.auth.getSession();
             const loggedOut = document.getElementById('profileLoggedOut');
             const loggedIn = document.getElementById('profileLoggedIn');
+
+            const params = new URLSearchParams(window.location.search);
+            const viewingUserId = params.get('profile');
 
             if (!session) {
                 loggedOut.style.display = 'block';
                 loggedIn.style.display = 'none';
                 return;
             }
+            
             loggedOut.style.display = 'none';
             loggedIn.style.display = 'block';
 
-            const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-            if (!profile) return;
+            let profile;
+            let isOwnProfile = true;
+            
+            if (viewingUserId && viewingUserId !== session.user.id) {
+                const { data: viewedProfile } = await sb.from('profiles').select('*').eq('id', viewingUserId).single();
+                if (!viewedProfile) {
+                    alert('Профиль не найден!');
+                    window.location.href = window.location.origin + window.location.pathname;
+                    return;
+                }
+                profile = viewedProfile;
+                isOwnProfile = false;
+                viewingProfileId = viewingUserId;
+                document.getElementById('viewingOtherProfile').style.display = 'flex';
+            } else {
+                const { data: myProfile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+                if (!myProfile) return;
+                profile = myProfile;
+                viewingProfileId = null;
+                document.getElementById('viewingOtherProfile').style.display = 'none';
+            }
 
             document.getElementById('profileUsername').innerText = profile.discord_username || 'Игрок';
             document.getElementById('profileAvatarImg').src = profile.avatar_url || '';
@@ -1107,7 +1120,7 @@
                 document.getElementById('profileDescriptionInput').value = '';
                 document.getElementById('profileDescriptionInput').style.display = 'block';
                 document.getElementById('profileDescriptionText').style.display = 'none';
-                document.getElementById('saveDescBtn').style.display = 'inline-block';
+                document.getElementById('saveDescBtn').style.display = isOwnProfile ? 'inline-block' : 'none';
             }
 
             if (profile.banner_url) {
@@ -1117,7 +1130,10 @@
                 document.getElementById('profileBannerImg').style.display = 'none';
             }
 
-            // Достижения
+            document.getElementById('bannerUploadLabel').style.display = isOwnProfile ? 'block' : 'none';
+            document.getElementById('avatarUploadLabel').style.display = isOwnProfile ? 'flex' : 'none';
+            document.getElementById('profileShareSection').style.display = 'block';
+
             const { data: achievements } = await sb.from('user_achievements').select('achievement_id, achievements(title, description, icon)').eq('user_id', profile.id);
             const achContainer = document.getElementById('profileAchievements');
             if (achievements && achievements.length > 0) {
@@ -1176,12 +1192,12 @@
         }
 
         function shareProfile() {
-            if (!currentProfile) return;
-            const url = window.location.origin + window.location.pathname + '?profile=' + currentProfile.id;
+            const profileId = viewingProfileId || (currentProfile ? currentProfile.id : null);
+            if (!profileId) return;
+            const url = window.location.origin + window.location.pathname + '?profile=' + profileId;
             navigator.clipboard.writeText(url).then(() => showToast('Ссылка скопирована!'));
         }
 
-        // ==================== ИГРОКИ ====================
         async function loadPlayers() {
             const { data } = await sb.from('profiles').select('*').order('created_at');
             const container = document.getElementById('playersList');
@@ -1193,7 +1209,7 @@
             
             container.innerHTML = data.map(u => `
                 <div class="player-card">
-                    <img src="${u.avatar_url || ''}" alt="">
+                    <img src="${u.avatar_url || ''}" alt="" onclick="window.location.href=window.location.origin+window.location.pathname+'?profile='+${u.id}">
                     <div class="player-info">
                         <div class="player-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
                         <div class="player-role">
@@ -1205,7 +1221,6 @@
             `).join('');
         }
 
-        // ==================== АДМИНКА ====================
         async function loadAchievementsList() {
             const { data } = await sb.from('achievements').select('*').order('created_at');
             allAchievements = data || [];
@@ -1248,10 +1263,10 @@
 
                 return `
                     <div class="admin-user-card ${u.is_banned ? 'banned' : ''}">
-                        <img src="${u.avatar_url || ''}" alt="">
+                        <img src="${u.avatar_url || ''}" alt="" onclick="window.location.href=window.location.origin+window.location.pathname+'?profile='+${u.id}">
                         <div style="flex:1; min-width:150px;">
                             <div class="admin-user-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
-                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;">👑 Админ</span>' : ''}
+                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;"> Админ</span>' : ''}
                         </div>
                         <div>
                             <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
@@ -1314,7 +1329,6 @@
 
         refreshAuthUI();
 
-        // Футер
         (function createFooterAndToast() {
             const footer = document.createElement('div');
             footer.className = 'ultimate-footer';
@@ -1331,7 +1345,6 @@
             document.body.appendChild(toast);
         })();
 
-        // Онлайн
         async function updateRealOnline() {
             const countElement = document.getElementById('player-count');
             const statusDot = document.querySelector('.status-dot');
@@ -1359,7 +1372,9 @@
 
         function switchPage(pageId) {
             if (pageId !== 'profile') {
-                window.history.replaceState({}, document.title, window.location.pathname);
+                if (!window.location.search.includes('profile=')) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
                 viewingProfileId = null;
             }
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
