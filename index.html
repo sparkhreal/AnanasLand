@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnanasLand</title>
+    
+    <!-- Иконка сайта (Favicon) -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
     <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
     <style>
         :root {
             --primary-orange: #ff5100;
@@ -33,7 +42,6 @@
             position: relative;
         }
 
-        /* Задний фон с частицами */
         .particles {
             position: fixed;
             top: 0;
@@ -52,7 +60,6 @@
             opacity: 0.2;
         }
 
-        /* Навигация (Разделы сайта) */
         header {
             padding: 20px 40px;
             display: flex;
@@ -103,7 +110,6 @@
             box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
         }
 
-        /* Блок авторизации через Discord */
         .auth-block { display: flex; align-items: center; }
         .auth-btn {
             display: inline-flex;
@@ -127,7 +133,6 @@
         .auth-logout-btn { background: transparent; border: none; color: #999; cursor: pointer; font-size: 14px; padding: 4px; }
         .auth-logout-btn:hover { color: var(--primary-orange); }
 
-        /* Профиль */
         .profile-banner {
             position: relative;
             width: 100%;
@@ -180,7 +185,6 @@
         .achievement-title { font-weight: 700; color: var(--secondary-yellow); font-size: 14px; }
         .achievement-desc { font-size: 12px; color: #aaa; }
 
-        /* Админка */
         .admin-new-achievement { display: flex; gap: 10px; flex-wrap: wrap; }
         .admin-new-achievement input {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
@@ -206,7 +210,6 @@
             border-radius: 8px; color: #fff; padding: 8px 10px;
         }
 
-        /* Контейнер страниц */
         .page {
             display: none;
             max-width: 1000px;
@@ -216,11 +219,8 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        .page.active {
-            display: block;
-        }
+        .page.active { display: block; }
 
-        /* Главная Страница */
         .hero-card {
             text-align: center;
             background: var(--card-bg);
@@ -256,7 +256,6 @@
             text-transform: uppercase;
         }
 
-        /* Индикатор онлайна */
         .status-container {
             display: inline-flex;
             align-items: center;
@@ -277,16 +276,8 @@
             animation: pulseGreen 1.5s infinite alternate;
         }
 
-        .status-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #aaa;
-        }
-
-        .status-count {
-            color: #fff;
-            font-weight: 800;
-        }
+        .status-text { font-size: 14px; font-weight: 600; color: #aaa; }
+        .status-count { color: #fff; font-weight: 800; }
 
         .server-description {
             font-size: 17px;
@@ -321,7 +312,6 @@
 
         .ip-icon { margin-left: 15px; font-size: 18px; }
 
-        /* Сетка для Виджета скинов и Новостей */
         .main-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -329,7 +319,6 @@
             margin-top: 40px;
         }
 
-        /* Виджет Скина */
         .skin-widget {
             background: var(--card-bg);
             border: 1px solid var(--border-glow);
@@ -388,7 +377,6 @@
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
 
-        /* Лента Новостей */
         .news-feed h2 {
             margin-top: 0;
             text-transform: uppercase;
@@ -415,7 +403,6 @@
         .news-card h3 { margin: 5px 0 12px; color: #fff; }
         .news-card p { color: #ccc; line-height: 1.6; margin: 0; }
 
-        /* Стили Подсайтов (Вики и Правила) */
         .subpage-container {
             background: var(--card-bg);
             border: 1px solid var(--border-glow);
@@ -467,7 +454,6 @@
         .wiki-article h3 { color: var(--secondary-yellow); margin-top: 0; font-size: 24px; text-transform: uppercase;}
         .wiki-article p { line-height: 1.7; color: #ccc; }
 
-        /* Раздел FAQ */
         .faq-item {
             background: rgba(0,0,0,0.3);
             border: 1px solid rgba(255,115,0,0.1);
@@ -506,7 +492,6 @@
             color: var(--secondary-yellow);
         }
 
-        /* Галерея Скриншотов */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -535,35 +520,81 @@
             box-shadow: 0 5px 20px rgba(255,204,0,0.2);
         }
 
-        /* Подвал */
-        footer {
-            padding: 40px;
-            text-align: center;
-            margin-top: auto;
-            border-top: 1px solid rgba(255, 115, 0, 0.1);
+        .ultimate-footer {
+            position: relative !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            padding: 40px 0 !important;
+            text-align: center !important;
+            width: 100% !important;
+            clear: both !important;
+            margin-top: 60px !important;
+            border-top: 1px solid rgba(255, 115, 0, 0.15) !important;
+            z-index: 999999 !important;
+        }
+        
+        .page:not(.active) .ultimate-footer {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            background: #070400 !important;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
         }
 
-        .social-icons { display: flex; justify-content: center; gap: 30px; }
-
-        .icon-link {
-            display: flex; justify-content: center; align-items: center;
-            width: 55px; height: 55px; color: #fff; font-size: 24px;
-            text-decoration: none; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: 50%;
+        .ultimate-social-icons {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 25px !important;
         }
 
-        .icon-link.discord:hover { background: #5865F2; box-shadow: 0 0 20px #5865F2; transform: translateY(-5px); }
-        .icon-link.youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; transform: translateY(-5px); }
-        .icon-link.twitch:hover { background: #9146FF; box-shadow: 0 0 20px #9146FF; transform: translateY(-5px); }
-
-        .notification {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(150px);
-            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000; font-weight: 800; text-transform: uppercase; font-size: 13px;
-            padding: 12px 25px; border-radius: 8px; box-shadow: 0 10px 25px rgba(255,81,0,0.3);
-            z-index: 1000;
+        .ultimate-btn-link {
+            display: inline-block !important;
+            padding: 12px 30px !important;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            text-decoration: none !important;
+            background: rgba(255, 81, 0, 0.05) !important;
+            border: 1px solid rgba(255, 115, 0, 0.3) !important;
+            border-radius: 6px !important;
+            transition: all 0.3s ease !important;
         }
-        .notification.show { transform: translateX(-50%) translateY(0); }
+
+        .ultimate-btn-link:hover {
+            color: #ffcc00 !important;
+            border-color: #ffcc00 !important;
+            background: rgba(255, 115, 0, 0.15) !important;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important;
+            transform: translateY(-3px) !important;
+        }
+
+        .ultimate-notification {
+            position: fixed !important;
+            bottom: 30px !important;
+            left: 50% !important;
+            transform: translateX(-50%) translateY(200px) !important;
+            background: linear-gradient(90deg, #ff5100, #ffcc00) !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            text-transform: uppercase !important;
+            font-size: 13px !important;
+            padding: 14px 30px !important;
+            border-radius: 8px !important;
+            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important;
+            z-index: 10000000 !important;
+            opacity: 0 !important;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
+            pointer-events: none !important;
+        }
+
+        .ultimate-notification.show-toast {
+            transform: translateX(-50%) translateY(0) !important;
+            opacity: 1 !important;
+        }
 
         @keyframes neonPulse {
             0% { filter: drop-shadow(0 0 2px rgba(255,81,0,0.3)); }
@@ -584,15 +615,11 @@
             .server-name { font-size: 36px; }
         }
     </style>
-    <!-- Supabase SDK (Discord-вход, база данных, хранилище файлов) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
-    <!-- Задний фон с частицами -->
     <div class="particles" id="particleContainer"></div>
 
-    <!-- Шапка / Навигация подсайтов -->
     <header>
         <div class="logo" onclick="switchPage('main')">AnanasLand</div>
         <nav>
@@ -618,16 +645,15 @@
     <div id="page-main" class="page active">
         <div class="hero-card">
             <h1 class="server-name">AnanasLand</h1>
-            <div class="server-version">Версия: 26.1.2</div>
+            <div class="server-version">Версия: 1.20.4</div>
             
-            <!-- Живой индикатор онлайна -->
             <div class="status-container">
                 <div class="status-dot"></div>
-                <div class="status-text">Сервер онлайн: <span class="status-count" id="player-count">1/67</span></div>
+                <div class="status-text">Сервер онлайн: <span class="status-count" id="player-count">Загрузка...</span></div>
             </div>
 
             <p class="server-description">
-                Добро пожаловать на ванильный приватный сервер в майнкрафт! здесь вас ждут ивенты, лор и игроки которые уже играют у нас!
+                Добро пожаловать на ванильный приватный сервер в майнкрафт! Здесь вас ждут ивенты, лор и игроки, которые уже играют у нас!
             </p>
 
             <div class="ip-box" onclick="copyIP()">
@@ -637,67 +663,57 @@
         </div>
 
         <div class="main-grid">
-            <!-- Виджет скина по нику -->
             <div class="skin-widget">
                 <h3>Твой Аватар</h3>
                 <input type="text" id="skinNickname" class="skin-input" placeholder="Введите ваш ник..." value="Steve">
                 <button class="skin-btn" onclick="updateSkin()">Посмотреть скин</button>
                 <div class="skin-display">
-                    <img id="skinImg" src="https://mc-heads.net" alt="Skin">
+                    <img id="skinImg" src="https://mc-heads.net/avatar/Steve/100" alt="Skin">
                 </div>
             </div>
 
-            <!-- Встроенная лента новостей -->
             <div class="news-feed">
                 <h2>Лента обновлений</h2>
-                
                 <div class="news-card">
                     <div class="news-date">Июль 2026 — Финал сезона</div>
                     <h3>Финал сезона!</h3>
                     <p>31.07 состоится конец сезона!</p>
                 </div>
-
                 <div class="news-card">
                     <div class="news-date">Июнь 2026 — Открытие</div>
                     <h3>Открытие Сервера</h3>
-                    <p>9 июля состоялось отрытие 1 сезона AnanasLand</p>
+                    <p>9 июля состоялось открытие 1 сезона AnanasLand</p>
                 </div>
             </div>
         </div>
 
-        <!-- Галерея скриншотов -->
         <div style="margin-top: 50px;">
             <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Галерея сервера</h2>
             <div class="gallery-grid">
-                <!-- Замени ссылки на свои скриншоты -->
                 <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-9bd9f83d-f4f3-41da-a57c-505fcaecd1c6.jpg" alt="Screen 1"></div>
                 <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-58f1eba3-ee80-4a5d-a833-6c96f2af6e6b.jpg" alt="Screen 2"></div>
                 <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-db90dacc-0f6a-46af-bf3c-d32098b3a0fe.jpg" alt="Screen 3"></div>
             </div>
         </div>
 
-        <!-- ФАК Ю (FAQ) -->
         <div style="margin-top: 50px; margin-bottom: 30px;">
             <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Часто задаваемые вопросы (FAQ)</h2>
-            
             <div class="faq-item">
                 <div class="faq-question">Как начать играть на сервере? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Запустите лицензионный или пиратский лаунчер Майнкрафт версии 26.1.2. Нажмите "Сетевая игра", затем "Добавить", введите наш IP-адрес <b>ananasland.play.ski</b> и подключайтесь!</div>
+                <div class="faq-answer">Запустите лицензионный или пиратский лаунчер Майнкрафт. Нажмите "Сетевая игра", затем "Добавить", введите наш IP-адрес <b>ananasland.play.ski</b> и подключайтесь!</div>
             </div>
-
             <div class="faq-item">
-                <div class="faq-question">Где мне узнать последнюю информацию?<i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и перейдите в канал Объявления, также вы млжете перейти в остальные соц сети для получения дополнительной информации.</div>
+                <div class="faq-question">Где мне узнать последнюю информацию? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и перейдите в канал Объявления.</div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question">Куда писать, если я нашел баг или нарушителя? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и создайте обращение в текстовом канале Поддержка. Наша администрация ответит очень быстро.</div>
+                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и создайте обращение в текстовом канале Поддержка.</div>
             </div>
         </div>
     </div>
 	
-    <!-- СТРАНИЦА 2: ВИКИ (ПОДСАЙТ) -->
+    <!-- СТРАНИЦА 2: ВИКИ -->
     <div id="page-wiki" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний / Wiki</h2>
@@ -705,52 +721,36 @@
                 <div class="wiki-sidebar">
                     <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
-                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')"> ❤️ Отдельное спасибо</button>
+                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Отдельное спасибо</button>
                 </div>
                 <div class="wiki-content">
                     <div id="wiki-start" class="wiki-article active">
                         <h3>История сервера</h3>
-                        <p>Наш сервер запустился 09.07.26 года. с того времени мы радумаем вас ивентами и лором.</p>
-                        <p>за это время произошло много чего интересного, вот вся история</p>
-						<p>09.07.2026-открытие сервера!</p>
-						<p>10.07.2026-Создание первого города! тогда первым городом стал СНБС</p>
-						<p>13.07.2026-сервер переносится на хостинг(ранее он держался на @kihuntt отдельное спасибо)</p>
-						<p>13.07.2026-также в эту дату прошол "ивент" который закончился полным погромом карты из-за 1 админа...</p>
-						<p>18.07.2026-мы отмечали день рождения 1 крутого человека-дензи aka @denzi_354_80854 </p>
-						<p>31.08.2026-...</p>
+                        <p>Наш сервер запустился 09.07.26 года. С того времени мы радуем вас ивентами и лором.</p>
+                        <p>09.07.2026 - открытие сервера!</p>
+                        <p>10.07.2026 - Создание первого города! Тогда первым городом стал СНБС.</p>
+                        <p>13.07.2026 - сервер переносится на хостинг (ранее он держался на @kihuntt, отдельное спасибо).</p>
+                        <p>18.07.2026 - мы отмечали день рождения 1 крутого человека - дензи aka @denzi_354_80854.</p>
+                        <p>31.08.2026 - ...</p>
                     </div>
                     <div id="wiki-jobs" class="wiki-article">
                         <h3>Администрация</h3>
-                        <p>На Данный момент в администрации находится 3 человека:</p>
-                        <p>Кустик aka 29kyctik31</p>
-						<p>Кихунт aka kihuntt</p>
-						<p>Спарк aka realSparkH</p>
+                        <p>На данный момент в администрации находится 3 человека:</p>
+                        <p>• Кустик aka 29kyctik31</p>
+                        <p>• Кихунт aka kihuntt</p>
+                        <p>• Спарк aka realSparkH</p>
                     </div>
                     <div id="wiki-clans" class="wiki-article">
                         <h3>Отдельное спасибо</h3>
                         <p>Спасибо выражается всем игрокам в списке!! ❤️</p>
-                        <p>29kyctik31</p>
-						<p>Kihuntt</p>
-						<p>_CharaDreemurrr_</p>
-						<p>Denzi354</p>
-						<p>ArbyznyeKorki aka oananasik1</p>
-						<p>edenX</p>
-						<p>machine</p>
-						<p>MrKaktyc1k</p>
-						<p>Nlk0uwu</p>
-						<p>QuasiBloom9153</p>
-						<p>realSparkH</p>
-						<p>SAHS988</p>
-						<p>snya69</p>
-						<p>Xastrad</p>
-						<p>kikmey</p>
-						<p>маме спрака <3</p>
-					</div>
+                        <p>29kyctik31, Kihuntt, _CharaDreemurrr_, Denzi354, ArbyznyeKorki (oananasik1), edenX, machine, MrKaktyc1k, Nlk0uwu, QuasiBloom9153, realSparkH, SAHS988, snya69, Xastrad, kikmey, маме спрака <3</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- СТРАНИЦА 3: ПРАВИЛА (ПОДСАЙТ) -->
+
+    <!-- СТРАНИЦА 3: ПРАВИЛА (ИСПРАВЛЕНА ВЁРСТКА) -->
     <div id="page-rules" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Свод правил сервера</h2>
@@ -760,132 +760,103 @@
                 <p>• Суть проекта: Сервер является классическим Vanilla+ SMP (Survival Multiplayer).</p>
                 <p>• Игра базируется на доверии, дружбе и совместном творчестве.</p>
                 <p>• Администрация: Решения создателей окончательны, обсуждению не подлежат.</p>
-				<p>• Ответственность: Заходя на сервер, вы автоматически соглашаетесь с правилами.</p>
-				<p>• Наказания: Система лояльна к новичкам, но беспощадна к осознанным вредителям.</p>
+                <p>• Ответственность: Заходя на сервер, вы автоматически соглашаетесь с правилами.</p>
+                <p>• Наказания: Система лояльна к новичкам, но беспощадна к осознанным вредителям.</p>
             </div>
 
             <div style="margin-bottom: 25px;">
-                <h3 style="color: red;">1. 🛑 Гриферство, воровство и вредительство</h3>	
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">1.1. Чужое имущество 📦</h3>
+                <h3 style="color: red;">1. 🛑 Гриферство, воровство и вредительство</h3>
+                <h4 style="color: var(--secondary-yellow);">1.1. Чужое имущество 📦</h4>
                 <p>• Кража: Категорически запрещено забирать вещи из чужих сундуков, печек, шалкеров и бочек.</p>
                 <p>• Принцип «Взял — отдай»: Даже если сундук не подписан, брать ресурсы без спроса нельзя.</p>
-				<p>• Урожай: Разрешено собирать чужие посевы только с условием немедленной посадки семян обратно.</p>
-				<p>• Скот: Запрещено убивать чужих домашних животных, жителей и питомцев (даже именных мобов).</p>
-            </div>
-
-            <div>
-                <h3 style="color: var(--secondary-yellow);">1.2. Разрушение построек 💥</h3>
+                <p>• Урожай: Разрешено собирать чужие посевы только с условием немедленной посадки семян обратно.</p>
+                <p>• Скот: Запрещено убивать чужих домашних животных, жителей и питомцев.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">1.2. Разрушение построек 💥</h4>
                 <p>• Вандализм: Запрещено ломать блоки чужих зданий, сжигать их или заливать жидкостями.</p>
                 <p>• Мини-гриф: Запрещено изменять чужие постройки без явного согласия их автора.</p>
-				<p>• Криперы: Если крипер взорвался у чужого дома, вы обязаны восстановить стены и ландшафт.</p>
-				<p>• Следствие: Любые действия с блоками логируются, нарушитель вычисляется за секунду.</p>
-				<p> <b>⚖️ Наказание: Временный бан, с возможностью подать аппеляцию</b> </p>
-				<p> <b>🛑Наказание: 1 раз-1 час бана</b> </p>
-				<p> <b>🛑Наказание: 2 раз-5 часов бана</b> </p>
-				<p> <b>🛑Наказание: 3 раз-10 часов бана</b> </p>
-				<p> <b>🛑Наказание: более 3 раз-24 часа бана</b> </p>
-				<p> <b>🛑Наказание: постоянные нарушения-перманентный бан</b> </p>
-
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: green;">2. 🗺️ Территории, приват и строительство</h3>	
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">2.1. Правила расселения ⛺</h3>
-                <p>• Отсутствие плагинов: На сервере нет команд /claim или /res — приват держится на честности.</b></p>
-                <p>• Дистанция: Запрещено строиться ближе чем в 300 блоков от зоны влияния другого игрока.</p>
-				<p>• Согласование: Хотите жить ближе к кому-то? Спросите официальное разрешение в ЛС.</p>
-				<p>• Таблички: Границы своей базы и склады рекомендуется обозначать табличками с вашим ником.</p>
+                <p>• Криперы: Если крипер взорвался у чужого дома, вы обязаны восстановить стены и ландшафт.</p>
+                <p>• Следствие: Любые действия с блоками логируются, нарушитель вычисляется за секунду.</p>
+                <p><b>⚖️ Наказание:</b> 1 раз - 1 час бана | 2 раз - 5 часов | 3 раз - 10 часов | Более 3 раз - 24 часа | Постоянные нарушения - перманентный бан.</p>
             </div>
 
-            <div>
-                <h3 style="color: var(--secondary-yellow);">2.2. Общественные зоны 🏙️</h3>
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: green;">2. 🗺️ Территории, приват и строительство</h3>
+                <h4 style="color: var(--secondary-yellow);">2.1. Правила расселения ⛺</h4>
+                <p>• Отсутствие плагинов: На сервере нет команд /claim или /res — приват держится на честности.</p>
+                <p>• Дистанция: Запрещено строиться ближе чем в 300 блоков от зоны влияния другого игрока.</p>
+                <p>• Согласование: Хотите жить ближе к кому-то? Спросите официальное разрешение в ЛС.</p>
+                <p>• Таблички: Границы своей базы и склады рекомендуется обозначать табличками с вашим ником.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">2.2. Общественные зоны 🏙️</h4>
                 <p>• Спавн: Общая территория для спавн-ивент-зон, спавн-града и торговых лавок.</p>
                 <p>• Застройка спавна: Любая постройка на спавне должна быть красивой и согласованной с админами.</p>
-				<p>• Запрет на базы: Строить личные жилые базы, склады и фермы на спавне строго запрещено.</p>
-				<p>• Дороги: Запрещено перекрывать, ломать или застраивать общие тропы и хайвеи в Незере.</p>
-				<p> <b>⚖️ Наказание: Снос постройки админами + бан персонажа на срок от 3 до 7 дней.</b> </p>
-				
+                <p>• Запрет на базы: Строить личные жилые базы, склады и фермы на спавне строго запрещено.</p>
+                <p>• Дороги: Запрещено перекрывать, ломать или застраивать общие тропы и хайвеи в Незере.</p>
+                <p><b>⚖️ Наказание:</b> Снос постройки админами + бан персонажа на срок от 3 до 7 дней.</p>
+            </div>
 
             <div style="margin-bottom: 25px;">
-                <h3 style="color: grey;">3. ⚔️ PVP (Боевые взаимодействия) и убийства</h3>	
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">3.1. Честный бой 🛡️</h3>
+                <h3 style="color: grey;">3. ⚔️ PVP (Боевые взаимодействия) и убийства</h3>
+                <h4 style="color: var(--secondary-yellow);">3.1. Честный бой 🛡️</h4>
                 <p>• Обоюдный интерес: ПВП разрешено исключительно при согласии обеих сторон перед началом боя.</p>
                 <p>• Нападение из-за угла: Намеренное убийство игрока без предупреждения приравнивается к гриферству.</p>
-				<p>• Убийство новичков: Категорически запрещено охотиться на игроков в кожаной/железной броне.</p>
-				<p>• Возврат снаряжения: При случайной гибели друга в ПВП все его вещи возвращаются до единой.</p>
-            </div>
-
-            <div>
-                <h3 style="color: var(--secondary-yellow);">3.2. Ловушки и «подставы» 🕸️</h3>
+                <p>• Убийство новичков: Категорически запрещено охотиться на игроков в кожаной/железной броне.</p>
+                <p>• Возврат снаряжения: При случайной гибели друга в ПВП все его вещи возвращаются до единой.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">3.2. Ловушки и «подставы» 🕸️</h4>
                 <p>• Капканы: Запрещено строить скрытые ямы с лавой, шипами или иссушителями на путях игроков.</p>
                 <p>• ТП-килл: Запрещено звать игрока к себе через чат с целью заманить в смертельную ловушку.</p>
-				<p>• Вредительство мобами: Запрещено приводить под двери чужих баз зомби, рейды или визеров.</p>
-				<p> <b>⚖️ Наказание: Бан аккаунта на срок от 5 до 14 дней. Повторный инцидент — вечный бан.</b> </p>
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: green;">4. 🌱 Экология мира и ландшафт
-				</div>
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">4.1. Аккуратность в природе 🌳️</h3>
+                <p>• Вредительство мобами: Запрещено приводить под двери чужих баз зомби, рейды или визеров.</p>
+                <p><b>⚖️ Наказание:</b> Бан аккаунта на срок от 5 до 14 дней. Повторный инцидент — вечный бан.</p>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #4CAF50;">4. 🌱 Экология мира и ландшафт</h3>
+                <h4 style="color: var(--secondary-yellow);">4.1. Аккуратность в природе 🌳</h4>
                 <p>• Лесоповал: Запрещено оставлять парящую листву — срубайте дерево под корень до конца.</p>
                 <p>• Столбы: Запрещено оставлять «грязевые столбы» в 1 блок, которые использовались для подъема.</p>
-				<p>• Озера жидкости: Запрещено разливать лаву и воду по миру без практической цели.</p>
-            </div>
-
-            <div>
-                <h3 style="color: var(--secondary-yellow);">4.2. Механики ферм и лаги ⚙️</h3>
+                <p>• Озера жидкости: Запрещено разливать лаву и воду по миру без практической цели.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">4.2. Механики ферм и лаги ⚙️</h4>
                 <p>• ТПС (Производительность): Запрещено строить редстоун-схемы, способные уронить сервер.</p>
                 <p>• Лимиты сущностей: Не более 20 жителей и не более 40 животных в пределах одного чанка (16х16).</p>
-				<p>• Выключатели: Любая автоматическая ферма обязана иметь рычаг полного отключения.</p>
-				<p>• АФК-фермы: Запрещено оставлять тяжелые фермы работать в АФК-режиме на всю ночь.</p>
-				<p> <b>⚖️ Наказание: Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</b> </p>
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: blue;">5. 🛠️ Модификации и честная игра</h3>	
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) ❌</h3>
-                <p>• Клиенты: Запрещен вход с модами Fabric/Forge на читы (X-Ray, Baritone, Meteor, Wurst).</p>
-                <p>• Ресурспаки: Запрещены текстуры с прозрачными блоками для поиска алмазов и незерита(и какой либо руды).</p>
-				<p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
-				<p>• Дюпы: Использование багов игры на клонирование рельс, ковров, ТНТ или предметов — табу.</p>
+                <p>• Выключатели: Любая автоматическая ферма обязана иметь рычаг полного отключения.</p>
+                <p>• АФК-фермы: Запрещено оставлять тяжелые фермы работать в АФК-режиме на всю ночь.</p>
+                <p><b>⚖️ Наказание:</b> Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</p>
             </div>
 
-            <div>
-                <h3 style="color: var(--secondary-yellow);">5.2. Разрешено к использованию 📐</h3>
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #2196F3;">5. 🛠️ Модификации и честная игра</h3>
+                <h4 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) ❌</h4>
+                <p>• Клиенты: Запрещен вход с модами Fabric/Forge на читы (X-Ray, Baritone, Meteor, Wurst).</p>
+                <p>• Ресурспаки: Запрещены текстуры с прозрачными блоками для поиска алмазов и незерита.</p>
+                <p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
+                <p>• Дюпы: Использование багов игры на клонирование рельс, ковров, ТНТ или предметов — табу.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">5.2. Разрешено к использованию 📐</h4>
                 <p>• Оптимизация: Моды на повышение FPS (Sodium, Lithium, Phosphor, FerriteCore).</p>
                 <p>• Интерфейс: Отображение прочности брони, миникарты (без радара игроков и пещер), REI/JEI.</p>
-				<p>• Голос: Мод Simple Voice Chat (позиционный аудиочат) является обязательным.</p>
-				<p>• Схемы: Мод Litematica разрешен только для проекции чертежей (без функции автостройки).</p>
-				<p> <b>⚖⚖️ Наказание: Моментальный перманентный бан по IP-адресу и никнейму без амнистии.</b> </p>
-				
-								            <div style="margin-bottom: 25px;">
-                <h3 style="color: white;">6. 💬 Чат, культура и общение</h3>	
-				
-				            <div style="margin-bottom: 25px;">
-                <h3 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате 🗣️</h3>
+                <p>• Голос: Мод Simple Voice Chat (позиционный аудиочат) является обязательным.</p>
+                <p>• Схемы: Мод Litematica разрешен только для проекции чертежей (без функции автостройки).</p>
+                <p><b>⚖️ Наказание:</b> Моментальный перманентный бан по IP-адресу и никнейму без амнистии.</p>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #ffffff;">6. 💬 Чат, культура и общение</h3>
+                <h4 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате 🗣️</h4>
                 <p>• Токсичность: Запрещены прямые оскорбления, травля, кибербуллинг и разведение драмы.</p>
                 <p>• Запретные темы: Строго запрещено обсуждение реальной политики, религии и межнациональных споров.</p>
-				<p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
-				<p>• Реклама: Запрещено скидывать ссылки на другие Дискорд-серверы и сторонние проекты.</p>
-            </div>
-
-            <div>
-                <h3 style="color: var(--secondary-yellow);">6.2. Медиа-контент 🔞</h3>
+                <p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
+                <p>• Реклама: Запрещено скидывать ссылки на другие Дискорд-серверы и сторонние проекты.</p>
+                
+                <h4 style="color: var(--secondary-yellow); margin-top: 15px;">6.2. Медиа-контент 🔞</h4>
                 <p>• Ссылки: Запрещено отправлять в чаты шок-контент, порнографию, скримеры или вирусы.</p>
                 <p>• Спам: Запрещено писать капсом (ВЫГЛЯДИТ ВОТ ТАК) и флудить одинаковыми сообщениями.</p>
-				<p> <b>⚖️ Наказание: Мут чата от 1 часа до 3 дней. За политику и рекламу проектов — вечный бан.</b> </p>
-
+                <p><b>⚖️ Наказание:</b> Мут чата от 1 часа до 3 дней. За политику и рекламу проектов — вечный бан.</p>
             </div>
-        </div> <!-- Закрываем блок правил чата -->
-    </div> <!-- Закрываем страницу Правил полностью -->
-    <!-- Недостающие закрывающие теги старой вёрстки (были незакрытые обёртки разделов 1-6) -->
-    </div></div></div></div></div></div></div></div></div></div>
+        </div>
+    </div>
 
     <!-- СТРАНИЦА 4: ПРОФИЛЬ -->
     <div id="page-profile" class="page">
@@ -958,93 +929,9 @@
         </div>
     </div>
 
-    <!-- Футер и уведомление теперь создаются через JS и добавляются напрямую в <body>, -->
-    <!-- поэтому всегда будут видны на всех страницах, независимо от вёрстки внутри них -->
-
-    <style>
-        /* Стили, которые заставляют футер принудительно отображаться под контентом КАЖДОЙ страницы */
-        .ultimate-footer {
-            position: relative !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            padding: 40px 0 !important;
-            text-align: center !important;
-            width: 100% !important;
-            clear: both !important;
-            margin-top: 60px !important;
-            border-top: 1px solid rgba(255, 115, 0, 0.15) !important;
-            z-index: 999999 !important; /* Максимальный приоритет над скрытыми страницами */
-        }
-        
-        /* Если страница скрыта, принудительно показываем наш футер, даже если он внутри неё! */
-        .page:not(.active) .ultimate-footer {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            background: #070400 !important;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
-        }
-
-        .ultimate-social-icons {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            gap: 25px !important;
-        }
-
-        .ultimate-btn-link {
-            display: inline-block !important;
-            padding: 12px 30px !important;
-            color: #ffffff !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-            text-decoration: none !important;
-            background: rgba(255, 81, 0, 0.05) !important;
-            border: 1px solid rgba(255, 115, 0, 0.3) !important;
-            border-radius: 6px !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .ultimate-btn-link:hover {
-            color: #ffcc00 !important;
-            border-color: #ffcc00 !important;
-            background: rgba(255, 115, 0, 0.15) !important;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important;
-            transform: translateY(-3px) !important;
-        }
-
-        /* Полная изоляция плашки уведомления от структуры сайта */
-        .ultimate-notification {
-            position: fixed !important;
-            bottom: 30px !important;
-            left: 50% !important;
-            transform: translateX(-50%) translateY(200px) !important; /* Надежно прячем под экран */
-            background: linear-gradient(90deg, #ff5100, #ffcc00) !important;
-            color: #000000 !important;
-            font-weight: 800 !important;
-            text-transform: uppercase !important;
-            font-size: 13px !important;
-            padding: 14px 30px !important;
-            border-radius: 8px !important;
-            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important;
-            z-index: 10000000 !important; /* Самый высокий слой на сайте */
-            opacity: 0 !important;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
-            pointer-events: none !important;
-        }
-
-        /* Класс анимации появления */
-        .ultimate-notification.show-toast {
-            transform: translateX(-50%) translateY(0) !important;
-            opacity: 1 !important;
-        }
-    </style>
-
     <script>
-        // ==================== SUPABASE (Discord-вход, профили, достижения, админка) ====================
+        // ==================== SUPABASE НАСТРОЙКИ ====================
+        // ВНИМАНИЕ: Замени эти ключи на свои из панели Supabase, если они изменятся!
         const SUPABASE_URL = 'https://vgzqqltcvugkzxevdzvm.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_fGQfHV_lA2QjTuOqbjT3Ag_ie_cELf8';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1279,8 +1166,7 @@
 
         refreshAuthUI();
 
-        // Создаём футер и уведомление и добавляем их напрямую в <body>,
-        // чтобы они гарантированно были видны на ВСЕХ страницах
+        // Создаём футер и уведомление
         (function createFooterAndToast() {
             const footer = document.createElement('div');
             footer.className = 'ultimate-footer';
@@ -1300,15 +1186,33 @@
             document.body.appendChild(toast);
         })();
 
-        function updateMockOnline() {
+        // === РЕАЛЬНЫЙ ОНЛАЙН СЕРВЕРА ===
+        async function updateRealOnline() {
             const countElement = document.getElementById('player-count');
-            const baseCount = 1;
-            const randomChange = Math.floor(Math.random() * 11 - 5);
-            if(countElement) countElement.innerText = `${baseCount + randomChange} / 500`;
-        }
-        setInterval(updateMockOnline, 5000);
+            const statusDot = document.querySelector('.status-dot');
+            if (!countElement) return;
 
-        // Переписанная функция копирования с абсолютно новым механизмом вызова анимации
+            try {
+                const response = await fetch('https://api.mcsrvstat.us/3/ananasland.play.ski');
+                const data = await response.json();
+                
+                if (data.online) {
+                    countElement.innerText = `${data.players.online} / ${data.players.max}`;
+                    statusDot.style.background = '#00ff66';
+                    statusDot.style.boxShadow = '0 0 10px #00ff66';
+                } else {
+                    countElement.innerText = '0 / 0 (Оффлайн)';
+                    statusDot.style.background = '#ff3b3b';
+                    statusDot.style.boxShadow = '0 0 10px #ff3b3b';
+                }
+            } catch (e) {
+                countElement.innerText = 'Не удалось загрузить';
+            }
+        }
+        
+        updateRealOnline();
+        setInterval(updateRealOnline, 60000);
+
         function copyIP() {
             const ipText = document.getElementById('serverIp').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
@@ -1345,10 +1249,11 @@
             if(event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
+        // === ИСПРАВЛЕННЫЙ ПОКАЗ СКИНА ===
         function updateSkin() {
             const nick = document.getElementById('skinNickname').value.trim();
             if(nick !== "") {
-                document.getElementById('skinImg').src = `https://mc-heads.net{nick}`;
+                document.getElementById('skinImg').src = `https://mc-heads.net/avatar/${nick}/100`;
             }
         }
 
