@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnanasLand</title>
-    <link id="siteFavicon" rel="icon" type="image/png" href="https://mc-heads.net/avatar/Steve/32">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <!-- Иконки FontAwesome -->
     <style>
         :root {
             --primary-orange: #ff5100;
@@ -16,76 +14,140 @@
             --card-bg: rgba(20, 10, 0, 0.4);
             --border-glow: rgba(255, 115, 0, 0.2);
         }
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1); }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: radial-gradient(circle at center, #140b00 0%, var(--bg-dark) 100%);
-            color: #ffffff; min-height: 100vh;
-            display: flex; flex-direction: column;
-            overflow-x: hidden; position: relative;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
         }
-        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+
+        /* Задний фон с частицами */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
         .particle {
             position: absolute;
             background: linear-gradient(to top, var(--primary-orange), var(--secondary-yellow));
-            border-radius: 50%; animation: floatUp 8s linear infinite; opacity: 0.2;
+            border-radius: 50%;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.2;
         }
-        
+
+        /* Навигация (Разделы сайта) */
         header {
-            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid rgba(255, 115, 0, 0.1);
-            background: rgba(7, 4, 0, 0.9); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 100;
+            background: rgba(7, 4, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+
         .logo {
-            font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             background: linear-gradient(45deg, var(--primary-orange), var(--secondary-yellow));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: neonPulse 2s ease-in-out infinite alternate; cursor: pointer;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonPulse 2s ease-in-out infinite alternate;
+            cursor: pointer;
         }
-        nav { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
         .nav-btn {
-            background: transparent; border: 1px solid transparent; color: #ccc;
-            padding: 8px 12px; font-size: 12px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.5px; border-radius: 8px; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            min-width: 70px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #ccc;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            cursor: pointer;
         }
-        .nav-btn i { font-size: 18px; }
+
         .nav-btn:hover, .nav-btn.active {
-            color: var(--secondary-yellow); border-color: var(--primary-orange);
-            background: rgba(255, 81, 0, 0.1); box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
+            color: var(--secondary-yellow);
+            border-color: var(--primary-orange);
+            background: rgba(255, 81, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 81, 0, 0.2);
         }
-        
+
+        /* Блок авторизации через Discord */
         .auth-block { display: flex; align-items: center; }
         .auth-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #5865F2; color: #fff; border: none;
-            padding: 10px 18px; border-radius: 8px; font-weight: 700;
-            font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #5865F2;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
         }
         .auth-btn:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88,101,242,0.5); }
-        .auth-user {
-            display: flex; align-items: center; gap: 10px;
-            background: rgba(255,255,255,0.05); padding: 6px 14px 6px 6px;
-            border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-        }
+        .auth-user { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 6px 14px 6px 6px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
         .auth-user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
         .auth-user-name { font-size: 13px; font-weight: 600; color: #eee; }
         .auth-logout-btn { background: transparent; border: none; color: #999; cursor: pointer; font-size: 14px; padding: 4px; }
         .auth-logout-btn:hover { color: var(--primary-orange); }
-        
+
+        /* Профиль */
         .profile-banner {
-            position: relative; width: 100%; height: 220px; border-radius: 16px; overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
             background: linear-gradient(135deg, rgba(255,81,0,0.2), rgba(255,204,0,0.1));
             border: 1px solid var(--border-glow);
         }
         .profile-banner img { width: 100%; height: 100%; object-fit: cover; }
         .profile-upload-overlay {
-            position: absolute; bottom: 12px; right: 12px;
-            background: rgba(0,0,0,0.6); color: #fff; padding: 8px 16px;
-            border-radius: 8px; font-size: 13px; cursor: pointer;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
             border: 1px solid rgba(255,255,255,0.2);
         }
         .profile-upload-overlay:hover { background: rgba(255,81,0,0.7); }
@@ -103,35 +165,24 @@
             cursor: pointer; font-size: 13px; border: 2px solid var(--bg-dark);
         }
         .profile-ban-badge { color: #ff3b3b; font-weight: 800; font-size: 13px; }
-        .profile-description-input, .profile-description-text {
+        .profile-description-input {
             width: 100%; min-height: 100px; background: rgba(0,0,0,0.4);
             border: 1px solid var(--border-glow); border-radius: 10px;
             color: #fff; padding: 12px; font-family: inherit; resize: vertical;
         }
-        .profile-description-text { color: #ccc; line-height: 1.6; }
-        .share-profile-btn {
-            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000; border: none; padding: 10px 20px; border-radius: 8px;
-            font-weight: 700; cursor: pointer; text-transform: uppercase;
-            font-size: 13px; margin-top: 10px;
-        }
-        .share-profile-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
         .achievements-grid { display: flex; flex-wrap: wrap; gap: 14px; }
         .achievement-card {
             background: var(--card-bg); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 14px 18px; display: flex; align-items: center;
-            gap: 12px; min-width: 220px; max-width: 320px; position: relative;
+            gap: 12px; min-width: 220px;
         }
-        .achievement-icon { font-size: 28px; flex-shrink: 0; }
-        .achievement-image {
-            width: 48px; height: 48px; border-radius: 8px; object-fit: cover;
-            border: 1px solid var(--border-glow); flex-shrink: 0;
-        }
+        .achievement-icon { font-size: 28px; }
         .achievement-title { font-weight: 700; color: var(--secondary-yellow); font-size: 14px; }
         .achievement-desc { font-size: 12px; color: #aaa; }
-        
+
+        /* Админка */
         .admin-new-achievement { display: flex; gap: 10px; flex-wrap: wrap; }
-        .admin-new-achievement input, .admin-new-achievement textarea {
+        .admin-new-achievement input {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 10px 14px; font-family: inherit;
         }
@@ -141,302 +192,419 @@
             border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
             display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
         }
-        .admin-user-card img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; cursor: pointer; }
-        .admin-user-card img:hover { border: 2px solid var(--secondary-yellow); }
+        .admin-user-card img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
         .admin-user-name { font-weight: 700; }
         .admin-user-card.banned { border-color: rgba(255,59,59,0.5); }
-        .admin-ban-btn, .admin-role-btn {
-            padding: 8px 14px; border-radius: 8px; border: 1px solid; cursor: pointer;
-            font-weight: 700; font-size: 11px; text-transform: uppercase; background: transparent; margin-left: 5px;
+        .admin-ban-btn {
+            padding: 8px 16px; border-radius: 8px; border: 1px solid; cursor: pointer;
+            font-weight: 700; font-size: 12px; text-transform: uppercase; background: transparent;
         }
         .admin-ban-btn.ban { color: #ff3b3b; border-color: #ff3b3b; }
         .admin-ban-btn.unban { color: #0f0; border-color: #0f0; }
-        .admin-role-btn.give-admin { color: var(--secondary-yellow); border-color: var(--secondary-yellow); }
-        .admin-role-btn.remove-admin { color: #ff3b3b; border-color: #ff3b3b; }
         .admin-achievement-select {
             background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
             border-radius: 8px; color: #fff; padding: 8px 10px;
         }
-        .admin-favicon-input {
-            display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
-            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px;
-            border: 1px solid var(--border-glow); margin-top: 10px;
+
+        /* Контейнер страниц */
+        .page {
+            display: none;
+            max-width: 1000px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 0.5s ease forwards;
         }
-        .admin-favicon-input input {
-            flex: 1; min-width: 250px; background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-glow); border-radius: 8px;
-            color: #fff; padding: 10px 14px; font-family: inherit;
+
+        .page.active {
+            display: block;
         }
-        .admin-favicon-preview {
-            width: 48px; height: 48px; border-radius: 8px; object-fit: contain;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
-        }
-        
-        .wysiwyg-toolbar {
-            display: flex; gap: 5px; flex-wrap: wrap;
-            background: rgba(0,0,0,0.5); padding: 10px;
-            border: 1px solid var(--border-glow); border-radius: 8px 8px 0 0;
-            border-bottom: none;
-        }
-        .wysiwyg-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
-            color: #fff; padding: 6px 12px; border-radius: 4px;
-            cursor: pointer; font-size: 13px;
-        }
-        .wysiwyg-btn:hover { background: var(--primary-orange); color: #000; }
-        .wysiwyg-editor {
-            min-height: 150px; background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-glow); border-radius: 0 0 8px 8px;
-            color: #fff; padding: 15px; font-family: inherit;
-            line-height: 1.6; outline: none;
-        }
-        .wysiwyg-editor:focus { border-color: var(--secondary-yellow); }
-        .wysiwyg-editor b, .wysiwyg-editor strong { color: var(--secondary-yellow); }
-        .wysiwyg-editor i, .wysiwyg-editor em { color: #ff9999; }
-        
-        .editor-section {
-            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
-            border-radius: 12px; padding: 20px; margin-bottom: 20px;
-        }
-        .editor-section h3 {
-            color: var(--secondary-yellow); margin-top: 0; margin-bottom: 15px;
-            text-transform: uppercase; font-size: 16px;
-        }
-        .editor-field { margin-bottom: 15px; }
-        .editor-field label {
-            display: block; color: #aaa; font-size: 13px; margin-bottom: 5px;
-        }
-        .editor-field input[type="text"],
-        .editor-field textarea {
-            width: 100%; background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-glow); border-radius: 8px;
-            color: #fff; padding: 12px; font-family: inherit; font-size: 14px;
-        }
-        .editor-field textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
-        .editor-field input:focus, .editor-field textarea:focus {
-            border-color: var(--secondary-yellow);
-            box-shadow: 0 0 10px rgba(255,204,0,0.2); outline: none;
-        }
-        .news-editor-item {
-            background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow);
-            border-radius: 8px; padding: 15px; margin-bottom: 10px;
-        }
-        .news-editor-item h4 { color: var(--secondary-yellow); margin: 0 0 10px 0; font-size: 14px; }
-        .add-news-btn, .save-content-btn {
-            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000; border: none; padding: 12px 25px; border-radius: 8px;
-            cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 13px;
-        }
-        .add-news-btn:hover, .save-content-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,81,0,0.3); }
-        .editor-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-        .editor-tab {
-            background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow);
-            color: #aaa; padding: 10px 18px; border-radius: 8px;
-            cursor: pointer; font-weight: 600; font-size: 13px;
-        }
-        .editor-tab.active {
-            background: rgba(255,81,0,0.2); border-color: var(--primary-orange);
-            color: var(--secondary-yellow);
-        }
-        .editor-tab:hover { border-color: var(--secondary-yellow); color: var(--secondary-yellow); }
-        
-        .page { display: none; max-width: 1000px; width: 100%; margin: 40px auto; padding: 0 20px; animation: fadeIn 0.5s ease forwards; }
-        .page.active { display: block; }
+
+        /* Главная Страница */
         .hero-card {
-            text-align: center; background: var(--card-bg); border: 1px solid var(--border-glow);
-            border-radius: 20px; padding: 40px; backdrop-filter: blur(15px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); margin-bottom: 40px;
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
         }
+
         .server-name {
-            font-size: 54px; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 3px;
+            font-size: 54px;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             background: linear-gradient(135deg, #fff 40%, var(--secondary-yellow));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 15px var(--neon-glow));
         }
+
         .server-version {
-            display: inline-block; font-size: 12px; font-weight: 800;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            color: #000; padding: 4px 12px; border-radius: 20px; margin: 15px 0 25px; text-transform: uppercase;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 15px 0 25px;
+            text-transform: uppercase;
         }
+
+        /* Индикатор онлайна */
         .status-container {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: rgba(0, 0, 0, 0.5); padding: 6px 16px;
-            border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
         }
+
         .status-dot {
-            width: 10px; height: 10px; background: #00ff66; border-radius: 50%;
-            box-shadow: 0 0 10px #00ff66; animation: pulseGreen 1.5s infinite alternate;
+            width: 10px;
+            height: 10px;
+            background: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff66;
+            animation: pulseGreen 1.5s infinite alternate;
         }
-        .status-text { font-size: 14px; font-weight: 600; color: #aaa; }
-        .status-count { color: #fff; font-weight: 800; }
-        .server-description { font-size: 17px; line-height: 1.7; color: #d1d1d1; max-width: 700px; margin: 0 auto 35px; }
+
+        .status-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #aaa;
+        }
+
+        .status-count {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .server-description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #d1d1d1;
+            max-width: 700px;
+            margin: 0 auto 35px;
+        }
+
         .ip-box {
-            display: inline-flex; align-items: center; background: rgba(0,0,0,0.6);
-            border: 2px solid var(--primary-orange); padding: 14px 30px; border-radius: 12px; cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid var(--primary-orange);
+            padding: 14px 30px;
+            border-radius: 12px;
+            cursor: pointer;
         }
-        .ip-box:hover { transform: translateY(-3px); border-color: var(--secondary-yellow); box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25); }
-        .ip-text { font-family: 'Consolas', monospace; font-size: 20px; font-weight: 700; color: var(--secondary-yellow); }
+
+        .ip-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--secondary-yellow);
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.25);
+        }
+
+        .ip-text {
+            font-family: 'Consolas', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary-yellow);
+        }
+
         .ip-icon { margin-left: 15px; font-size: 18px; }
-        .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 40px; }
-        .skin-widget { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 20px; padding: 30px; text-align: center; height: fit-content; }
-        .skin-widget h3 { margin-top: 0; text-transform: uppercase; color: var(--secondary-yellow); letter-spacing: 1px; }
+
+        /* Сетка для Виджета скинов и Новостей */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* Виджет Скина */
+        .skin-widget {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            height: fit-content;
+        }
+
+        .skin-widget h3 {
+            margin-top: 0;
+            text-transform: uppercase;
+            color: var(--secondary-yellow);
+            letter-spacing: 1px;
+        }
+
         .skin-input {
-            width: 100%; padding: 12px; background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-glow); border-radius: 8px;
-            color: #fff; font-size: 15px; margin-bottom: 15px; outline: none;
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 15px;
+            outline: none;
         }
-        .skin-input:focus { border-color: var(--secondary-yellow); box-shadow: 0 0 10px rgba(255,204,0,0.2); }
+        .skin-input:focus {
+            border-color: var(--secondary-yellow);
+            box-shadow: 0 0 10px rgba(255,204,0,0.2);
+        }
+
         .skin-btn {
-            width: 100%; padding: 12px;
+            width: 100%;
+            padding: 12px;
             background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
-            border: none; border-radius: 8px; color: #000; font-weight: 700;
-            text-transform: uppercase; cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
         }
-        .skin-display { margin-top: 20px; height: 200px; display: flex; justify-content: center; align-items: center; }
-        .skin-display img { height: 100%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
-        .news-feed h2, .news-page-header { margin-top: 0; text-transform: uppercase; letter-spacing: 1px; border-left: 4px solid var(--primary-orange); padding-left: 15px; }
-        .news-card { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
-        .news-date { font-size: 12px; color: var(--secondary-yellow); font-weight: bold; text-transform: uppercase; }
+
+        .skin-display {
+            margin-top: 20px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .skin-display img {
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        /* Лента Новостей */
+        .news-feed h2 {
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 4px solid var(--primary-orange);
+            padding-left: 15px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: var(--secondary-yellow);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
         .news-card h3 { margin: 5px 0 12px; color: #fff; }
         .news-card p { color: #ccc; line-height: 1.6; margin: 0; }
-        .subpage-container { background: var(--card-bg); border: 1px solid var(--border-glow); border-radius: 20px; padding: 40px; backdrop-filter: blur(15px); }
-        .subpage-header { border-bottom: 2px solid var(--primary-orange); padding-bottom: 15px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
-        .wiki-grid { display: grid; grid-template-columns: 1fr 3fr; gap: 30px; }
-        .wiki-sidebar { display: flex; flex-direction: column; gap: 10px; border-right: 1px solid rgba(255,255,255,0.05); padding-right: 15px; }
-        .wiki-menu-btn {
-            background: transparent; border: none; color: #aaa; text-align: left;
-            padding: 10px; border-radius: 6px; cursor: pointer; font-size: 15px;
+
+        /* Стили Подсайтов (Вики и Правила) */
+        .subpage-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
         }
-        .wiki-menu-btn:hover, .wiki-menu-btn.active { background: rgba(255, 204, 0, 0.05); color: var(--secondary-yellow); }
+
+        .subpage-header {
+            border-bottom: 2px solid var(--primary-orange);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .wiki-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+        }
+
+        .wiki-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            padding-right: 15px;
+        }
+
+        .wiki-menu-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            text-align: left;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .wiki-menu-btn:hover, .wiki-menu-btn.active {
+            background: rgba(255, 204, 0, 0.05);
+            color: var(--secondary-yellow);
+        }
+
         .wiki-article { display: none; }
         .wiki-article.active { display: block; }
         .wiki-article h3 { color: var(--secondary-yellow); margin-top: 0; font-size: 24px; text-transform: uppercase;}
-        .wiki-article p { line-height: 1.7; color: #ccc; white-space: pre-line; }
-        .faq-item { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,115,0,0.1); border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+        .wiki-article p { line-height: 1.7; color: #ccc; }
+
+        /* Раздел FAQ */
+        .faq-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,115,0,0.1);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
         .faq-question {
-            padding: 20px; font-weight: 700; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: rgba(255,255,255,0.01);
         }
+
         .faq-question:hover { color: var(--secondary-yellow); }
-        .faq-answer { max-height: 0; overflow: hidden; padding: 0 20px; color: #bbb; line-height: 1.6; }
-        .faq-item.open .faq-answer { padding: 0 20px 20px 20px; max-height: 1000px; }
-        .faq-item.open .faq-question i { transform: rotate(180deg); color: var(--secondary-yellow); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            padding: 0 20px 20px 20px;
+            max-height: 1000px;
+        }
+
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+            color: var(--secondary-yellow);
+        }
+
+        /* Галерея Скриншотов */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .gallery-item {
-            border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow);
-            position: relative; aspect-ratio: 16/9; cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            position: relative;
+            aspect-ratio: 16/9;
+            cursor: pointer;
         }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item:hover { transform: scale(1.03); border-color: var(--secondary-yellow); box-shadow: 0 5px 20px rgba(255,204,0,0.2); }
-        .viewing-profile-notice {
-            background: linear-gradient(90deg, rgba(255,81,0,0.2), rgba(255,204,0,0.1));
-            border: 1px solid var(--primary-orange); border-radius: 10px;
-            padding: 15px 20px; margin-bottom: 20px; display: flex;
-            justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .viewing-profile-notice span { color: var(--secondary-yellow); font-weight: 600; }
-        .back-to-profile-btn {
-            background: var(--primary-orange); color: #fff; border: none;
-            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600;
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: var(--secondary-yellow);
+            box-shadow: 0 5px 20px rgba(255,204,0,0.2);
         }
-        
-        .players-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        .player-card {
-            background: var(--card-bg); border: 1px solid var(--border-glow);
-            border-radius: 12px; padding: 15px; display: flex; align-items: center; gap: 12px;
+
+        /* Подвал */
+        footer {
+            padding: 40px;
+            text-align: center;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 115, 0, 0.1);
         }
-        .player-card img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; cursor: pointer; }
-        .player-card img:hover { border: 2px solid var(--secondary-yellow); }
-        .player-info { flex: 1; min-width: 0; }
-        .player-name { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .player-role { font-size: 11px; color: #888; }
-        
-        .ultimate-footer {
-            position: relative !important; display: block !important; visibility: visible !important;
-            opacity: 1 !important; padding: 40px 0 !important; text-align: center !important;
-            width: 100% !important; clear: both !important; margin-top: 60px !important;
-            border-top: 1px solid rgba(255, 115, 0, 0.15) !important; z-index: 999999 !important;
+
+        .social-icons { display: flex; justify-content: center; gap: 30px; }
+
+        .icon-link {
+            display: flex; justify-content: center; align-items: center;
+            width: 55px; height: 55px; color: #fff; font-size: 24px;
+            text-decoration: none; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 50%;
         }
-        .page:not(.active) .ultimate-footer {
-            position: fixed !important; bottom: 0 !important; left: 0 !important;
-            background: #070400 !important; box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
+
+        .icon-link.discord:hover { background: #5865F2; box-shadow: 0 0 20px #5865F2; transform: translateY(-5px); }
+        .icon-link.youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; transform: translateY(-5px); }
+        .icon-link.twitch:hover { background: #9146FF; box-shadow: 0 0 20px #9146FF; transform: translateY(-5px); }
+
+        .notification {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(150px);
+            background: linear-gradient(90deg, var(--primary-orange), var(--secondary-yellow));
+            color: #000; font-weight: 800; text-transform: uppercase; font-size: 13px;
+            padding: 12px 25px; border-radius: 8px; box-shadow: 0 10px 25px rgba(255,81,0,0.3);
+            z-index: 1000;
         }
-        .ultimate-social-icons { display: flex !important; justify-content: center !important; align-items: center !important; gap: 25px !important; }
-        .ultimate-btn-link {
-            display: inline-block !important; padding: 12px 30px !important; color: #ffffff !important;
-            font-size: 15px !important; font-weight: 700 !important; text-transform: uppercase !important;
-            letter-spacing: 1px !important; text-decoration: none !important;
-            background: rgba(255, 81, 0, 0.05) !important; border: 1px solid rgba(255, 115, 0, 0.3) !important;
-            border-radius: 6px !important; transition: all 0.3s ease !important;
+        .notification.show { transform: translateX(-50%) translateY(0); }
+
+        @keyframes neonPulse {
+            0% { filter: drop-shadow(0 0 2px rgba(255,81,0,0.3)); }
+            100% { filter: drop-shadow(0 0 10px rgba(255,204,0,0.6)); }
         }
-        .ultimate-btn-link:hover {
-            color: #ffcc00 !important; border-color: #ffcc00 !important;
-            background: rgba(255, 115, 0, 0.15) !important;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important; transform: translateY(-3px) !important;
-        }
-        .ultimate-notification {
-            position: fixed !important; bottom: 30px !important; left: 50% !important;
-            transform: translateX(-50%) translateY(200px) !important;
-            background: linear-gradient(90deg, #ff5100, #ffcc00) !important; color: #000000 !important;
-            font-weight: 800 !important; text-transform: uppercase !important; font-size: 13px !important;
-            padding: 14px 30px !important; border-radius: 8px !important;
-            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important; z-index: 10000000 !important;
-            opacity: 0 !important;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
-            pointer-events: none !important;
-        }
-        .ultimate-notification.show-toast { transform: translateX(-50%) translateY(0) !important; opacity: 1 !important; }
-        @keyframes neonPulse { 0% { filter: drop-shadow(0 0 2px rgba(255,81,0,0.3)); } 100% { filter: drop-shadow(0 0 10px rgba(255,204,0,0.6)); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulseGreen { 0% { box-shadow: 0 0 5px #00ff66; } 100% { box-shadow: 0 0 15px #00ff66; } }
         @keyframes floatUp {
             0% { transform: translateY(105vh) scale(1); opacity: 0; }
-            10% { opacity: 0.3; } 90% { opacity: 0.3; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
             100% { transform: translateY(-5vh) scale(0.5); opacity: 0; }
         }
+
         @media (max-width: 768px) {
             .main-grid, .wiki-grid { grid-template-columns: 1fr; }
             header { flex-direction: column; gap: 15px; }
             .server-name { font-size: 36px; }
-            .nav-btn { min-width: 60px; font-size: 10px; padding: 6px 8px; }
         }
     </style>
+    <!-- Supabase SDK (Discord-вход, база данных, хранилище файлов) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
+
+    <!-- Задний фон с частицами -->
     <div class="particles" id="particleContainer"></div>
 
+    <!-- Шапка / Навигация подсайтов -->
     <header>
         <div class="logo" onclick="switchPage('main')">AnanasLand</div>
         <nav>
-            <button class="nav-btn active" id="btn-main" onclick="switchPage('main')">
-                <i class="fa-solid fa-house"></i><span>Главная</span>
-            </button>
-            <button class="nav-btn" id="btn-wiki" onclick="switchPage('wiki')">
-                <i class="fa-solid fa-book"></i><span>Вики</span>
-            </button>
-            <button class="nav-btn" id="btn-rules" onclick="switchPage('rules')">
-                <i class="fa-solid fa-gavel"></i><span>Правила</span>
-            </button>
-            <button class="nav-btn" id="btn-news" onclick="switchPage('news')">
-                <i class="fa-solid fa-newspaper"></i><span>Новости</span>
-            </button>
-            <button class="nav-btn" id="btn-gallery" onclick="switchPage('gallery')">
-                <i class="fa-solid fa-images"></i><span>Галерея</span>
-            </button>
-            <button class="nav-btn" id="btn-players" onclick="switchPage('players')">
-                <i class="fa-solid fa-users"></i><span>Игроки</span>
-            </button>
-            <button class="nav-btn" id="btn-profile" onclick="switchPage('profile')" style="display:none;">
-                <i class="fa-solid fa-user"></i><span>Профиль</span>
-            </button>
-            <button class="nav-btn" id="btn-admin" onclick="switchPage('admin')" style="display:none;">
-                <i class="fa-solid fa-shield"></i><span>Админка</span>
-            </button>
+            <button class="nav-btn active" id="btn-main" onclick="switchPage('main')">Главная</button>
+            <button class="nav-btn" id="btn-wiki" onclick="switchPage('wiki')">Вики / База знаний</button>
+            <button class="nav-btn" id="btn-rules" onclick="switchPage('rules')">Правила</button>
+            <button class="nav-btn" id="btn-profile" onclick="switchPage('profile')" style="display:none;">Профиль</button>
+            <button class="nav-btn" id="btn-admin" onclick="switchPage('admin')" style="display:none;">Админка</button>
         </nav>
         <div id="authBlock" class="auth-block">
             <button class="auth-btn" id="discordLoginBtn" onclick="signInWithDiscord()">
-                <i class="fa-brands fa-discord"></i> Войти
+                <i class="fa-brands fa-discord"></i> Войти через Discord
             </button>
             <div class="auth-user" id="authUserBlock" style="display:none;">
                 <img id="authUserAvatar" class="auth-user-avatar" src="" alt="">
@@ -446,18 +614,22 @@
         </div>
     </header>
 
-    <!-- ГЛАВНАЯ -->
+    <!-- СТРАНИЦА 1: ГЛАВНАЯ -->
     <div id="page-main" class="page active">
         <div class="hero-card">
             <h1 class="server-name">AnanasLand</h1>
-            <div class="server-version" id="serverVersionDisplay">Версия: 1.20.4</div>
+            <div class="server-version">Версия: 26.1.2</div>
+            
+            <!-- Живой индикатор онлайна -->
             <div class="status-container">
                 <div class="status-dot"></div>
-                <div class="status-text">Сервер онлайн: <span class="status-count" id="player-count">Загрузка...</span></div>
+                <div class="status-text">Сервер онлайн: <span class="status-count" id="player-count">1/67</span></div>
             </div>
-            <p class="server-description" id="serverDescriptionDisplay">
-                Добро пожаловать на ванильный приватный сервер в майнкрафт! Здесь вас ждут ивенты, лор и игроки, которые уже играют у нас!
+
+            <p class="server-description">
+                Добро пожаловать на ванильный приватный сервер в майнкрафт! здесь вас ждут ивенты, лор и игроки которые уже играют у нас!
             </p>
+
             <div class="ip-box" onclick="copyIP()">
                 <span class="ip-text" id="serverIp">ananasland.play.ski</span>
                 <i class="fa-regular fa-copy ip-icon"></i>
@@ -465,124 +637,262 @@
         </div>
 
         <div class="main-grid">
+            <!-- Виджет скина по нику -->
             <div class="skin-widget">
                 <h3>Твой Аватар</h3>
                 <input type="text" id="skinNickname" class="skin-input" placeholder="Введите ваш ник..." value="Steve">
                 <button class="skin-btn" onclick="updateSkin()">Посмотреть скин</button>
                 <div class="skin-display">
-                    <img id="skinImg" src="https://mc-heads.net/avatar/Steve/100" alt="Skin">
+                    <img id="skinImg" src="https://mc-heads.net" alt="Skin">
                 </div>
             </div>
+
+            <!-- Встроенная лента новостей -->
             <div class="news-feed">
-                <h2>Последние обновления</h2>
-                <div id="newsContainer"></div>
+                <h2>Лента обновлений</h2>
+                
+                <div class="news-card">
+                    <div class="news-date">Июль 2026 — Финал сезона</div>
+                    <h3>Финал сезона!</h3>
+                    <p>31.07 состоится конец сезона!</p>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-date">Июнь 2026 — Открытие</div>
+                    <h3>Открытие Сервера</h3>
+                    <p>9 июля состоялось отрытие 1 сезона AnanasLand</p>
+                </div>
             </div>
         </div>
 
+        <!-- Галерея скриншотов -->
         <div style="margin-top: 50px;">
             <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Галерея сервера</h2>
-            <div class="gallery-grid" id="mainGalleryGrid"></div>
-            <button class="nav-btn active" style="margin-top: 20px;" onclick="switchPage('gallery')">Смотреть все фото →</button>
+            <div class="gallery-grid">
+                <!-- Замени ссылки на свои скриншоты -->
+                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-9bd9f83d-f4f3-41da-a57c-505fcaecd1c6.jpg" alt="Screen 1"></div>
+                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-58f1eba3-ee80-4a5d-a833-6c96f2af6e6b.jpg" alt="Screen 2"></div>
+                <div class="gallery-item"><img src="https://cdn.phototourl.com/free/2026-07-27-db90dacc-0f6a-46af-bf3c-d32098b3a0fe.jpg" alt="Screen 3"></div>
+            </div>
         </div>
 
+        <!-- ФАК Ю (FAQ) -->
         <div style="margin-top: 50px; margin-bottom: 30px;">
-            <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">FAQ</h2>
+            <h2 style="text-transform: uppercase; border-left: 4px solid var(--primary-orange); padding-left: 15px;">Часто задаваемые вопросы (FAQ)</h2>
+            
             <div class="faq-item">
-                <div class="faq-question">Как начать играть? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Запустите Майнкрафт, нажмите "Сетевая игра" → "Добавить", введите IP: <b>ananasland.play.ski</b></div>
+                <div class="faq-question">Как начать играть на сервере? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Запустите лицензионный или пиратский лаунчер Майнкрафт версии 26.1.2. Нажмите "Сетевая игра", затем "Добавить", введите наш IP-адрес <b>ananasland.play.ski</b> и подключайтесь!</div>
             </div>
+
             <div class="faq-item">
-                <div class="faq-question">Где узнать новости? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">Перейдите в наш Discord сервер в канал Объявления или на вкладку "Новости" на сайте.</div>
+                <div class="faq-question">Где мне узнать последнюю информацию?<i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и перейдите в канал Объявления, также вы млжете перейти в остальные соц сети для получения дополнительной информации.</div>
             </div>
+
             <div class="faq-item">
-                <div class="faq-question">Куда писать о багах? <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="faq-answer">В Discord в канал Поддержка.</div>
+                <div class="faq-question">Куда писать, если я нашел баг или нарушителя? <i class="fa-solid fa-chevron-down"></i></div>
+                <div class="faq-answer">Перейдите по надписи "Discord" внизу сайта и создайте обращение в текстовом канале Поддержка. Наша администрация ответит очень быстро.</div>
             </div>
         </div>
     </div>
-
-    <!-- ВИКИ -->
+	
+    <!-- СТРАНИЦА 2: ВИКИ (ПОДСАЙТ) -->
     <div id="page-wiki" class="page">
         <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний</h2>
+            <h2 class="subpage-header"><i class="fa-solid fa-book-open"></i> База знаний / Wiki</h2>
             <div class="wiki-grid">
                 <div class="wiki-sidebar">
                     <button class="wiki-menu-btn active" onclick="switchWiki('wiki-start')">🚀 О Нас</button>
                     <button class="wiki-menu-btn" onclick="switchWiki('wiki-jobs')">💼 Администрация</button>
-                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')">❤️ Спасибо</button>
+                    <button class="wiki-menu-btn" onclick="switchWiki('wiki-clans')"> ❤️ Отдельное спасибо</button>
                 </div>
                 <div class="wiki-content">
                     <div id="wiki-start" class="wiki-article active">
                         <h3>История сервера</h3>
-                        <div id="wikiStartContent"></div>
+                        <p>Наш сервер запустился 09.07.26 года. с того времени мы радумаем вас ивентами и лором.</p>
+                        <p>за это время произошло много чего интересного, вот вся история</p>
+						<p>09.07.2026-открытие сервера!</p>
+						<p>10.07.2026-Создание первого города! тогда первым городом стал СНБС</p>
+						<p>13.07.2026-сервер переносится на хостинг(ранее он держался на @kihuntt отдельное спасибо)</p>
+						<p>13.07.2026-также в эту дату прошол "ивент" который закончился полным погромом карты из-за 1 админа...</p>
+						<p>18.07.2026-мы отмечали день рождения 1 крутого человека-дензи aka @denzi_354_80854 </p>
+						<p>31.08.2026-...</p>
                     </div>
                     <div id="wiki-jobs" class="wiki-article">
                         <h3>Администрация</h3>
-                        <div id="wikiJobsContent"></div>
+                        <p>На Данный момент в администрации находится 3 человека:</p>
+                        <p>Кустик aka 29kyctik31</p>
+						<p>Кихунт aka kihuntt</p>
+						<p>Спарк aka realSparkH</p>
                     </div>
                     <div id="wiki-clans" class="wiki-article">
                         <h3>Отдельное спасибо</h3>
-                        <div id="wikiClansContent"></div>
-                    </div>
+                        <p>Спасибо выражается всем игрокам в списке!! ❤️</p>
+                        <p>29kyctik31</p>
+						<p>Kihuntt</p>
+						<p>_CharaDreemurrr_</p>
+						<p>Denzi354</p>
+						<p>ArbyznyeKorki aka oananasik1</p>
+						<p>edenX</p>
+						<p>machine</p>
+						<p>MrKaktyc1k</p>
+						<p>Nlk0uwu</p>
+						<p>QuasiBloom9153</p>
+						<p>realSparkH</p>
+						<p>SAHS988</p>
+						<p>snya69</p>
+						<p>Xastrad</p>
+						<p>kikmey</p>
+						<p>маме спрака <3</p>
+					</div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- ПРАВИЛА -->
+    <!-- СТРАНИЦА 3: ПРАВИЛА (ПОДСАЙТ) -->
     <div id="page-rules" class="page">
         <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Правила сервера</h2>
-            <div id="rulesContent"></div>
-        </div>
-    </div>
-
-    <!-- НОВОСТИ -->
-    <div id="page-news" class="page">
-        <div class="subpage-container">
-            <h2 class="news-page-header"><i class="fa-solid fa-newspaper"></i> Все новости</h2>
-            <div id="allNewsContainer"></div>
-        </div>
-    </div>
-
-    <!-- ГАЛЕРЕЯ -->
-    <div id="page-gallery" class="page">
-        <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-images"></i> Галерея сервера</h2>
-            <div id="galleryAdminPanel" style="display:none; margin-bottom: 20px;">
-                <div class="admin-new-achievement">
-                    <input type="text" id="newGalleryImageUrl" placeholder="URL картинки" style="flex:1;">
-                    <input type="text" id="newGalleryCaption" placeholder="Подпись (необязательно)">
-                    <button class="nav-btn active" onclick="addGalleryImage()">Загрузить фото</button>
-                </div>
+            <h2 class="subpage-header"><i class="fa-solid fa-gavel"></i> Свод правил сервера</h2>
+            
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">0. 👑 Общие положения и концепт</h3>
+                <p>• Суть проекта: Сервер является классическим Vanilla+ SMP (Survival Multiplayer).</p>
+                <p>• Игра базируется на доверии, дружбе и совместном творчестве.</p>
+                <p>• Администрация: Решения создателей окончательны, обсуждению не подлежат.</p>
+				<p>• Ответственность: Заходя на сервер, вы автоматически соглашаетесь с правилами.</p>
+				<p>• Наказания: Система лояльна к новичкам, но беспощадна к осознанным вредителям.</p>
             </div>
-            <div id="fullGalleryGrid" class="gallery-grid"></div>
-        </div>
-    </div>
 
-    <!-- ИГРОКИ -->
-    <div id="page-players" class="page">
-        <div class="subpage-container">
-            <h2 class="subpage-header"><i class="fa-solid fa-users"></i> Игроки сайта</h2>
-            <p style="color:#aaa; margin-bottom:20px;">Список всех зарегистрированных игроков.</p>
-            <div id="playersList" class="players-list">
-                <p style="color:#888;">Загрузка...</p>
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: red;">1. 🛑 Гриферство, воровство и вредительство</h3>	
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">1.1. Чужое имущество 📦</h3>
+                <p>• Кража: Категорически запрещено забирать вещи из чужих сундуков, печек, шалкеров и бочек.</p>
+                <p>• Принцип «Взял — отдай»: Даже если сундук не подписан, брать ресурсы без спроса нельзя.</p>
+				<p>• Урожай: Разрешено собирать чужие посевы только с условием немедленной посадки семян обратно.</p>
+				<p>• Скот: Запрещено убивать чужих домашних животных, жителей и питомцев (даже именных мобов).</p>
             </div>
-        </div>
-    </div>
 
-    <!-- ПРОФИЛЬ -->
+            <div>
+                <h3 style="color: var(--secondary-yellow);">1.2. Разрушение построек 💥</h3>
+                <p>• Вандализм: Запрещено ломать блоки чужих зданий, сжигать их или заливать жидкостями.</p>
+                <p>• Мини-гриф: Запрещено изменять чужие постройки без явного согласия их автора.</p>
+				<p>• Криперы: Если крипер взорвался у чужого дома, вы обязаны восстановить стены и ландшафт.</p>
+				<p>• Следствие: Любые действия с блоками логируются, нарушитель вычисляется за секунду.</p>
+				<p> <b>⚖️ Наказание: Временный бан, с возможностью подать аппеляцию</b> </p>
+				<p> <b>🛑Наказание: 1 раз-1 час бана</b> </p>
+				<p> <b>🛑Наказание: 2 раз-5 часов бана</b> </p>
+				<p> <b>🛑Наказание: 3 раз-10 часов бана</b> </p>
+				<p> <b>🛑Наказание: более 3 раз-24 часа бана</b> </p>
+				<p> <b>🛑Наказание: постоянные нарушения-перманентный бан</b> </p>
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: green;">2. 🗺️ Территории, приват и строительство</h3>	
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">2.1. Правила расселения ⛺</h3>
+                <p>• Отсутствие плагинов: На сервере нет команд /claim или /res — приват держится на честности.</b></p>
+                <p>• Дистанция: Запрещено строиться ближе чем в 300 блоков от зоны влияния другого игрока.</p>
+				<p>• Согласование: Хотите жить ближе к кому-то? Спросите официальное разрешение в ЛС.</p>
+				<p>• Таблички: Границы своей базы и склады рекомендуется обозначать табличками с вашим ником.</p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--secondary-yellow);">2.2. Общественные зоны 🏙️</h3>
+                <p>• Спавн: Общая территория для спавн-ивент-зон, спавн-града и торговых лавок.</p>
+                <p>• Застройка спавна: Любая постройка на спавне должна быть красивой и согласованной с админами.</p>
+				<p>• Запрет на базы: Строить личные жилые базы, склады и фермы на спавне строго запрещено.</p>
+				<p>• Дороги: Запрещено перекрывать, ломать или застраивать общие тропы и хайвеи в Незере.</p>
+				<p> <b>⚖️ Наказание: Снос постройки админами + бан персонажа на срок от 3 до 7 дней.</b> </p>
+				
+
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: grey;">3. ⚔️ PVP (Боевые взаимодействия) и убийства</h3>	
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">3.1. Честный бой 🛡️</h3>
+                <p>• Обоюдный интерес: ПВП разрешено исключительно при согласии обеих сторон перед началом боя.</p>
+                <p>• Нападение из-за угла: Намеренное убийство игрока без предупреждения приравнивается к гриферству.</p>
+				<p>• Убийство новичков: Категорически запрещено охотиться на игроков в кожаной/железной броне.</p>
+				<p>• Возврат снаряжения: При случайной гибели друга в ПВП все его вещи возвращаются до единой.</p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--secondary-yellow);">3.2. Ловушки и «подставы» 🕸️</h3>
+                <p>• Капканы: Запрещено строить скрытые ямы с лавой, шипами или иссушителями на путях игроков.</p>
+                <p>• ТП-килл: Запрещено звать игрока к себе через чат с целью заманить в смертельную ловушку.</p>
+				<p>• Вредительство мобами: Запрещено приводить под двери чужих баз зомби, рейды или визеров.</p>
+				<p> <b>⚖️ Наказание: Бан аккаунта на срок от 5 до 14 дней. Повторный инцидент — вечный бан.</b> </p>
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: green;">4. 🌱 Экология мира и ландшафт
+				</div>
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">4.1. Аккуратность в природе 🌳️</h3>
+                <p>• Лесоповал: Запрещено оставлять парящую листву — срубайте дерево под корень до конца.</p>
+                <p>• Столбы: Запрещено оставлять «грязевые столбы» в 1 блок, которые использовались для подъема.</p>
+				<p>• Озера жидкости: Запрещено разливать лаву и воду по миру без практической цели.</p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--secondary-yellow);">4.2. Механики ферм и лаги ⚙️</h3>
+                <p>• ТПС (Производительность): Запрещено строить редстоун-схемы, способные уронить сервер.</p>
+                <p>• Лимиты сущностей: Не более 20 жителей и не более 40 животных в пределах одного чанка (16х16).</p>
+				<p>• Выключатели: Любая автоматическая ферма обязана иметь рычаг полного отключения.</p>
+				<p>• АФК-фермы: Запрещено оставлять тяжелые фермы работать в АФК-режиме на всю ночь.</p>
+				<p> <b>⚖️ Наказание: Удаление лагающих механизмов/сущностей + предупреждение (далее бан на 3 дня).</b> </p>
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: blue;">5. 🛠️ Модификации и честная игра</h3>	
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">5.1. Строго запрещено (Читы) ❌</h3>
+                <p>• Клиенты: Запрещен вход с модами Fabric/Forge на читы (X-Ray, Baritone, Meteor, Wurst).</p>
+                <p>• Ресурспаки: Запрещены текстуры с прозрачными блоками для поиска алмазов и незерита(и какой либо руды).</p>
+				<p>• Автоматизация: Запрещены автокликеры для прокачки на спавнерах и макросы на добычу.</p>
+				<p>• Дюпы: Использование багов игры на клонирование рельс, ковров, ТНТ или предметов — табу.</p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--secondary-yellow);">5.2. Разрешено к использованию 📐</h3>
+                <p>• Оптимизация: Моды на повышение FPS (Sodium, Lithium, Phosphor, FerriteCore).</p>
+                <p>• Интерфейс: Отображение прочности брони, миникарты (без радара игроков и пещер), REI/JEI.</p>
+				<p>• Голос: Мод Simple Voice Chat (позиционный аудиочат) является обязательным.</p>
+				<p>• Схемы: Мод Litematica разрешен только для проекции чертежей (без функции автостройки).</p>
+				<p> <b>⚖⚖️ Наказание: Моментальный перманентный бан по IP-адресу и никнейму без амнистии.</b> </p>
+				
+								            <div style="margin-bottom: 25px;">
+                <h3 style="color: white;">6. 💬 Чат, культура и общение</h3>	
+				
+				            <div style="margin-bottom: 25px;">
+                <h3 style="color: var(--secondary-yellow);">6.1. Поведение в текстовом и голосовом чате 🗣️</h3>
+                <p>• Токсичность: Запрещены прямые оскорбления, травля, кибербуллинг и разведение драмы.</p>
+                <p>• Запретные темы: Строго запрещено обсуждение реальной политики, религии и межнациональных споров.</p>
+				<p>• Мат: Разрешен в умеренных количествах для выражения эмоций, но не для оскорбления.</p>
+				<p>• Реклама: Запрещено скидывать ссылки на другие Дискорд-серверы и сторонние проекты.</p>
+            </div>
+
+            <div>
+                <h3 style="color: var(--secondary-yellow);">6.2. Медиа-контент 🔞</h3>
+                <p>• Ссылки: Запрещено отправлять в чаты шок-контент, порнографию, скримеры или вирусы.</p>
+                <p>• Спам: Запрещено писать капсом (ВЫГЛЯДИТ ВОТ ТАК) и флудить одинаковыми сообщениями.</p>
+				<p> <b>⚖️ Наказание: Мут чата от 1 часа до 3 дней. За политику и рекламу проектов — вечный бан.</b> </p>
+
+            </div>
+        </div> <!-- Закрываем блок правил чата -->
+    </div> <!-- Закрываем страницу Правил полностью -->
+    <!-- Недостающие закрывающие теги старой вёрстки (были незакрытые обёртки разделов 1-6) -->
+    </div></div></div></div></div></div></div></div></div></div>
+
+    <!-- СТРАНИЦА 4: ПРОФИЛЬ -->
     <div id="page-profile" class="page">
         <div class="subpage-container">
-            <div id="viewingOtherProfile" class="viewing-profile-notice" style="display:none;">
-                <span>👁️ Вы просматриваете профиль другого игрока</span>
-                <button class="back-to-profile-btn" onclick="window.location.href=window.location.origin+window.location.pathname">← Вернуться к своему</button>
-            </div>
-
             <div id="profileLoggedOut" style="text-align:center; padding: 60px 20px;">
                 <h2><i class="fa-solid fa-user-lock"></i> Нужен вход</h2>
-                <p style="color:#aaa;">Войдите через Discord, чтобы увидеть профиль.</p>
+                <p style="color:#aaa;">Войдите через Discord, чтобы увидеть и настроить свой профиль.</p>
                 <button class="auth-btn" onclick="signInWithDiscord()" style="margin-top:15px;">
                     <i class="fa-brands fa-discord"></i> Войти через Discord
                 </button>
@@ -591,7 +901,7 @@
             <div id="profileLoggedIn" style="display:none;">
                 <div class="profile-banner" id="profileBannerWrap">
                     <img id="profileBannerImg" src="" alt="" style="display:none;">
-                    <label class="profile-upload-overlay" id="bannerUploadLabel" title="Изменить баннер">
+                    <label class="profile-upload-overlay" title="Изменить баннер">
                         <i class="fa-solid fa-camera"></i> Сменить баннер
                         <input type="file" accept="image/*" id="bannerInput" onchange="uploadBanner(event)" style="display:none;">
                     </label>
@@ -600,27 +910,21 @@
                 <div class="profile-header-row">
                     <div class="profile-avatar-wrap">
                         <img id="profileAvatarImg" class="profile-avatar" src="" alt="">
-                        <label class="profile-avatar-upload" id="avatarUploadLabel" title="Изменить аватарку">
+                        <label class="profile-avatar-upload" title="Изменить аватарку">
                             <i class="fa-solid fa-camera"></i>
                             <input type="file" accept="image/*" id="avatarInput" onchange="uploadAvatar(event)" style="display:none;">
                         </label>
                     </div>
-                    <div style="flex:1;">
+                    <div>
                         <h2 id="profileUsername" style="margin:0;">—</h2>
-                        <span id="profileBanBadge" class="profile-ban-badge" style="display:none;"> ЗАБАНЕН</span>
-                        <div id="profileShareSection">
-                            <button class="share-profile-btn" onclick="shareProfile()">
-                                <i class="fa-solid fa-share-nodes"></i> Поделиться профилем
-                            </button>
-                        </div>
+                        <span id="profileBanBadge" class="profile-ban-badge" style="display:none;">🚫 ЗАБАНЕН</span>
                     </div>
                 </div>
 
                 <div style="margin-top:25px;">
                     <h3 style="color: var(--secondary-yellow);">О себе</h3>
-                    <textarea id="profileDescriptionInput" class="profile-description-input" maxlength="500" placeholder="Расскажите о себе..." style="display:none;"></textarea>
-                    <div id="profileDescriptionText" class="profile-description-text" style="display:none;"></div>
-                    <button class="nav-btn active" id="saveDescBtn" style="margin-top:10px; display:none;" onclick="saveDescription()">Сохранить</button>
+                    <textarea id="profileDescriptionInput" class="profile-description-input" maxlength="500" placeholder="Расскажите немного о себе..."></textarea>
+                    <button class="nav-btn active" style="margin-top:10px;" onclick="saveDescription()">Сохранить описание</button>
                     <span id="profileSaveStatus" style="margin-left:10px; color:#0f0; font-size:13px;"></span>
                 </div>
 
@@ -634,179 +938,138 @@
         </div>
     </div>
 
-    <!-- АДМИНКА -->
+    <!-- СТРАНИЦА 5: АДМИН-ПАНЕЛЬ -->
     <div id="page-admin" class="page">
         <div class="subpage-container">
             <h2 class="subpage-header"><i class="fa-solid fa-user-shield"></i> Админ-панель</h2>
 
-            <div class="editor-tabs">
-                <button class="editor-tab active" onclick="switchEditorTab('content')">📝 Контент</button>
-                <button class="editor-tab" onclick="switchEditorTab('achievements')">🏆 Достижения</button>
-                <button class="editor-tab" onclick="switchEditorTab('users')">👥 Игроки</button>
-                <button class="editor-tab" onclick="switchEditorTab('settings')">⚙️ Настройки</button>
-            </div>
-
-            <div id="editor-content" class="editor-section">
-                <h3>📝 Редактирование контента сайта</h3>
-                
-                <div class="editor-field">
-                    <label>Версия сервера:</label>
-                    <input type="text" id="editServerVersion">
-                </div>
-
-                <div class="editor-field">
-                    <label>Описание сервера (главная):</label>
-                    <div class="wysiwyg-toolbar">
-                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('underline')"><u>П</u></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
-                    </div>
-                    <div id="editServerDescription" class="wysiwyg-editor" contenteditable="true"></div>
-                </div>
-
-                <div class="editor-field">
-                    <label>История сервера (Вики - О нас):</label>
-                    <div class="wysiwyg-toolbar">
-                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
-                    </div>
-                    <div id="editWikiHistory" class="wysiwyg-editor" contenteditable="true"></div>
-                </div>
-
-                <div class="editor-field">
-                    <label>Администрация (Вики):</label>
-                    <div class="wysiwyg-toolbar">
-                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-                    </div>
-                    <div id="editWikiJobs" class="wysiwyg-editor" contenteditable="true"></div>
-                </div>
-
-                <div class="editor-field">
-                    <label>Спасибо (Вики):</label>
-                    <div class="wysiwyg-toolbar">
-                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-                    </div>
-                    <div id="editWikiClans" class="wysiwyg-editor" contenteditable="true"></div>
-                </div>
-
-                <div class="editor-field">
-                    <label>Правила сервера:</label>
-                    <div class="wysiwyg-toolbar">
-                        <button class="wysiwyg-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('italic')"><i>К</i></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('underline')"><u>П</u></button>
-                        <button class="wysiwyg-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
-                        <button class="wysiwyg-btn" onclick="execCmd('insertOrderedList')">1. Нумер.</button>
-                    </div>
-                    <div id="editRules" class="wysiwyg-editor" contenteditable="true" style="min-height: 300px;"></div>
-                </div>
-
-                <h3 style="margin-top: 30px; color: var(--secondary-yellow);">📰 Новости</h3>
-                <div id="newsEditorContainer"></div>
-                <button class="add-news-btn" onclick="addNewsItem()">+ Добавить новость</button>
-
-                <button class="save-content-btn" onclick="saveSiteContent()" style="margin-top: 20px;">
-                    <i class="fa-solid fa-save"></i> Сохранить все изменения
-                </button>
-            </div>
-
-            <div id="editor-achievements" class="editor-section" style="display:none;">
-                <h3>🏆 Управление достижениями</h3>
+            <div style="margin-bottom:30px;">
+                <h3 style="color: var(--secondary-yellow);">Создать достижение</h3>
                 <div class="admin-new-achievement">
                     <input type="text" id="newAchIcon" placeholder="Эмодзи" maxlength="4" style="width:70px;">
-                    <input type="text" id="newAchTitle" placeholder="Название">
+                    <input type="text" id="newAchTitle" placeholder="Название достижения">
                     <input type="text" id="newAchDesc" placeholder="Описание">
-                    <input type="text" id="newAchImage" placeholder="URL картинки" style="flex:1; min-width:200px;">
                     <button class="nav-btn active" onclick="createAchievement()">Создать</button>
                 </div>
-                <div id="achievementsList" style="margin-top: 20px;"></div>
             </div>
 
-            <div id="editor-users" class="editor-section" style="display:none;">
-                <h3>👥 Управление игроками</h3>
-                <p style="color:#aaa; font-size:13px;">Кликни по аватарке чтобы открыть профиль. Выдай/забери права.</p>
-                <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
-            </div>
-
-            <div id="editor-settings" class="editor-section" style="display:none;">
-                <h3>⚙️ Настройки сайта</h3>
-                <div class="admin-favicon-input">
-                    <img id="faviconPreview" class="admin-favicon-preview" src="https://mc-heads.net/avatar/Steve/32" alt="">
-                    <input type="text" id="faviconUrlInput" placeholder="https://example.com/icon.png">
-                    <button class="nav-btn active" onclick="applyFavicon()">Применить</button>
-                    <button class="nav-btn" onclick="resetFavicon()">Сбросить</button>
-                </div>
-            </div>
+            <h3 style="color: var(--secondary-yellow);">Игроки</h3>
+            <div id="adminUsersList"><p style="color:#888;">Загрузка...</p></div>
         </div>
     </div>
 
+    <!-- Футер и уведомление теперь создаются через JS и добавляются напрямую в <body>, -->
+    <!-- поэтому всегда будут видны на всех страницах, независимо от вёрстки внутри них -->
+
+    <style>
+        /* Стили, которые заставляют футер принудительно отображаться под контентом КАЖДОЙ страницы */
+        .ultimate-footer {
+            position: relative !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            padding: 40px 0 !important;
+            text-align: center !important;
+            width: 100% !important;
+            clear: both !important;
+            margin-top: 60px !important;
+            border-top: 1px solid rgba(255, 115, 0, 0.15) !important;
+            z-index: 999999 !important; /* Максимальный приоритет над скрытыми страницами */
+        }
+        
+        /* Если страница скрыта, принудительно показываем наш футер, даже если он внутри неё! */
+        .page:not(.active) .ultimate-footer {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            background: #070400 !important;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8) !important;
+        }
+
+        .ultimate-social-icons {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 25px !important;
+        }
+
+        .ultimate-btn-link {
+            display: inline-block !important;
+            padding: 12px 30px !important;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            text-decoration: none !important;
+            background: rgba(255, 81, 0, 0.05) !important;
+            border: 1px solid rgba(255, 115, 0, 0.3) !important;
+            border-radius: 6px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .ultimate-btn-link:hover {
+            color: #ffcc00 !important;
+            border-color: #ffcc00 !important;
+            background: rgba(255, 115, 0, 0.15) !important;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4) !important;
+            transform: translateY(-3px) !important;
+        }
+
+        /* Полная изоляция плашки уведомления от структуры сайта */
+        .ultimate-notification {
+            position: fixed !important;
+            bottom: 30px !important;
+            left: 50% !important;
+            transform: translateX(-50%) translateY(200px) !important; /* Надежно прячем под экран */
+            background: linear-gradient(90deg, #ff5100, #ffcc00) !important;
+            color: #000000 !important;
+            font-weight: 800 !important;
+            text-transform: uppercase !important;
+            font-size: 13px !important;
+            padding: 14px 30px !important;
+            border-radius: 8px !important;
+            box-shadow: 0 10px 30px rgba(255,81,0,0.5) !important;
+            z-index: 10000000 !important; /* Самый высокий слой на сайте */
+            opacity: 0 !important;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease !important;
+            pointer-events: none !important;
+        }
+
+        /* Класс анимации появления */
+        .ultimate-notification.show-toast {
+            transform: translateX(-50%) translateY(0) !important;
+            opacity: 1 !important;
+        }
+    </style>
+
     <script>
+        // ==================== SUPABASE (Discord-вход, профили, достижения, админка) ====================
         const SUPABASE_URL = 'https://vgzqqltcvugkzxevdzvm.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_fGQfHV_lA2QjTuOqbjT3Ag_ie_cELf8';
         const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        const DEFAULT_FAVICON = 'https://mc-heads.net/avatar/Steve/32';
 
         let currentProfile = null;
         let allAchievements = [];
-        let viewingProfileId = null;
-        let currentEditorTab = 'content';
-        let newsItems = [];
-
-        function loadFavicon() {
-            const saved = localStorage.getItem('siteFavicon');
-            const url = saved || DEFAULT_FAVICON;
-            const faviconLink = document.getElementById('siteFavicon');
-            if (faviconLink) faviconLink.href = url;
-            const preview = document.getElementById('faviconPreview');
-            if (preview) preview.src = url;
-            const input = document.getElementById('faviconUrlInput');
-            if (input) input.value = saved || '';
-        }
-        function applyFavicon() {
-            const url = document.getElementById('faviconUrlInput').value.trim();
-            if (!url) { alert('Вставь ссылку!'); return; }
-            const img = new Image();
-            img.onload = () => { localStorage.setItem('siteFavicon', url); loadFavicon(); showToast('Иконка обновлена!'); };
-            img.onerror = () => alert('Неверная ссылка!');
-            img.src = url;
-        }
-        function resetFavicon() {
-            localStorage.removeItem('siteFavicon');
-            document.getElementById('faviconUrlInput').value = '';
-            loadFavicon();
-            showToast('Сброшено');
-        }
-        function showToast(msg) {
-            const toast = document.getElementById('copyToast');
-            if (toast) {
-                toast.innerText = msg;
-                toast.classList.add('show-toast');
-                setTimeout(() => toast.classList.remove('show-toast'), 2500);
-            }
-        }
-        loadFavicon();
 
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.innerText = str || '';
             return div.innerHTML;
         }
-        function execCmd(command, value = null) {
-            document.execCommand(command, false, value);
-        }
 
         async function signInWithDiscord() {
-            const { error } = await sb.auth.signInWithOAuth({
+            await sb.auth.signInWithOAuth({
                 provider: 'discord',
-                options: { redirectTo: window.location.origin + window.location.pathname }
+                options: { redirectTo: window.location.href.split('#')[0].split('?')[0] }
             });
-            if (error) alert('Ошибка: ' + error.message);
         }
+
         async function signOut() {
             await sb.auth.signOut();
-            window.location.href = window.location.origin + window.location.pathname;
+            window.location.reload();
         }
+
         async function refreshAuthUI() {
             const { data: { session } } = await sb.auth.getSession();
             const loginBtn = document.getElementById('discordLoginBtn');
@@ -825,7 +1088,7 @@
 
             loginBtn.style.display = 'none';
             userBlock.style.display = 'flex';
-            btnProfile.style.display = 'inline-flex';
+            btnProfile.style.display = 'inline-block';
 
             const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
             currentProfile = profile;
@@ -833,598 +1096,282 @@
             if (profile) {
                 document.getElementById('authUserName').innerText = profile.discord_username || 'Игрок';
                 document.getElementById('authUserAvatar').src = profile.avatar_url || '';
-                btnAdmin.style.display = profile.is_admin ? 'inline-flex' : 'none';
-            }
-
-            // Проверяем параметр ?profile=
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('profile')) {
-                switchPage('profile');
+                btnAdmin.style.display = profile.is_admin ? 'inline-block' : 'none';
             }
         }
 
-        function switchEditorTab(tabName) {
-            currentEditorTab = tabName;
-            document.querySelectorAll('.editor-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.editor-section').forEach(section => section.style.display = 'none');
-            document.getElementById('editor-' + tabName).style.display = 'block';
-            event.target.classList.add('active');
-
-            if (tabName === 'achievements') loadAchievementsList();
-            if (tabName === 'users') loadAdminPage();
-            if (tabName === 'content') loadContentForEditor();
-        }
-
-        async function loadContentForEditor() {
-            const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
-            if (mainContent) {
-                document.getElementById('editServerVersion').value = mainContent.content.serverVersion || '1.20.4';
-                document.getElementById('editServerDescription').innerHTML = mainContent.content.serverDescription || '';
-            }
-
-            const { data: wikiStart } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
-            if (wikiStart) document.getElementById('editWikiHistory').innerHTML = (wikiStart.content.history || '').replace(/\n/g, '<br>');
-
-            const { data: wikiJobs } = await sb.from('page_content').select('*').eq('page_name', 'wiki-jobs').single();
-            if (wikiJobs) document.getElementById('editWikiJobs').innerHTML = (wikiJobs.content.content || '').replace(/\n/g, '<br>');
-
-            const { data: wikiClans } = await sb.from('page_content').select('*').eq('page_name', 'wiki-clans').single();
-            if (wikiClans) document.getElementById('editWikiClans').innerHTML = (wikiClans.content.content || '').replace(/\n/g, '<br>');
-
-            const { data: rulesContent } = await sb.from('page_content').select('*').eq('page_name', 'rules').single();
-            if (rulesContent) document.getElementById('editRules').innerHTML = rulesContent.content.content || '';
-
-            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
-            newsItems = (newsContent && Array.isArray(newsContent.content)) ? newsContent.content : [];
-            renderNewsEditor();
-        }
-
-        function renderNewsEditor() {
-            const container = document.getElementById('newsEditorContainer');
-            if (newsItems.length === 0) {
-                container.innerHTML = '<p style="color:#666;">Нет новостей</p>';
-                return;
-            }
-            container.innerHTML = newsItems.map((item, index) => `
-                <div class="news-editor-item">
-                    <h4>Новость #${index + 1}</h4>
-                    <div class="editor-field">
-                        <label>Дата:</label>
-                        <input type="text" id="newsDate${index}" value="${escapeHtml(item.date || '')}">
-                    </div>
-                    <div class="editor-field">
-                        <label>Заголовок:</label>
-                        <input type="text" id="newsTitle${index}" value="${escapeHtml(item.title || '')}">
-                    </div>
-                    <div class="editor-field">
-                        <label>Текст:</label>
-                        <textarea id="newsText${index}">${escapeHtml(item.text || '')}</textarea>
-                    </div>
-                    <button class="nav-btn" onclick="removeNewsItem(${index})" style="color:#ff3b3b; border-color:#ff3b3b;">
-                        <i class="fa-solid fa-trash"></i> Удалить
-                    </button>
-                </div>
-            `).join('');
-        }
-        function addNewsItem() {
-            newsItems.push({ date: '', title: '', text: '' });
-            renderNewsEditor();
-        }
-        function removeNewsItem(index) {
-            newsItems.splice(index, 1);
-            renderNewsEditor();
-        }
-
-        async function saveSiteContent() {
-            if (!currentProfile) return;
-
-            await sb.from('page_content').upsert({
-                page_name: 'main',
-                content: {
-                    serverVersion: document.getElementById('editServerVersion').value.trim(),
-                    serverDescription: document.getElementById('editServerDescription').innerHTML
-                },
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            await sb.from('page_content').upsert({
-                page_name: 'wiki-start',
-                content: { history: document.getElementById('editWikiHistory').innerHTML },
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            await sb.from('page_content').upsert({
-                page_name: 'wiki-jobs',
-                content: { content: document.getElementById('editWikiJobs').innerHTML },
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            await sb.from('page_content').upsert({
-                page_name: 'wiki-clans',
-                content: { content: document.getElementById('editWikiClans').innerHTML },
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            await sb.from('page_content').upsert({
-                page_name: 'rules',
-                content: { content: document.getElementById('editRules').innerHTML },
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            const newsData = newsItems.map(item => ({
-                date: item.date.trim(),
-                title: item.title.trim(),
-                text: item.text.trim()
-            })).filter(item => item.title || item.text);
-
-            await sb.from('page_content').upsert({
-                page_name: 'news',
-                content: newsData,
-                updated_by: currentProfile.id
-            }, { onConflict: 'page_name' });
-
-            showToast('Всё сохранено!');
-            loadSiteContent();
-        }
-
-        async function loadSiteContent() {
-            const { data: mainContent } = await sb.from('page_content').select('*').eq('page_name', 'main').single();
-            if (mainContent) {
-                if (mainContent.content.serverVersion) {
-                    document.getElementById('serverVersionDisplay').innerText = 'Версия: ' + mainContent.content.serverVersion;
-                }
-                if (mainContent.content.serverDescription) {
-                    document.getElementById('serverDescriptionDisplay').innerHTML = mainContent.content.serverDescription;
-                }
-            }
-
-            const { data: newsContent } = await sb.from('page_content').select('*').eq('page_name', 'news').single();
-            const newsContainer = document.getElementById('newsContainer');
-            const allNewsContainer = document.getElementById('allNewsContainer');
-            
-            let newsHtml = '';
-            if (newsContent && Array.isArray(newsContent.content) && newsContent.content.length > 0) {
-                newsHtml = newsContent.content.map(item => `
-                    <div class="news-card">
-                        <div class="news-date">${escapeHtml(item.date || '')}</div>
-                        <h3>${escapeHtml(item.title || '')}</h3>
-                        <p>${escapeHtml(item.text || '')}</p>
-                    </div>
-                `).join('');
-            } else {
-                newsHtml = `
-                    <div class="news-card"><div class="news-date">Июль 2026</div><h3>Финал сезона!</h3><p>31.07 состоится конец сезона!</p></div>
-                    <div class="news-card"><div class="news-date">Июнь 2026</div><h3>Открытие</h3><p>9 июля состоялось открытие 1 сезона</p></div>
-                `;
-            }
-            if (newsContainer) newsContainer.innerHTML = newsHtml;
-            if (allNewsContainer) allNewsContainer.innerHTML = newsHtml;
-
-            const { data: wikiStart } = await sb.from('page_content').select('*').eq('page_name', 'wiki-start').single();
-            if (wikiStart && wikiStart.content.history) {
-                document.getElementById('wikiStartContent').innerHTML = '<p>' + wikiStart.content.history.replace(/\n/g, '</p><p>') + '</p>';
-            }
-
-            const { data: wikiJobs } = await sb.from('page_content').select('*').eq('page_name', 'wiki-jobs').single();
-            if (wikiJobs && wikiJobs.content.content) {
-                document.getElementById('wikiJobsContent').innerHTML = '<p>' + wikiJobs.content.content.replace(/\n/g, '</p><p>') + '</p>';
-            }
-
-            const { data: wikiClans } = await sb.from('page_content').select('*').eq('page_name', 'wiki-clans').single();
-            if (wikiClans && wikiClans.content.content) {
-                document.getElementById('wikiClansContent').innerHTML = '<p>' + wikiClans.content.content.replace(/\n/g, '</p><p>') + '</p>';
-            }
-
-            const { data: rulesContent } = await sb.from('page_content').select('*').eq('page_name', 'rules').single();
-            if (rulesContent && rulesContent.content.content) {
-                document.getElementById('rulesContent').innerHTML = '<div style="white-space: pre-line; line-height: 1.8;">' + escapeHtml(rulesContent.content.content) + '</div>';
-            }
-        }
-
-        async function loadGallery() {
-            const { data } = await sb.from('gallery_images').select('*').order('created_at', { ascending: false });
-            const mainGrid = document.getElementById('mainGalleryGrid');
-            const fullGrid = document.getElementById('fullGalleryGrid');
-            const adminPanel = document.getElementById('galleryAdminPanel');
-            
-            if (adminPanel) {
-                adminPanel.style.display = (currentProfile && currentProfile.is_admin) ? 'block' : 'none';
-            }
-            
-            const html = (data || []).map(g => `
-                <div class="gallery-item">
-                    <img src="${escapeHtml(g.image_url)}" onclick="window.open('${escapeHtml(g.image_url)}', '_blank')">
-                    ${g.caption ? `<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:8px;font-size:12px;">${escapeHtml(g.caption)}</div>` : ''}
-                    ${currentProfile?.is_admin ? `<button onclick="deleteGallery('${g.id}')" style="position:absolute;top:5px;right:5px;background:#ff3b3b;color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;">×</button>` : ''}
-                </div>
-            `).join('');
-            
-            if (mainGrid) mainGrid.innerHTML = html.slice(0, 6) || '<p style="color:#888;">Галерея пуста</p>';
-            if (fullGrid) fullGrid.innerHTML = html || '<p style="color:#888;">Галерея пуста</p>';
-        }
-
-        async function addGalleryImage() {
-            const url = document.getElementById('newGalleryImageUrl').value.trim();
-            const caption = document.getElementById('newGalleryCaption').value.trim();
-            if (!url) { showToast('Вставь URL картинки!'); return; }
-            if (!currentProfile || !currentProfile.is_admin) { showToast('Только админы могут загружать фото!'); return; }
-            
-            await sb.from('gallery_images').insert([{
-                image_url: url,
-                caption: caption,
-                uploaded_by: currentProfile.id
-            }]);
-            
-            document.getElementById('newGalleryImageUrl').value = '';
-            document.getElementById('newGalleryCaption').value = '';
-            showToast('Фото добавлено!');
-            loadGallery();
-        }
-
-        async function deleteGallery(id) {
-            if (!confirm('Удалить фото?')) return;
-            await sb.from('gallery_images').delete().eq('id', id);
-            showToast('Удалено');
-            loadGallery();
-        }
-
-        async function loadProfile() {
+        async function loadProfilePage() {
             const { data: { session } } = await sb.auth.getSession();
             const loggedOut = document.getElementById('profileLoggedOut');
             const loggedIn = document.getElementById('profileLoggedIn');
-
-            const params = new URLSearchParams(window.location.search);
-            const viewingUserId = params.get('profile');
 
             if (!session) {
                 loggedOut.style.display = 'block';
                 loggedIn.style.display = 'none';
                 return;
             }
-            
             loggedOut.style.display = 'none';
             loggedIn.style.display = 'block';
 
-            let profile;
-            let isOwnProfile = true;
-            
-            if (viewingUserId && viewingUserId !== session.user.id) {
-                const { data: viewedProfile } = await sb.from('profiles').select('*').eq('id', viewingUserId).single();
-                if (!viewedProfile) {
-                    alert('Профиль не найден!');
-                    window.location.href = window.location.origin + window.location.pathname;
-                    return;
-                }
-                profile = viewedProfile;
-                isOwnProfile = false;
-                viewingProfileId = viewingUserId;
-                document.getElementById('viewingOtherProfile').style.display = 'flex';
-            } else {
-                const { data: myProfile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
-                if (!myProfile) return;
-                profile = myProfile;
-                viewingProfileId = null;
-                document.getElementById('viewingOtherProfile').style.display = 'none';
-            }
+            const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+            if (!profile) return;
+            currentProfile = profile;
 
             document.getElementById('profileUsername').innerText = profile.discord_username || 'Игрок';
             document.getElementById('profileAvatarImg').src = profile.avatar_url || '';
+            document.getElementById('profileDescriptionInput').value = profile.description || '';
             document.getElementById('profileBanBadge').style.display = profile.is_banned ? 'inline-block' : 'none';
-            
-            if (profile.description) {
-                document.getElementById('profileDescriptionText').innerText = profile.description;
-                document.getElementById('profileDescriptionText').style.display = 'block';
-                document.getElementById('profileDescriptionInput').style.display = 'none';
-                document.getElementById('saveDescBtn').style.display = 'none';
-            } else {
-                document.getElementById('profileDescriptionInput').value = '';
-                document.getElementById('profileDescriptionInput').style.display = 'block';
-                document.getElementById('profileDescriptionText').style.display = 'none';
-                document.getElementById('saveDescBtn').style.display = isOwnProfile ? 'inline-block' : 'none';
-            }
 
+            const bannerImg = document.getElementById('profileBannerImg');
             if (profile.banner_url) {
-                document.getElementById('profileBannerImg').src = profile.banner_url;
-                document.getElementById('profileBannerImg').style.display = 'block';
+                bannerImg.src = profile.banner_url;
+                bannerImg.style.display = 'block';
             } else {
-                document.getElementById('profileBannerImg').style.display = 'none';
+                bannerImg.style.display = 'none';
             }
 
-            document.getElementById('bannerUploadLabel').style.display = isOwnProfile ? 'block' : 'none';
-            document.getElementById('avatarUploadLabel').style.display = isOwnProfile ? 'flex' : 'none';
-            document.getElementById('profileShareSection').style.display = 'block';
+            await loadUserAchievements(session.user.id, 'profileAchievements');
+        }
 
-            const { data: achievements } = await sb.from('user_achievements').select('achievement_id, achievements(title, description, icon)').eq('user_id', profile.id);
-            const achContainer = document.getElementById('profileAchievements');
-            if (achievements && achievements.length > 0) {
-                achContainer.innerHTML = achievements.map(a => `
-                    <div class="achievement-card">
-                        <div class="achievement-icon">${a.achievements?.icon || '🏆'}</div>
-                        <div>
-                            <div class="achievement-title">${escapeHtml(a.achievements?.title)}</div>
-                            <div class="achievement-desc">${escapeHtml(a.achievements?.description)}</div>
-                        </div>
+        async function loadUserAchievements(userId, containerId) {
+            const container = document.getElementById(containerId);
+            const { data, error } = await sb
+                .from('user_achievements')
+                .select('achievement_id, achievements(title, description, icon)')
+                .eq('user_id', userId);
+
+            if (error || !data || data.length === 0) {
+                container.innerHTML = '<p style="color:#888;">Пока нет достижений.</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(row => `
+                <div class="achievement-card">
+                    <div class="achievement-icon">${row.achievements?.icon || '🏆'}</div>
+                    <div>
+                        <div class="achievement-title">${escapeHtml(row.achievements?.title)}</div>
+                        <div class="achievement-desc">${escapeHtml(row.achievements?.description)}</div>
                     </div>
-                `).join('');
-            } else {
-                achContainer.innerHTML = '<p style="color:#888;">Пока нет достижений.</p>';
-            }
+                </div>
+            `).join('');
         }
 
         async function uploadAvatar(event) {
             const file = event.target.files[0];
-            if (!file || !currentProfile) return;
-            
-            const filePath = `${currentProfile.id}/avatar_${Date.now()}.${file.name.split('.').pop()}`;
-            const { error } = await sb.storage.from('avatars').upload(filePath, file, { upsert: true });
-            if (error) { showToast('Ошибка: ' + error.message); return; }
-            
+            if (!file) return;
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session) return;
+
+            const filePath = `${session.user.id}/avatar_${Date.now()}.${file.name.split('.').pop()}`;
+            const { error: uploadError } = await sb.storage.from('avatars').upload(filePath, file, { upsert: true });
+            if (uploadError) { alert('Ошибка загрузки: ' + uploadError.message); return; }
+
             const { data: urlData } = sb.storage.from('avatars').getPublicUrl(filePath);
-            await sb.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', currentProfile.id);
-            
+            await sb.from('profiles').update({ avatar_url: urlData.publicUrl }).eq('id', session.user.id);
             document.getElementById('profileAvatarImg').src = urlData.publicUrl;
             document.getElementById('authUserAvatar').src = urlData.publicUrl;
-            showToast('Аватарка обновлена!');
         }
 
         async function uploadBanner(event) {
             const file = event.target.files[0];
-            if (!file || !currentProfile) return;
-            
-            const filePath = `${currentProfile.id}/banner_${Date.now()}.${file.name.split('.').pop()}`;
-            const { error } = await sb.storage.from('banners').upload(filePath, file, { upsert: true });
-            if (error) { showToast('Ошибка: ' + error.message); return; }
-            
+            if (!file) return;
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session) return;
+
+            const filePath = `${session.user.id}/banner_${Date.now()}.${file.name.split('.').pop()}`;
+            const { error: uploadError } = await sb.storage.from('banners').upload(filePath, file, { upsert: true });
+            if (uploadError) { alert('Ошибка загрузки: ' + uploadError.message); return; }
+
             const { data: urlData } = sb.storage.from('banners').getPublicUrl(filePath);
-            await sb.from('profiles').update({ banner_url: urlData.publicUrl }).eq('id', currentProfile.id);
-            
-            document.getElementById('profileBannerImg').src = urlData.publicUrl;
-            document.getElementById('profileBannerImg').style.display = 'block';
-            showToast('Баннер обновлён!');
+            await sb.from('profiles').update({ banner_url: urlData.publicUrl }).eq('id', session.user.id);
+            const bannerImg = document.getElementById('profileBannerImg');
+            bannerImg.src = urlData.publicUrl;
+            bannerImg.style.display = 'block';
         }
 
         async function saveDescription() {
-            if (!currentProfile) return;
+            const { data: { session } } = await sb.auth.getSession();
+            if (!session) return;
             const text = document.getElementById('profileDescriptionInput').value.trim();
-            await sb.from('profiles').update({ description: text }).eq('id', currentProfile.id);
-            showToast('Сохранено!');
-            loadProfile();
+            const { error } = await sb.from('profiles').update({ description: text }).eq('id', session.user.id);
+            const status = document.getElementById('profileSaveStatus');
+            status.innerText = error ? 'Ошибка сохранения' : 'Сохранено ✓';
+            setTimeout(() => status.innerText = '', 2000);
         }
 
-        function shareProfile() {
-            const profileId = viewingProfileId || (currentProfile ? currentProfile.id : null);
-            if (!profileId) return;
-            const url = window.location.origin + window.location.pathname + '?profile=' + profileId;
-            navigator.clipboard.writeText(url).then(() => showToast('Ссылка скопирована!'));
-        }
-
-        async function loadPlayers() {
-            const { data } = await sb.from('profiles').select('*').order('created_at');
-            const container = document.getElementById('playersList');
-            
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="color:#888;">Пока никто не зарегистрирован</p>';
-                return;
-            }
-            
-            container.innerHTML = data.map(u => `
-                <div class="player-card">
-                    <img src="${u.avatar_url || ''}" alt="" onclick="window.location.href=window.location.origin+window.location.pathname+'?profile='+${u.id}">
-                    <div class="player-info">
-                        <div class="player-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
-                        <div class="player-role">
-                            ${u.is_admin ? '👑 Админ' : ''}
-                            ${u.is_banned ? '🚫 Забанен' : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        async function loadAchievementsList() {
-            const { data } = await sb.from('achievements').select('*').order('created_at');
-            allAchievements = data || [];
-            const container = document.getElementById('achievementsList');
-            if (!allAchievements.length) { container.innerHTML = '<p style="color:#888;">Нет достижений</p>'; return; }
-            container.innerHTML = allAchievements.map(ach => `
-                <div class="achievement-card" style="margin-bottom: 10px;">
-                    ${ach.image_url ? `<img class="achievement-image" src="${escapeHtml(ach.image_url)}">` : `<div class="achievement-icon">${ach.icon || '🏆'}</div>`}
-                    <div style="flex:1;">
-                        <div class="achievement-title">${escapeHtml(ach.title)}</div>
-                        <div class="achievement-desc">${escapeHtml(ach.description)}</div>
-                    </div>
-                    <button class="nav-btn" onclick="deleteAchievement('${ach.id}')" style="color:#ff3b3b; border-color:#ff3b3b;">
-                        <i class="fa-solid fa-trash"></i> Удалить
-                    </button>
-                </div>
-            `).join('');
-        }
-        async function deleteAchievement(id) {
-            if (!confirm('Удалить достижение у ВСЕХ игроков?')) return;
-            await sb.from('achievements').delete().eq('id', id);
-            showToast('Удалено');
-            loadAchievementsList();
-        }
-
+        // ---------- АДМИНКА ----------
         async function loadAdminPage() {
             if (!currentProfile || !currentProfile.is_admin) {
-                document.getElementById('adminUsersList').innerHTML = '<p style="color:#ff3b3b;">Нет доступа</p>';
+                document.getElementById('adminUsersList').innerHTML = '<p style="color:#ff3b3b;">Нет доступа.</p>';
                 return;
             }
+
+            const { data: achievements } = await sb.from('achievements').select('*').order('created_at');
+            allAchievements = achievements || [];
+
             const { data: users } = await sb.from('profiles').select('*').order('created_at');
             const { data: userAchievements } = await sb.from('user_achievements').select('*');
 
             const list = document.getElementById('adminUsersList');
-            if (!users || !users.length) { list.innerHTML = '<p style="color:#888;">Никто не входил</p>'; return; }
+            if (!users || users.length === 0) {
+                list.innerHTML = '<p style="color:#888;">Пока никто не входил через Discord.</p>';
+                return;
+            }
 
             list.innerHTML = users.map(u => {
                 const given = (userAchievements || []).filter(ua => ua.user_id === u.id).map(ua => ua.achievement_id);
-                const options = allAchievements.filter(a => !given.includes(a.id)).map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.title)}</option>`).join('');
+                const options = allAchievements
+                    .filter(a => !given.includes(a.id))
+                    .map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.title)}</option>`)
+                    .join('');
 
                 return `
                     <div class="admin-user-card ${u.is_banned ? 'banned' : ''}">
-                        <img src="${u.avatar_url || ''}" alt="" onclick="window.location.href=window.location.origin+window.location.pathname+'?profile='+${u.id}">
+                        <img src="${u.avatar_url || ''}" alt="">
                         <div style="flex:1; min-width:150px;">
                             <div class="admin-user-name">${escapeHtml(u.discord_username || 'Игрок')}</div>
-                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;"> Админ</span>' : ''}
+                            ${u.is_admin ? '<span style="color:var(--secondary-yellow); font-size:12px;">👑 Админ</span>' : ''}
                         </div>
-                        <div>
-                            <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
-                                ${u.is_banned ? 'Разбан' : 'Бан'}
-                            </button>
-                            <button class="admin-role-btn ${u.is_admin ? 'remove-admin' : 'give-admin'}" onclick="toggleAdmin('${u.id}', ${!u.is_admin})">
-                                ${u.is_admin ? 'Забрать админку' : 'Дать админку'}
-                            </button>
-                        </div>
+                        <button class="admin-ban-btn ${u.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${u.id}', ${!u.is_banned})">
+                            ${u.is_banned ? 'Разбанить' : 'Забанить'}
+                        </button>
                         ${options ? `
                             <select class="admin-achievement-select" id="achSelect-${u.id}">
                                 <option value="">Выдать достижение...</option>
                                 ${options}
                             </select>
                             <button class="nav-btn active" onclick="giveAchievement('${u.id}')">Выдать</button>
-                        ` : '<span style="color:#666; font-size:12px;">Все выданы</span>'}
+                        ` : '<span style="color:#666; font-size:12px;">Все ачивки выданы</span>'}
                     </div>
                 `;
             }).join('');
         }
 
-        async function toggleAdmin(userId, give) {
-            const { error } = await sb.from('profiles').update({ is_admin: give }).eq('id', userId);
-            if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast(give ? 'Админка выдана!' : 'Админка забрана!');
-            loadAdminPage();
-        }
         async function toggleBan(userId, ban) {
-            const { error } = await sb.from('profiles').update({ is_banned: ban }).eq('id', userId);
+            const { error } = await sb.rpc('admin_set_ban', { target_user: userId, banned: ban });
             if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast(ban ? 'Забанен' : 'Разбанен');
             loadAdminPage();
         }
+
         async function createAchievement() {
             const icon = document.getElementById('newAchIcon').value.trim() || '🏆';
             const title = document.getElementById('newAchTitle').value.trim();
             const description = document.getElementById('newAchDesc').value.trim();
-            const imageUrl = document.getElementById('newAchImage').value.trim() || null;
-            if (!title) { alert('Введите название'); return; }
+            if (!title) { alert('Введите название достижения'); return; }
 
-            const { error } = await sb.from('achievements').insert([{ icon, title, description, image_url: imageUrl }]);
+            const { error } = await sb.rpc('admin_create_achievement', { p_title: title, p_description: description, p_icon: icon });
             if (error) { alert('Ошибка: ' + error.message); return; }
 
             document.getElementById('newAchIcon').value = '';
             document.getElementById('newAchTitle').value = '';
             document.getElementById('newAchDesc').value = '';
-            document.getElementById('newAchImage').value = '';
-            showToast('Создано!');
-            loadAchievementsList();
+            loadAdminPage();
         }
+
         async function giveAchievement(userId) {
             const select = document.getElementById(`achSelect-${userId}`);
-            const achId = select.value;
-            if (!achId) return;
-            const { error } = await sb.from('user_achievements').insert([{ user_id: userId, achievement_id: achId }]);
+            const achievementId = select.value;
+            if (!achievementId) return;
+            const { error } = await sb.rpc('admin_award_achievement', { target_user: userId, achievement: achievementId });
             if (error) { alert('Ошибка: ' + error.message); return; }
-            showToast('Выдано!');
             loadAdminPage();
         }
 
         refreshAuthUI();
 
+        // Создаём футер и уведомление и добавляем их напрямую в <body>,
+        // чтобы они гарантированно были видны на ВСЕХ страницах
         (function createFooterAndToast() {
             const footer = document.createElement('div');
             footer.className = 'ultimate-footer';
-            footer.innerHTML = `<div class="ultimate-social-icons">
-                <a href="https://discord.gg/bXfVAKhtRX" target="_blank" class="ultimate-btn-link">Discord</a>
-                <a href="https://www.youtube.com/@ananaslandmc" target="_blank" class="ultimate-btn-link">YouTube</a>
-                <a href="https://www.twitch.tv/oananasik1" target="_blank" class="ultimate-btn-link">Twitch</a>
-            </div>`;
+            footer.innerHTML = `
+                <div class="ultimate-social-icons">
+                    <a href="https://discord.gg/bXfVAKhtRX" target="_blank" class="ultimate-btn-link">Discord</a>
+                    <a href="https://www.youtube.com/@ananaslandmc" target="_blank" class="ultimate-btn-link">YouTube</a>
+                    <a href="https://www.twitch.tv/oananasik1" target="_blank" class="ultimate-btn-link">Twitch</a>
+                </div>
+            `;
             document.body.appendChild(footer);
+
             const toast = document.createElement('div');
             toast.className = 'ultimate-notification';
             toast.id = 'copyToast';
-            toast.innerText = 'IP скопирован!';
+            toast.innerText = 'IP успешно скопирован!';
             document.body.appendChild(toast);
         })();
 
-        async function updateRealOnline() {
+        function updateMockOnline() {
             const countElement = document.getElementById('player-count');
-            const statusDot = document.querySelector('.status-dot');
-            if (!countElement) return;
-            try {
-                const response = await fetch('https://api.mcsrvstat.us/3/ananasland.play.ski');
-                const data = await response.json();
-                if (data.online) {
-                    countElement.innerText = `${data.players.online} / ${data.players.max}`;
-                    statusDot.style.background = '#00ff66';
-                    statusDot.style.boxShadow = '0 0 10px #00ff66';
-                } else {
-                    countElement.innerText = '0 / 0 (Оффлайн)';
-                    statusDot.style.background = '#ff3b3b';
-                    statusDot.style.boxShadow = '0 0 10px #ff3b3b';
-                }
-            } catch (e) { countElement.innerText = 'Не удалось загрузить'; }
+            const baseCount = 1;
+            const randomChange = Math.floor(Math.random() * 11 - 5);
+            if(countElement) countElement.innerText = `${baseCount + randomChange} / 500`;
         }
-        updateRealOnline();
-        setInterval(updateRealOnline, 60000);
+        setInterval(updateMockOnline, 5000);
 
+        // Переписанная функция копирования с абсолютно новым механизмом вызова анимации
         function copyIP() {
-            navigator.clipboard.writeText(document.getElementById('serverIp').innerText).then(() => showToast('IP скопирован!'));
+            const ipText = document.getElementById('serverIp').innerText;
+            navigator.clipboard.writeText(ipText).then(() => {
+                const toast = document.getElementById('copyToast');
+                if(toast) {
+                    toast.classList.add('show-toast');
+                    setTimeout(() => {
+                        toast.classList.remove('show-toast');
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error("Ошибка копирования: ", err);
+            });
         }
 
         function switchPage(pageId) {
-            if (pageId !== 'profile') {
-                if (!window.location.search.includes('profile=')) {
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-                viewingProfileId = null;
-            }
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            const target = document.getElementById(`page-${pageId}`);
-            if (target) target.classList.add('active');
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if(targetPage) targetPage.classList.add('active');
             const btn = document.getElementById(`btn-${pageId}`);
-            if (btn) btn.classList.add('active');
+            if(btn) btn.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (pageId === 'profile') loadProfile();
-            if (pageId === 'admin') { loadContentForEditor(); loadAchievementsList(); loadAdminPage(); }
-            if (pageId === 'players') loadPlayers();
-            if (pageId === 'gallery') loadGallery();
+            if(pageId === 'profile') loadProfilePage();
+            if(pageId === 'admin') loadAdminPage();
         }
 
         function switchWiki(articleId) {
-            document.querySelectorAll('.wiki-article').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.wiki-menu-btn').forEach(b => b.classList.remove('active'));
-            const target = document.getElementById(articleId);
-            if (target) target.classList.add('active');
-            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+            document.querySelectorAll('.wiki-article').forEach(art => art.classList.remove('active'));
+            document.querySelectorAll('.wiki-menu-btn').forEach(btn => btn.classList.remove('active'));
+            const targetArticle = document.getElementById(articleId);
+            if(targetArticle) targetArticle.classList.add('active');
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
         }
 
         function updateSkin() {
             const nick = document.getElementById('skinNickname').value.trim();
-            if (nick) document.getElementById('skinImg').src = `https://mc-heads.net/avatar/${nick}/100`;
-        }
-
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
-        });
-
-        const container = document.getElementById('particleContainer');
-        if (container) {
-            for (let i = 0; i < 20; i++) {
-                const p = document.createElement('div');
-                p.classList.add('particle');
-                const size = Math.random() * 5 + 2;
-                p.style.width = `${size}px`;
-                p.style.height = `${size}px`;
-                p.style.left = `${Math.random() * 100}%`;
-                p.style.animationDelay = `${Math.random() * 8}s`;
-                p.style.animationDuration = `${Math.random() * 4 + 5}s`;
-                container.appendChild(p);
+            if(nick !== "") {
+                document.getElementById('skinImg').src = `https://mc-heads.net{nick}`;
             }
         }
 
-        loadSiteContent();
-        loadGallery();
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+
+        const container = document.getElementById('particleContainer');
+        if(container) {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 8}s`;
+                particle.style.animationDuration = `${Math.random() * 4 + 5}s`;
+                container.appendChild(particle);
+            }
+        }
     </script>
 </body>
 </html>
